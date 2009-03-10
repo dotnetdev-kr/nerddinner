@@ -57,7 +57,7 @@ function callbackForLocation(layer, resultsArray, places,
 
     //Make a pushpin for each place we find
     $.each(places, function(i, item) {
-        description = "";
+        var description = "";
         if (item.Description !== undefined) {
             description = item.Description;
         }
@@ -123,7 +123,9 @@ function callbackUpdateMapDinners(layer, resultsArray, places, hasMore, VEErrorM
         });
 
         // Adjust zoom to display all the pins we just added.
-        map.SetMapView(points);
+	    if (points.length > 1) {
+        	    map.SetMapView(points);
+	    }
 
         // Display the event's pin-bubble on hover.
         $(".dinnerItem").each(function(i, dinner) {

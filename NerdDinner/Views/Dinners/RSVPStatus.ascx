@@ -17,12 +17,12 @@
 
     <% if (Model.IsUserRegistered(Context.User.Identity.Name)) { %>        
     
-        <p>You are registred for this event!</p>
+        <p>You are registered for this event!</p>
     
     <% } else { %>  
     
         <%= Ajax.ActionLink( "RSVP for this event",
-                             "RSVPForEvent", "RSVP",
+                             "Register", "RSVP",
                              new { id=Model.DinnerID }, 
                              new AjaxOptions { UpdateTargetId="rsvpmsg", OnSuccess="AnimateRSVPMessage" }) %>         
     <% } %>

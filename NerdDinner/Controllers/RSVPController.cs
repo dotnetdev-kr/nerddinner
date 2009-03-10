@@ -23,10 +23,10 @@ namespace NerdDinner.Controllers
         }
 
         //
-        // AJAX: /Dinners/RSVPForEvent/1
+        // AJAX: /Dinners/Register/1
 
         [Authorize, AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult RSVPForEvent(int id) {
+        public ActionResult Register(int id) {
 
             Dinner dinner = dinnerRepository.GetDinner(id);
 
