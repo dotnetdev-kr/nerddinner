@@ -16,32 +16,8 @@ namespace NerdDinner.Tests.Controllers {
     [TestClass]
     public class DinnersControllerTest {
 
-        List<Dinner> CreateTestDinners() {
-
-            List<Dinner> dinners = new List<Dinner>();
-
-            for (int i = 0; i < 101; i++) {
-
-                Dinner sampleDinner = new Dinner() {
-                    DinnerID = i,
-                    Title = "Sample Dinner",
-                    HostedBy = "SomeUser",
-                    Address = "Some Address",
-                    Country = "USA",
-                    ContactPhone = "425-555-1212",
-                    Description = "Some description",
-                    EventDate = DateTime.Now.AddDays(i),
-                    Latitude = 99,
-                    Longitude = -99
-                };
-                dinners.Add(sampleDinner);
-            }
-
-            return dinners;
-        }
-
         DinnersController CreateDinnersController() {
-            var testData = CreateTestDinners();
+            var testData = FakeDinnerData.CreateTestDinners();
             var repository = new FakeDinnerRepository(testData);
 
             return new DinnersController(repository);
@@ -59,30 +35,6 @@ namespace NerdDinner.Tests.Controllers {
             return controller;
         }
 
-        Dinner CreateDinner() {
-            Dinner dinner = new Dinner();
-            dinner.Title = "New Test Dinner";
-            dinner.EventDate = DateTime.Now.AddDays(7);
-            dinner.Address = "5 Main Street";
-            dinner.Description = "Desc";
-            dinner.ContactPhone = "503-555-1212";
-            dinner.HostedBy = "scottgu";
-            dinner.Latitude = 45;
-            dinner.Longitude = 45;
-            dinner.Country = "USA";
-            return dinner;
-        }
-
-        FormCollection CreateDinnerFormCollection() {
-            var form = new FormCollection();
-
-            form.Add("Description", "Description");
-            form.Add("Title", "New Test Dinner");
-            form.Add("EventDate", "2010-02-14");
-            form.Add("Address", "5 Main Street");
-            form.Add("ContactPhone", "503-555-1212");
-            return form;
-        }
 
         [TestMethod]
         public void DetailsAction_Should_Return_View_For_Dinner() {
@@ -378,12 +330,12 @@ namespace NerdDinner.Tests.Controllers {
             mock.SetupGet(p => p.HttpContext.User.Identity.Name).Returns("ScottHa");
             mock.SetupGet(p => p.HttpContext.Request.IsAuthenticated).Returns(true);
 
-            var testData = CreateTestDinners();
+            var testData = FakeDinnerData.CreateTestDinners();
             var repository = new FakeDinnerRepository(testData);
             var controller = new DinnersController(repository);
             controller.ControllerContext = mock.Object;
 
-            var dinner = CreateDinner();
+            var dinner = FakeDinnerData.CreateDinner();
 
             // Act
             ActionResult result = (ActionResult)controller.Create(dinner);
@@ -397,7 +349,7 @@ namespace NerdDinner.Tests.Controllers {
         public void CreateAction_Should_Fail_Given_Bad_US_Phone_Number() {
 
             // Arrange
-            var dinner = CreateDinner();
+            var dinner = FakeDinnerData.CreateDinner();
             dinner.ContactPhone = "not a good number.";
             dinner.HostedBy = "scottgu";
             var controller = CreateDinnersControllerAs("scottgu");
@@ -489,9 +441,9 @@ namespace NerdDinner.Tests.Controllers {
         public void EditAction_Saves_Changes_To_Dinner_1()
         {
             // Arrange
-            var repo = new FakeDinnerRepository(CreateTestDinners());
+            var repo = new FakeDinnerRepository(FakeDinnerData.CreateTestDinners());
             var controller = CreateDinnersControllerAs("someuser");
-            var form = CreateDinnerFormCollection();
+            var form = FakeDinnerData.CreateDinnerFormCollection();
             form["Description"] = "New, Updated Description";
             controller.ValueProvider = form.ToValueProvider();
 
@@ -509,9 +461,9 @@ namespace NerdDinner.Tests.Controllers {
         public void EditAction_Fails_With_Wrong_Owner() {
             
             // Arrange
-            var repo = new FakeDinnerRepository(CreateTestDinners());
+            var repo = new FakeDinnerRepository(FakeDinnerData.CreateTestDinners());
             var controller = CreateDinnersControllerAs("fred");
-            var form = CreateDinnerFormCollection();
+            var form = FakeDinnerData.CreateDinnerFormCollection();
             controller.ValueProvider = form.ToValueProvider();
 
             // Act
@@ -526,7 +478,7 @@ namespace NerdDinner.Tests.Controllers {
             
             // Arrange
             var controller = CreateDinnersControllerAs("someuser");
-            var form = CreateDinnerFormCollection();
+            var form = FakeDinnerData.CreateDinnerFormCollection();
             form["ContactPhone"] = "foo"; //BAD
             controller.ValueProvider = form.ToValueProvider();
 
