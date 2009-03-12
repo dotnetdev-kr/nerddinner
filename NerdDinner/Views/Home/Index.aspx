@@ -29,7 +29,7 @@
 </div>
 
 <script type="text/javascript">
-
+//<![CDATA[
     $(document).ready(function() {
         LoadMap();
         FindMostPopularDinners(10);
@@ -50,7 +50,7 @@
 
         FindDinnersGivenLocation(where);
     }
-
+//]]>
 </script>
 
 </asp:Content>
