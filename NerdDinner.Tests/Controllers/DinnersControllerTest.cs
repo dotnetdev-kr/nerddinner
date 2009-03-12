@@ -305,7 +305,7 @@ namespace NerdDinner.Tests.Controllers {
             
             // Assert
             Assert.IsNotNull(model.Dinner);
-            Assert.AreEqual(3, model.Countries.Count());
+            Assert.AreEqual(13, model.Countries.Count());
         }
 
         [TestMethod]
@@ -424,7 +424,7 @@ namespace NerdDinner.Tests.Controllers {
         }
 
         [TestMethod]
-        public void EditAction_Retrieves_Dinner_1_From_Repo_And_3_Countries_And_Sets_DinnerViewModel() {
+        public void EditAction_Retrieves_Dinner_1_From_Repo_And_Countries_And_Sets_DinnerViewModel() {
 
             // Arrange
             var controller = CreateDinnersControllerAs("someuser");
@@ -434,7 +434,7 @@ namespace NerdDinner.Tests.Controllers {
 
             // Assert
             DinnerFormViewModel model = result.ViewData.Model as DinnerFormViewModel;
-            Assert.AreEqual(3, model.Countries.Count());
+            Assert.AreEqual(13, model.Countries.Count());
         }
 
         [TestMethod]
