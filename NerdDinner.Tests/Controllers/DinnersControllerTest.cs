@@ -380,7 +380,7 @@ namespace NerdDinner.Tests.Controllers {
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
-            Assert.AreEqual(6, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+            Assert.AreEqual(7, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
         }
 
 

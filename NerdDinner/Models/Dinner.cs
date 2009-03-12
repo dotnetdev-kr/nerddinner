@@ -37,10 +37,13 @@ namespace NerdDinner.Models {
                 yield return new RuleViolation("Address is required", "Address");
 
             if (String.IsNullOrEmpty(Country))
-                yield return new RuleViolation("Country is required", "Address");
+                yield return new RuleViolation("Country is required", "Country");
 
             if (String.IsNullOrEmpty(ContactPhone))
                 yield return new RuleViolation("Phone# is required", "ContactPhone");
+
+            if (Latitude == 0 || Longitude == 0)
+                yield return new RuleViolation("Make sure to enter a valid address!", "Address");
 
             if (!PhoneValidator.IsValidNumber(ContactPhone, Country))
                 yield return new RuleViolation("Phone# does not match country", "ContactPhone");

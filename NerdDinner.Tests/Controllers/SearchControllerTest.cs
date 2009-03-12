@@ -52,5 +52,39 @@ namespace NerdDinner.Tests.Controllers {
             var dinners = (List<JsonDinner>)result.Data;
             Assert.AreEqual(101, dinners.Count);
         }
+
+        [TestMethod]
+        public void GetMostPopularDinnersAction_WithLimit_Returns_Expected_Dinners()
+        {
+
+            // Arrange
+            var controller = CreateSearchController();
+
+            // Act
+            var result = (JsonResult)controller.GetMostPopularDinners(5);
+
+            // Assert
+            Assert.IsInstanceOfType(result.Data, typeof(List<JsonDinner>));
+            var dinners = (List<JsonDinner>)result.Data;
+            Assert.AreEqual(5, dinners.Count);
+        }
+
+        [TestMethod]
+        public void GetMostPopularDinnersAction_WithNoLimit_Returns_Expected_Dinners()
+        {
+
+            // Arrange
+            var controller = CreateSearchController();
+
+            // Act
+            var result = (JsonResult)controller.GetMostPopularDinners(null);
+
+            // Assert
+            Assert.IsInstanceOfType(result.Data, typeof(List<JsonDinner>));
+            var dinners = (List<JsonDinner>)result.Data;
+            Assert.AreEqual(40, dinners.Count);
+        }
+
+
     }
 }

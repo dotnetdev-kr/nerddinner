@@ -35,8 +35,8 @@ namespace NerdDinner.Controllers {
         // AJAX: /Search/FindByLocation?longitude=45&latitude=-90
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SearchByLocation(float longitude, float latitude) {
-
+        public ActionResult SearchByLocation(float latitude, float longitude)
+        {
             var dinners = dinnerRepository.FindByLocation(latitude, longitude);
 
             var jsonDinners = from dinner in dinners
@@ -61,6 +61,10 @@ namespace NerdDinner.Controllers {
         {
             var dinners = dinnerRepository.FindAllDinners();
 
+            // Default the limit to 40, if not supplied.
+            if (!limit.HasValue)
+                limit = 40;
+
             var mostPopularDinners = from dinner in dinners
                                      orderby dinner.RSVPs.Count descending
                                      select new JsonDinner
@@ -73,11 +77,7 @@ namespace NerdDinner.Controllers {
                                          RSVPCount = dinner.RSVPs.Count
                                      };
 
-            // Default the limit to 20, if not supplied.
-            if (!limit.HasValue)
-                limit = 20;
-
-            return Json(mostPopularDinners.ToList().Take(limit.Value));
+            return Json(mostPopularDinners.Take(limit.Value).ToList());
         }
     }
 }

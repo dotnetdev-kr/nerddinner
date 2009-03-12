@@ -91,7 +91,7 @@ function FindDinnersGivenLocation(where) {
 }
 
 function FindMostPopularDinners(limit) {
-    $.post("/Search/GetMostPopularDinners", null, RenderDinners, "json");
+    $.post("/Search/GetMostPopularDinners", { "limit": limit }, RenderDinners, "json");
 }
 
 function callbackUpdateMapDinners(layer, resultsArray, places, hasMore, VEErrorMessage) {

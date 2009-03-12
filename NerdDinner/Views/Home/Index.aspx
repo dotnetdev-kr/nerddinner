@@ -7,19 +7,20 @@
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript"></script>
-<script src="/Scripts/Map.js" type="text/javascript"></script>
+<script src="/Scripts/Map.js?v=3" type="text/javascript"></script>
 
 <h2>Find a Dinner</h2>
 
 <div id="mapDivLeft">
 
     <div id="searchBox">
-        Enter your location: <%= Html.TextBox("Location") %> or <%= Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners") %>.
+        <div class="search-text">Enter your location  or <%= Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners") %>.</div>
+        <%= Html.TextBox("Location") %>
         <input id="search" type="submit" value="Search" />
     </div>
 
-    <div id="theMap">
-    </div>
+<div id="theMap" style="width: 580px; height: 400px;"></div>
+<%--    <div id="theMap"></div> --%>
 
 </div>
 
@@ -31,7 +32,7 @@
 
     $(document).ready(function() {
         LoadMap();
-        FindMostPopularDinners();
+        FindMostPopularDinners(10);
     });
 
     $("#search").click(ValidateAndFindDinners);
