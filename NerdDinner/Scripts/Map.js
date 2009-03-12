@@ -90,49 +90,57 @@ function FindDinnersGivenLocation(where) {
        null, null, callbackUpdateMapDinners);
 }
 
+function FindMostPopularDinners(limit) {
+    $.post("/Search/GetMostPopularDinners", null, RenderDinners, "json");
+}
+
 function callbackUpdateMapDinners(layer, resultsArray, places, hasMore, VEErrorMessage) {
-    $("#dinnerList").empty();
-    clearMap();
     var center = map.GetCenter();
 
-    $.post("/Search/SearchByLocation", { latitude: center.Latitude, 
-                                         longitude: center.Longitude
-    }, function(dinners) {
-        $.each(dinners, function(i, dinner) {
+    $.post("/Search/SearchByLocation",
+           { latitude: center.Latitude, longitude: center.Longitude },
+           RenderDinners,
+           "json");
+}
 
-            var LL = new VELatLong(dinner.Latitude, dinner.Longitude, 0, null);
+function RenderDinners(dinners) {
+    $("#dinnerList").empty();
+    clearMap();
 
-            var RsvpMessage = "";
+    $.each(dinners, function(i, dinner) {
 
-            if (dinner.RSVPCount == 1)
-                RsvpMessage = "" + dinner.RSVPCount + " RSVP";
-            else
-                RsvpMessage = "" + dinner.RSVPCount + " RSVPs";
+        var LL = new VELatLong(dinner.Latitude, dinner.Longitude, 0, null);
 
-            // Add Pin to Map
-            LoadPin(LL, '<a href="/Dinners/Details/' + dinner.DinnerID + '">'
-                        + dinner.Title + '</a>',
-                        "<p>" + dinner.Description + "</p>" + RsvpMessage);
+        var RsvpMessage = "";
 
-            //Add a dinner to the <ul> dinnerList on the right
-            $('#dinnerList').append($('<li/>')
-                            .attr("class", "dinnerItem")
-                            .append($('<a/>').attr("href", 
-                                      "/Dinners/Details/" + dinner.DinnerID)
-                            .html(dinner.Title)).append(" ("+RsvpMessage+")"));
-        });
+        if (dinner.RSVPCount == 1)
+            RsvpMessage = "" + dinner.RSVPCount + " RSVP";
+        else
+            RsvpMessage = "" + dinner.RSVPCount + " RSVPs";
 
-        // Adjust zoom to display all the pins we just added.
-	    if (points.length > 1) {
-        	    map.SetMapView(points);
-	    }
+        // Add Pin to Map
+        LoadPin(LL, '<a href="/Dinners/Details/' + dinner.DinnerID + '">'
+                    + dinner.Title + '</a>',
+                    "<p>" + dinner.Description + "</p>" + RsvpMessage);
 
-        // Display the event's pin-bubble on hover.
-        $(".dinnerItem").each(function(i, dinner) {
-            $(dinner).hover(
-                function() { map.ShowInfoBox(shapes[i]); },
-                function() { map.HideInfoBox(shapes[i]); }
-            );
-        });
-    }, "json");
+        //Add a dinner to the <ul> dinnerList on the right
+        $('#dinnerList').append($('<li/>')
+                        .attr("class", "dinnerItem")
+                        .append($('<a/>').attr("href",
+                                  "/Dinners/Details/" + dinner.DinnerID)
+                        .html(dinner.Title)).append(" (" + RsvpMessage + ")"));
+    });
+
+    // Adjust zoom to display all the pins we just added.
+    if (points.length > 1) {
+        map.SetMapView(points);
+    }
+
+    // Display the event's pin-bubble on hover.
+    $(".dinnerItem").each(function(i, dinner) {
+        $(dinner).hover(
+            function() { map.ShowInfoBox(shapes[i]); },
+            function() { map.HideInfoBox(shapes[i]); }
+        );
+    });
 }

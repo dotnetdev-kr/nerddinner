@@ -51,5 +51,33 @@ namespace NerdDinner.Controllers {
 
             return Json(jsonDinners.ToList());
         }
+
+        //
+        // AJAX: /Search/GetMostPopularDinners
+        // AJAX: /Search/GetMostPopularDinners?limit=5
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult GetMostPopularDinners(int? limit)
+        {
+            var dinners = dinnerRepository.FindAllDinners();
+
+            var mostPopularDinners = from dinner in dinners
+                                     orderby dinner.RSVPs.Count descending
+                                     select new JsonDinner
+                                     {
+                                         DinnerID = dinner.DinnerID,
+                                         Latitude = dinner.Latitude,
+                                         Longitude = dinner.Longitude,
+                                         Title = dinner.Title,
+                                         Description = dinner.Description,
+                                         RSVPCount = dinner.RSVPs.Count
+                                     };
+
+            // Default the limit to 20, if not supplied.
+            if (!limit.HasValue)
+                limit = 20;
+
+            return Json(mostPopularDinners.ToList().Take(limit.Value));
+        }
     }
 }

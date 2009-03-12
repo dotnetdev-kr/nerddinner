@@ -31,15 +31,24 @@
 
     $(document).ready(function() {
         LoadMap();
+        FindMostPopularDinners();
     });
 
-    $("#search").click(function(evt) {
+    $("#search").click(ValidateAndFindDinners);
+
+    $("#Location").keypress(function(evt) {
+        if (evt.which == 13) {
+            ValidateAndFindDinners();
+        }
+    });
+
+    function ValidateAndFindDinners() {
         var where = jQuery.trim($("#Location").val());
-        if (where.length < 1) 
+        if (where.length < 1)
             return;
 
         FindDinnersGivenLocation(where);
-    });
+    }
 
 </script>
 
