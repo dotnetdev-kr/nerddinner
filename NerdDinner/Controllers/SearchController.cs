@@ -59,7 +59,7 @@ namespace NerdDinner.Controllers {
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult GetMostPopularDinners(int? limit)
         {
-            var dinners = dinnerRepository.FindAllDinners();
+            var dinners = dinnerRepository.FindUpcomingDinners();
 
             // Default the limit to 40, if not supplied.
             if (!limit.HasValue)
