@@ -7,7 +7,7 @@
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript"></script>
-<script src="/Scripts/Map.js?v=3" type="text/javascript"></script>
+<script src="/Scripts/NerdDinner.js" type="text/javascript"></script>
 
 <h2>Find a Dinner</h2>
 
@@ -31,8 +31,8 @@
 <script type="text/javascript">
 //<![CDATA[
     $(document).ready(function() {
-        LoadMap();
-        FindMostPopularDinners(10);
+        NerdDinner.LoadMap();
+        NerdDinner.FindMostPopularDinners(10);
     });
 
     $("#search").click(ValidateAndFindDinners);

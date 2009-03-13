@@ -67,7 +67,7 @@
                 if (address.length < 1)
                     return;
 
-                FindAddressOnMap(address);
+                NerdDinner.FindAddressOnMap(address);
             });
         });
     

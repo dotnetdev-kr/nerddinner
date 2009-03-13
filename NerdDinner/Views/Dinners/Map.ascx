@@ -2,7 +2,7 @@
 
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript"></script>
 
-<script src="/Scripts/Map.js?v=3" type="text/javascript"></script>
+<script src="/Scripts/NerdDinner.js" type="text/javascript"></script>
 
 <div id="theMap" style="width:520px"></div>
 <script type="text/javascript">
@@ -12,17 +12,17 @@
         var longitude = <%=Model.Longitude %>;
                 
         if ((latitude == 0) || (longitude == 0))
-            LoadMap();
+            NerdDinner.LoadMap();
         else
-            LoadMap(latitude, longitude, mapLoaded);
+            NerdDinner.LoadMap(latitude, longitude, mapLoaded);
     });
       
    function mapLoaded() {
         var title = "<%= Html.Encode(Model.Title) %>";
         var address = "<%= Html.Encode(Model.Address) %>";
     
-        LoadPin(center, title, address);
-        map.SetZoomLevel(14);
+        NerdDinner.LoadPin(NerdDinner._map.GetCenter(), title, address);
+        NerdDinner._map.SetZoomLevel(14);
     } 
       
 </script>
