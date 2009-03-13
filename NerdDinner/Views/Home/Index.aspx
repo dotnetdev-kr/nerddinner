@@ -7,7 +7,6 @@
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript"></script>
-<script src="/Scripts/NerdDinner.js" type="text/javascript"></script>
 
 <h2>Find a Dinner</h2>
 
@@ -20,7 +19,6 @@
     </div>
 
 <div id="theMap" style="width: 580px; height: 400px;"></div>
-<%--    <div id="theMap"></div> --%>
 
 </div>
 
