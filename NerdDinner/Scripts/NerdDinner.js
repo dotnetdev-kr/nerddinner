@@ -106,7 +106,9 @@ NerdDinner._renderDinners = function(dinners) {
         $('#dinnerList').append($('<li/>')
                         .attr("class", "dinnerItem")
                         .append(_getDinnerLinkHTML(dinner))
-                        .append(" (" + _getRSVPMessage(dinner.RSVPCount) + ")"));
+                        .append($('<br/>'))
+                        .append(_getDinnerDate(dinner, "mmm d"))
+                        .append(" with " + _getRSVPMessage(dinner.RSVPCount)));
     });
 
     // Adjust zoom to display all the pins we just added.
@@ -122,18 +124,27 @@ NerdDinner._renderDinners = function(dinners) {
         );
     });
 
+    function _getDinnerDate(dinner, formatStr) {
+        return '<strong>' + _dateDeserialize(dinner.EventDate).format(formatStr) + '</strong>';
+    }
+
     function _getDinnerLinkHTML(dinner) {
         return '<a href="/Dinners/Details/' + dinner.DinnerID + '">' + dinner.Title + '</a>';
     }
 
     function _getDinnerDescriptionHTML(dinner) {
-        return '<p>' + dinner.Description + '</p>' + _getRSVPMessage(dinner.RSVPCount);
+        return '<p>' + _getDinnerDate(dinner,"mmmm d, yyyy") +'</p><p>' + dinner.Description + '</p>' + _getRSVPMessage(dinner.RSVPCount);
     }
+
+    function _dateDeserialize(dateStr) {
+        return eval('new' + dateStr.replace(/\//g, ' '));
+    }
+
 
     function _getRSVPMessage(RSVPCount) {
         var rsvpMessage = "" + RSVPCount + " RSVP";
 
-        if (RSVPCount.RSVPCount > 1)
+        if (RSVPCount > 1)
             rsvpMessage += "s";
 
         return rsvpMessage;

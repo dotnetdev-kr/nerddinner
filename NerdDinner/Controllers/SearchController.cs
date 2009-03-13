@@ -9,6 +9,7 @@ namespace NerdDinner.Controllers {
 
     public class JsonDinner {
         public int      DinnerID    { get; set; }
+        public DateTime EventDate   { get; set; }
         public string   Title       { get; set; }
         public double   Latitude    { get; set; }
         public double   Longitude   { get; set; }
@@ -40,14 +41,7 @@ namespace NerdDinner.Controllers {
             var dinners = dinnerRepository.FindByLocation(latitude, longitude);
 
             var jsonDinners = from dinner in dinners
-                              select new JsonDinner {
-                                  DinnerID = dinner.DinnerID,
-                                  Latitude = dinner.Latitude,
-                                  Longitude = dinner.Longitude,
-                                  Title = dinner.Title,
-                                  Description = dinner.Description,
-                                  RSVPCount = dinner.RSVPs.Count
-                              };
+                              select JsonDinnerFromDinner(dinner);
 
             return Json(jsonDinners.ToList());
         }
@@ -67,17 +61,24 @@ namespace NerdDinner.Controllers {
 
             var mostPopularDinners = from dinner in dinners
                                      orderby dinner.RSVPs.Count descending
-                                     select new JsonDinner
-                                     {
-                                         DinnerID = dinner.DinnerID,
-                                         Latitude = dinner.Latitude,
-                                         Longitude = dinner.Longitude,
-                                         Title = dinner.Title,
-                                         Description = dinner.Description,
-                                         RSVPCount = dinner.RSVPs.Count
-                                     };
+                                     select JsonDinnerFromDinner(dinner);
 
             return Json(mostPopularDinners.Take(limit.Value).ToList());
         }
+
+        private JsonDinner JsonDinnerFromDinner(Dinner dinner)
+        {
+            return new JsonDinner
+            {
+                DinnerID = dinner.DinnerID,
+                EventDate = dinner.EventDate,
+                Latitude = dinner.Latitude,
+                Longitude = dinner.Longitude,
+                Title = dinner.Title,
+                Description = dinner.Description,
+                RSVPCount = dinner.RSVPs.Count
+            };
+        }
+
     }
 }

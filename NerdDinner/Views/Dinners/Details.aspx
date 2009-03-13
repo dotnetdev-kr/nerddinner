@@ -30,8 +30,20 @@
             <%= Html.Encode(Model.HostedBy) %>
             (<%= Html.Encode(Model.ContactPhone) %>)
         </p>
-    
         <% Html.RenderPartial("RSVPStatus"); %>
+        <p id="whoscoming">
+            <strong>Who's Coming:</strong>
+            <%if (Model.RSVPs.Count == 0){%>
+                  No one has registered.
+            <% } %>
+        </p>
+        <%if(Model.RSVPs.Count > 0) {%>
+        <ul class="attendees">
+            <%foreach (var RSVP in Model.RSVPs){%>
+              <li class="attendee"><%=Html.Encode(RSVP.AttendeeName.Replace("@"," at ")) %></li>    
+            <% } %>
+        </ul>
+        <%} %>
         <% Html.RenderPartial("EditAndDeleteLinks"); %>    
         
     </div>

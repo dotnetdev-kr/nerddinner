@@ -29,7 +29,7 @@
     
 <% } else { %>
 
-    <a href="/Account/Logon">Logon</a> to RSVP for this event.
+    <strong><a href="/Account/Logon">Logon</a> to RSVP for this event.</strong>
 
 <% } %>
     

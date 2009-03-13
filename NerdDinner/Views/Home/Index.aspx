@@ -14,7 +14,7 @@
 <div id="mapDivLeft">
 
     <div id="searchBox">
-        <div class="search-text">Enter your location  or <%= Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners") %>.</div>
+        <div class="search-text">Enter your location  or <strong><%= Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners") %></strong>.</div>
         <%= Html.TextBox("Location") %>
         <input id="search" type="submit" value="Search" />
     </div>
@@ -24,6 +24,7 @@
 
 </div>
 
+<h2>Popular Dinners</h2>
 <div id="mapDivRight">
     <div id="dinnerList"></div>
 </div>
@@ -32,7 +33,7 @@
 //<![CDATA[
     $(document).ready(function() {
         NerdDinner.LoadMap();
-        NerdDinner.FindMostPopularDinners(10);
+        NerdDinner.FindMostPopularDinners(8);
     });
 
     $("#search").click(ValidateAndFindDinners);

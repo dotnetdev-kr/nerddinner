@@ -10,7 +10,7 @@
         Upcoming Dinners
     </h2>
 
-    <ul>
+    <ul class="upcomingdinners">
     
         <% foreach (var dinner in Model) { %>
         
@@ -30,7 +30,7 @@
 
         <% if (Model.HasPreviousPage) { %>
         
-            <%= Html.RouteLink("<<<", 
+            <%= Html.RouteLink("<<< Previous Page", 
                                "UpcomingDinners", 
                                new { page=(Model.PageIndex-1) }) %>
         
@@ -38,7 +38,7 @@
         
         <% if (Model.HasNextPage) { %>
         
-            <%= Html.RouteLink(">>>", 
+            <%= Html.RouteLink("Next Page >>>", 
                                "UpcomingDinners", 
                                new { page = (Model.PageIndex + 1) })%>
         
