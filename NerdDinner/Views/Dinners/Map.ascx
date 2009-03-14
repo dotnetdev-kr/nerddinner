@@ -6,7 +6,7 @@
 
 <div id="theMap" style="width:520px"></div>
 <script type="text/javascript">
-   
+//<![CDATA[   
     $(document).ready(function() {
         var latitude = <%=Model.Latitude %>;
         var longitude = <%=Model.Longitude %>;
@@ -17,12 +17,12 @@
             NerdDinner.LoadMap(latitude, longitude, mapLoaded);
     });
       
-   function mapLoaded() {
+    function mapLoaded() {
         var title = "<%= Html.Encode(Model.Title) %>";
         var address = "<%= Html.Encode(Model.Address) %>";
     
         NerdDinner.LoadPin(NerdDinner._map.GetCenter(), title, address);
         NerdDinner._map.SetZoomLevel(14);
     } 
-      
+//]]>
 </script>

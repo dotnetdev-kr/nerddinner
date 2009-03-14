@@ -55,7 +55,7 @@
     </fieldset>
 
     <script type="text/javascript">
-
+    //<![CDATA[
         $(document).ready(function() {
             $("#Address").blur(function(evt) {
                 //If it's time to look for an address, 
@@ -70,7 +70,7 @@
                 NerdDinner.FindAddressOnMap(address);
             });
         });
-    
+    //]]>
     </script>
 
 <% } %>
