@@ -47,7 +47,7 @@
         if (where.length < 1)
             return;
 
-        FindDinnersGivenLocation(where);
+        NerdDinner.FindDinnersGivenLocation(where);
     }
 //]]>
 </script>

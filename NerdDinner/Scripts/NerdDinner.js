@@ -86,9 +86,25 @@ NerdDinner._callbackForLocation = function(layer, resultsArray, places, hasMore,
     }
 }
 
+NerdDinner.FindDinnersGivenLocation = function(where) {
+    NerdDinner._map.Find("", where, null, null, null, null, null, false,
+                         null, null, NerdDinner._callbackUpdateMapDinners);
+}
+
+
 NerdDinner.FindMostPopularDinners = function(limit) {
     $.post("/Search/GetMostPopularDinners", { "limit": limit }, NerdDinner._renderDinners, "json");
 }
+
+NerdDinner._callbackUpdateMapDinners = function(layer, resultsArray, places, hasMore, VEErrorMessage) {
+    var center = NerdDinner._map.GetCenter();
+
+    $.post("/Search/SearchByLocation",
+           { latitude: center.Latitude, longitude: center.Longitude },
+           NerdDinner._renderDinners,
+           "json");
+}
+
 
 NerdDinner._renderDinners = function(dinners) {
     $("#dinnerList").empty();
