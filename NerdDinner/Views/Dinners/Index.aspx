@@ -1,7 +1,7 @@
 <%@ Page Inherits="System.Web.Mvc.ViewPage<NerdDinner.Helpers.PaginatedList<NerdDinner.Models.Dinner>>" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content ID="Title" ContentPlaceHolderID="TitleContent" runat="server">
-	Upcoming Dinners
+	Upcoming Nerd Dinners
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -17,9 +17,9 @@
             <li>     
                 <%= Html.ActionLink(dinner.Title, "Details", new { id=dinner.DinnerID }) %>
                 on 
-                <%= Html.Encode(dinner.EventDate.ToShortDateString())%> 
+                <%= Html.Encode(dinner.EventDate.ToString("yyyy-MMM-dd"))%> 
                 @
-                <%= Html.Encode(dinner.EventDate.ToShortTimeString())%>
+                <%= Html.Encode(dinner.EventDate.ToString("HH:mm tt"))%>
             </li>
         
         <% } %>
