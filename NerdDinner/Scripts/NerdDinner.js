@@ -47,7 +47,7 @@ NerdDinner.LoadPin = function(LL, name, description) {
 }
 
 NerdDinner.FindAddressOnMap = function(where) {
-    var numberOfResults = 20;
+    var numberOfResults = 1;
     var setBestMapView = true;
     var showResults = true;
 
