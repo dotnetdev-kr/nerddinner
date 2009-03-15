@@ -50,17 +50,20 @@ NerdDinner.FindAddressOnMap = function(where) {
     var numberOfResults = 1;
     var setBestMapView = true;
     var showResults = true;
+    var defaultDisambiguation = true;
 
     NerdDinner._map.Find("", where, null, null, null,
-                         numberOfResults, showResults, true, true,
+                         numberOfResults, showResults, true, defaultDisambiguation,
                          setBestMapView, NerdDinner._callbackForLocation);
 }
 
 NerdDinner._callbackForLocation = function(layer, resultsArray, places, hasMore, VEErrorMessage) {
     NerdDinner.ClearMap();
 
-    if (places == null)
+    if (places == null) {
+        NerdDinner._map.ShowMessage(VEErrorMessage);
         return;
+    }
 
     //Make a pushpin for each place we find
     $.each(places, function(i, item) {
