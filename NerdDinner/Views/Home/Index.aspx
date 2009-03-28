@@ -7,6 +7,7 @@
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript"></script>
+<script src="/Scripts/MSAjaxHistoryBundle.js" type="text/javascript"></script>
 
 <h2>Find a Dinner</h2>
 
@@ -18,7 +19,7 @@
         <input id="search" type="submit" value="Search" />
     </div>
 
-<div id="theMap" style="width: 580px; height: 400px;"></div>
+    <div id="theMap" style="width: 580px; height: 400px;"></div>
 
 </div>
 
@@ -31,8 +32,26 @@
 //<![CDATA[
     $(document).ready(function() {
         NerdDinner.LoadMap();
-        NerdDinner.FindMostPopularDinners(8);
+
+        Sys.Application.set_enableHistory(true);
+
+        Sys.Application.add_navigate(OnNavigation);
+
+        OnNavigation();
     });
+
+    function OnNavigation(sender, args) {
+        if (Sys.Application.get_stateString() === '') {
+            $get('Location').value = '';
+            NerdDinner.FindMostPopularDinners(8);
+        }
+        else {
+            var where = Sys.Application._state.where;
+
+            $get('Location').value = where;
+            NerdDinner.FindDinnersGivenLocation(where);
+        }
+    }
 
     $("#search").click(ValidateAndFindDinners);
 
@@ -43,9 +62,12 @@
     });
 
     function ValidateAndFindDinners() {
-        var where = jQuery.trim($("#Location").val());
+        var where = $.trim($get('Location').value);
+        
         if (where.length < 1)
             return;
+
+        Sys.Application.addHistoryPoint({ 'where': where });
 
         NerdDinner.FindDinnersGivenLocation(where);
     }
