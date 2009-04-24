@@ -185,7 +185,7 @@ namespace NerdDinner.Tests.Controllers {
 
             // Assert
             Assert.AreEqual(100, list.TotalCount);
-            Assert.AreEqual(10, list.TotalPages);
+            Assert.AreEqual(4, list.TotalPages);
         }
 
         [TestMethod]
@@ -202,7 +202,7 @@ namespace NerdDinner.Tests.Controllers {
 
             // Assert
             Assert.AreEqual(100, list.TotalCount);
-            Assert.AreEqual(10, list.TotalPages);
+            Assert.AreEqual(4, list.TotalPages);
         }
 
 

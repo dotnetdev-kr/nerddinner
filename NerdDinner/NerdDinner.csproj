@@ -150,7 +150,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HandleErrorWithELMAHAttribute.cs" />
+    <Compile Include="Helpers\HandleErrorWithELMAHAttribute.cs" />
     <Compile Include="Helpers\MobileCapableWebFormViewEngine.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Content Include="Content\Img\bkg.jpg" />
