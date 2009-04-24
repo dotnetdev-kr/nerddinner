@@ -60,8 +60,8 @@
             $("#Address").blur(function(evt) {
                 //If it's time to look for an address, 
                 // clear out the Lat and Lon
-                $("#Latitude").val("");
-                $("#Longitude").val("");
+                $("#Latitude").val("0");
+                $("#Longitude").val("0");
 
                 var address = jQuery.trim($("#Address").val());
                 if (address.length < 1)

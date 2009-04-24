@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
+using System.Diagnostics;
 
 namespace NerdDinner.Controllers {
 
@@ -26,7 +27,7 @@ namespace NerdDinner.Controllers {
     //
     // Controller Class
 
-    [HandleError]
+		[HandleErrorWithELMAH]
     public class DinnersController : Controller {
 
         IDinnerRepository dinnerRepository;
@@ -115,7 +116,7 @@ namespace NerdDinner.Controllers {
         public ActionResult Create() {
 
             Dinner dinner = new Dinner() {
-                EventDate = DateTime.Now.AddDays(7)
+               EventDate = DateTime.Now.AddDays(7)
             };
 
             return View(new DinnerFormViewModel(dinner));
@@ -185,5 +186,20 @@ namespace NerdDinner.Controllers {
 
             return View("Deleted");
         }
+
+				protected override void HandleUnknownAction(string actionName)
+				{
+					Response.Redirect("/Dinners/Confused");
+				}
+
+				public ActionResult Confused()
+				{
+					return View();
+				}
+
+				public ActionResult Trouble()
+				{
+					return View("Error");
+				}
     }
 }

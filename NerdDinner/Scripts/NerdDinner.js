@@ -10,7 +10,7 @@ NerdDinner.LoadMap = function(latitude, longitude, onMapLoaded) {
 
     var options = new VEMapOptions();
 
-    options.EnableBirdseye = false;
+    options.EnableBirdseye = false
 
     // Makes the control bar less obtrusize.
     this._map.SetDashboardSize(VEDashboardSize.Small);
@@ -148,7 +148,7 @@ NerdDinner._renderDinners = function(dinners) {
     }
 
     function _getDinnerLinkHTML(dinner) {
-        return '<a href="/Dinners/Details/' + dinner.DinnerID + '">' + dinner.Title + '</a>';
+        return '<a href="' + dinner.Url + '">' + dinner.Title + '</a>';
     }
 
     function _getDinnerDescriptionHTML(dinner) {

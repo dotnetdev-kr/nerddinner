@@ -7,7 +7,9 @@ using NerdDinner.Models;
 
 namespace NerdDinner.Controllers
 {
-    public class RSVPController : Controller {
+		[HandleErrorWithELMAH]
+		public class RSVPController : Controller
+		{
 
         IDinnerRepository dinnerRepository;
 

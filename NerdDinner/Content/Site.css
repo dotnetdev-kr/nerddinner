@@ -300,12 +300,15 @@ div#title
     text-decoration: none;
 }
 
-.field-validation-error
+.field-validation-error,
+span.input-validation-error
 {
     color: #ff0000;
 }
 
-.input-validation-error
+input.input-validation-error,
+textarea.input-validation-error,
+select.input-validation-error
 {
     border: 1px solid #ff0000;
     background-color: #ffeeee;
@@ -375,4 +378,11 @@ hr
     position: relative; 
     width: 500px; 
     height: 450px;
+}
+
+/* MICROFORMATS  
+----------------------------------------------------------*/
+
+.vevent abbr {
+	border: 0;
 }

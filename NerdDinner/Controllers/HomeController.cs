@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace NerdDinner.Controllers {
 
-    [HandleError]
+		[HandleErrorWithELMAH]
     public class HomeController : Controller {
     
         public ActionResult Index() {

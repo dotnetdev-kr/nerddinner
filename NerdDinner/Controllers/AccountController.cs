@@ -10,7 +10,7 @@ using System.Web.UI;
 
 namespace NerdDinner.Controllers {
 
-    [HandleError]
+	  [HandleErrorWithELMAH]
     public class AccountController : Controller {
 
         // This constructor is used by the MVC framework to instantiate the controller using

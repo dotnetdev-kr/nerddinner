@@ -1,7 +1,7 @@
 <%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<NerdDinner.Controllers.DinnerFormViewModel>" MasterPageFile="~/Views/Shared/Site.Master"  %>
 
 <asp:Content ID="Title" ContentPlaceHolderID="TitleContent" runat="server">
-    Host a Dinner
+    Host a Nerd Dinner
 </asp:Content>
 
 <asp:Content ID="Create" ContentPlaceHolderID="MainContent" runat="server">
