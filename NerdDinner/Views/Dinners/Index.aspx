@@ -4,6 +4,10 @@
 	Upcoming Nerd Dinners
 </asp:Content>
 
+<asp:Content ID="Masthead" ContentPlaceHolderID="MastheadContent" runat="server">
+	<% Html.RenderPartial("Masthead", false); %>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>

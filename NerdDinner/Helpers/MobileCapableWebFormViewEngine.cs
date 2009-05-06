@@ -48,7 +48,7 @@ namespace NerdDinner
 			return result;
 		}
 
-		private bool UserAgentIs(ControllerContext controllerContext, string userAgentToTest)
+		public bool UserAgentIs(ControllerContext controllerContext, string userAgentToTest)
 		{
 			return (controllerContext.HttpContext.Request.UserAgent.IndexOf(userAgentToTest,
 							StringComparison.OrdinalIgnoreCase) > 0);

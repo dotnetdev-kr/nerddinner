@@ -140,7 +140,7 @@ h4 {}
 .validation-summary-errors li 
 {
     display: block;
-    background: url('img/exclamation.png') no-repeat 0px 50%;
+    background: url('/content/img/exclamation.png') no-repeat 0px 50%;
     padding: 5px 0px 5px 25px; 
 }
 
@@ -201,6 +201,13 @@ select.input-validation-error
     width: 235px;
     padding: 10px 0px 0px 20px;
     
+}
+
+#whoscomingDiv
+{
+	height:150px;
+	width:235px;
+	overflow:auto; /* so it scrolls */
 }
 
 #mapDiv 

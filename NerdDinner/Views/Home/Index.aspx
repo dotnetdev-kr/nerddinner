@@ -4,6 +4,10 @@
     NerdDinner
 </asp:Content>
 
+<asp:Content ID="Masthead" ContentPlaceHolderID="MastheadContent" runat="server">
+	<% Html.RenderPartial("Masthead", true); %>
+</asp:Content>
+
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
 
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript"></script>
@@ -13,11 +17,6 @@
 
 <div id="mapDivLeft">
 
-    <div id="searchBox">
-        <div class="search-text">Enter your location  or <strong><%= Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners") %></strong>.</div>
-        <%= Html.TextBox("Location") %>
-        <input id="search" type="submit" value="Search" />
-    </div>
 
     <div id="theMap" style="width: 580px; height: 400px;"></div>
 

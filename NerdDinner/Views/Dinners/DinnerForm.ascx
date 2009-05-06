@@ -34,7 +34,7 @@
             <%= Html.ValidationMessage("Country", "*") %>
         </p>
         <p>
-            <label for="ContactPhone">Contact Phone #:</label>
+            <label for="ContactPhone">Contact Info:</label>
             <%= Html.TextBox("ContactPhone", Model.Dinner.ContactPhone) %>
             <%= Html.ValidationMessage("ContactPhone", "*") %>
         </p>

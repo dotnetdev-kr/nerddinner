@@ -29,7 +29,7 @@
     
 <% } else { %>
 
-    <strong><a href="/Account/Logon">Logon</a> to RSVP for this event.</strong>
+    <strong><%= Html.ActionLink("Log On", "LogOn", new { controller = "Account", returnUrl = HttpContext.Current.Request.RawUrl }) %> to RSVP for this event.</strong>
 
 <% } %>
     

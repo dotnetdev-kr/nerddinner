@@ -19,7 +19,7 @@
         <p>
             <strong>When:</strong> 
             <abbr class="dtstart" title="<%= Model.EventDate.ToString("s") %>">
-                <%= Model.EventDate.ToShortDateString() %> 
+                <%= Model.EventDate.ToString("MMM dd, yyyy") %> 
                 <strong>@</strong>
                 <%= Model.EventDate.ToShortTimeString() %>
             </abbr>
@@ -28,8 +28,8 @@
         <p>
             <strong>Where:</strong>
             <span class="location adr">
-                <span class="country-name"><%= Html.Encode(Model.Country) %></span>,
-                <span class="entended-address"><%= Html.Encode(Model.Address) %></span>
+                <span class="entended-address"><%= Html.Encode(Model.Address) %></span>, 
+                <span class="country-name"><%= Html.Encode(Model.Country) %></span>
                 <abbr class="geo" title="<%= Model.Latitude %>;<%= Model.Longitude %>" style="display: none;">Geolocation for hCalendar</abbr>
             </span>
         </p>
@@ -47,7 +47,7 @@
             <span class="organizer">
                 <span class="vcard">
                     <span class="fn nickname"><%= Html.Encode(Model.HostedBy) %></span>
-                    <span class="tel">(<%= Html.Encode(Model.ContactPhone) %>)</span>
+                    <span class="tel"> <%= Html.Encode(Model.ContactPhone) %></span>
                 </span>                
             </span>
         </p>
@@ -62,6 +62,7 @@
         </p>
         
         <%if(Model.RSVPs.Count > 0) {%>
+					<div id="whoscomingDiv">
             <ul class="attendees">
                 <%foreach (var RSVP in Model.RSVPs){%>
                   <li class="attendee">
@@ -71,6 +72,7 @@
                   </li>
                 <% } %>
             </ul>
+          </div>
         <%} %>
         
         <% Html.RenderPartial("EditAndDeleteLinks"); %>    
