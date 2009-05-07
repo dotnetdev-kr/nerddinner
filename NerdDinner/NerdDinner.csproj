@@ -155,6 +155,7 @@
     <Compile Include="Helpers\HandleErrorWithELMAHAttribute.cs" />
     <Compile Include="Helpers\MobileCapableWebFormViewEngine.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
+    <Compile Include="Models\DinnerFormViewModel.cs" />
     <Content Include="Content\Img\bkg.jpg" />
     <Content Include="Content\Img\btn-go.png" />
     <Content Include="Content\Img\btn-login.png" />
