@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NerdDinner.Controllers;
 using System.Web.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using NerdDinner.Controllers;
+using NerdDinner.Helpers;
 using NerdDinner.Models;
 using NerdDinner.Tests.Fakes;
-using Moq;
-using NerdDinner.Helpers;
-using System.Web.Routing;
 
 namespace NerdDinner.Tests.Controllers {
  
@@ -222,16 +220,28 @@ namespace NerdDinner.Tests.Controllers {
         }
 
         [TestMethod]
-        public void DetailsAction_Should_Return_NotFound_For_Dinner_999() {
+        public void DetailsAction_Should_Return_FileNotFoundResult_For_NullDinnerId() {
+            // Arrange
+            var controller = CreateDinnersControllerAs("scottgu");
+
+            // Act
+            FileNotFoundResult result = (FileNotFoundResult)controller.Details(null);
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void DetailsAction_Should_Return_FileNotFoundResult_For_Dinner_999() {
 
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
 
             // Act
-            ViewResult result = (ViewResult)controller.Details(999);
+            FileNotFoundResult result = (FileNotFoundResult)controller.Details(999);
 
             // Assert
-            Assert.AreEqual(result.ViewName, "NotFound");
+            Assert.IsNotNull(result);
         }
 
 

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
 using System.Diagnostics;
+using System.Web;
 
 namespace NerdDinner.Controllers {
 
@@ -60,12 +61,16 @@ namespace NerdDinner.Controllers {
         //
         // GET: /Dinners/Details/5
 
-        public ActionResult Details(int id) {
+        public ActionResult Details(int? id) {
+            if (id == null) {
+                return new FileNotFoundResult { Message = "No Dinner found due to invalid dinner id" };
+            }
 
-            Dinner dinner = dinnerRepository.GetDinner(id);
+            Dinner dinner = dinnerRepository.GetDinner(id.Value);
 
-            if (dinner == null)
-                return View("NotFound");
+            if (dinner == null) {
+                return new FileNotFoundResult { Message = "No Dinner found for that id" };
+            }
 
             return View(dinner);
         }
@@ -187,19 +192,19 @@ namespace NerdDinner.Controllers {
             return View("Deleted");
         }
 
-				protected override void HandleUnknownAction(string actionName)
-				{
-					Response.Redirect("/Dinners/Confused");
-				}
+		protected override void HandleUnknownAction(string actionName)
+		{
+            throw new HttpException(404, "Action not found");
+		}
 
-				public ActionResult Confused()
-				{
-					return View();
-				}
+		public ActionResult Confused()
+		{
+			return View();
+		}
 
-				public ActionResult Trouble()
-				{
-					return View("Error");
-				}
+		public ActionResult Trouble()
+		{
+			return View("Error");
+		}
     }
 }
