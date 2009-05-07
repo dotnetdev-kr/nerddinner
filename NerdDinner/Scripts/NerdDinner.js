@@ -84,8 +84,8 @@ NerdDinner._callbackForLocation = function(layer, resultsArray, places, hasMore,
 
     //If we've found exactly one place, that's our address.
     if (NerdDinner._points.length === 1) {
-        $("#Latitude").val(NerdDinner._points[0].Latitude);
-        $("#Longitude").val(NerdDinner._points[0].Longitude);
+        $("#Latitude").val(NerdDinner._points[0].Latitude.toLocaleString());
+        $("#Longitude").val(NerdDinner._points[0].Longitude.toLocaleString());
     }
 }
 

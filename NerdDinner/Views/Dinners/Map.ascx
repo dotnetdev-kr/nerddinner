@@ -8,8 +8,8 @@
 <script type="text/javascript">
 //<![CDATA[   
     $(document).ready(function() {
-        var latitude = <%=Model.Latitude %>;
-        var longitude = <%=Model.Longitude %>;
+        var latitude = <%= Convert.ToString(Model.Latitude, CultureInfo.InvariantCulture) %>;
+        var longitude = <%= Convert.ToString(Model.Longitude, CultureInfo.InvariantCulture) %>;
                 
         if ((latitude == 0) || (longitude == 0))
             NerdDinner.LoadMap();
