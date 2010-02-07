@@ -13,6 +13,7 @@ namespace NerdDinner.Tests.Controllers {
  
     [TestClass]
     public class DinnersControllerTest {
+		private const int NumberOfCountries = 256;
 
         DinnersController CreateDinnersController() {
             var testData = FakeDinnerData.CreateTestDinners();
@@ -54,10 +55,11 @@ namespace NerdDinner.Tests.Controllers {
             var controller = CreateDinnersController();
 
             // Act
-            var result = controller.Details(999) as ViewResult;
+			var result = controller.Details(999) as ActionResult;
 
             // Assert
-            Assert.AreEqual("NotFound", result.ViewName);
+			Assert.IsInstanceOfType(result, typeof(FileNotFoundResult));
+			Assert.AreEqual("No Dinner found for that id", ((FileNotFoundResult)result).Message);
         }
 
         [TestMethod]
@@ -315,7 +317,7 @@ namespace NerdDinner.Tests.Controllers {
             
             // Assert
             Assert.IsNotNull(model.Dinner);
-            Assert.AreEqual(13, model.Countries.Count());
+            Assert.AreEqual(NumberOfCountries, model.Countries.Count());
         }
 
         [TestMethod]
@@ -390,7 +392,7 @@ namespace NerdDinner.Tests.Controllers {
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
-            Assert.AreEqual(7, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+            Assert.AreEqual(6, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
         }
 
 
@@ -444,7 +446,7 @@ namespace NerdDinner.Tests.Controllers {
 
             // Assert
             DinnerFormViewModel model = result.ViewData.Model as DinnerFormViewModel;
-            Assert.AreEqual(13, model.Countries.Count());
+            Assert.AreEqual(NumberOfCountries, model.Countries.Count());
         }
 
         [TestMethod]
