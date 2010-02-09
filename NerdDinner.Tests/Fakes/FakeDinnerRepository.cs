@@ -20,7 +20,8 @@ namespace NerdDinner.Tests.Fakes {
 
         public IQueryable<Dinner> FindUpcomingDinners() {
             return (from dinner in dinnerList
-                    where dinner.EventDate > DateTime.Now
+                    where dinner.EventDate > DateTime.Now.AddDays(-1)
+					orderby dinner.EventDate
                     select dinner).AsQueryable();
         }
 

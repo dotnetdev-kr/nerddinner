@@ -18,8 +18,8 @@ namespace NerdDinner.Models {
 
         public IQueryable<Dinner> FindUpcomingDinners() {
             return from dinner in FindAllDinners()
-                   where dinner.EventDate >= DateTime.Now
-                   orderby dinner.EventDate
+				   where dinner.EventDate > DateTime.Now.AddDays(-1)
+				   orderby dinner.EventDate
                    select dinner;
         }
 

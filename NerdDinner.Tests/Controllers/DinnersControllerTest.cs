@@ -205,9 +205,29 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual(4, list.TotalPages);
         }
 
+		[TestMethod]
+		public void IndexAction_With_Dinner_Just_Started_Should_Show_Dinner()
+		{
+			// Arrange 
+			var testData = FakeDinnerData.CreateTestDinners();
+			var dinner = FakeDinnerData.CreateDinner();
+			dinner.EventDate = DateTime.Now.AddHours(-1);
+			dinner.Title = "Dinner which just started";
+			testData.Add(dinner);
+			var repository = new FakeDinnerRepository(testData);
 
-        
-        [TestMethod]
+			var controller = new DinnersController(repository);
+
+			// Act
+			// Get first page
+			ViewResult result = (ViewResult)controller.Index(null);
+			PaginatedList<Dinner> list = result.ViewData.Model as PaginatedList<Dinner>;
+
+			// Assert
+			Assert.AreEqual("Dinner which just started", list.First().Title);
+		}
+
+		[TestMethod]
         public void DetailsAction_Should_Return_ViewResult() {
 
             // Arrange
