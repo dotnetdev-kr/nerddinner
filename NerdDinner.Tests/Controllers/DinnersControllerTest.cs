@@ -173,7 +173,7 @@ namespace NerdDinner.Tests.Controllers {
 
 
         [TestMethod]
-        public void IndexAction_Should_Return_PagedList_With_Total_of_100_And_Total_10_Pages() {
+        public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_10_Pages() {
 
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
@@ -184,12 +184,12 @@ namespace NerdDinner.Tests.Controllers {
             PaginatedList<Dinner> list = result.ViewData.Model as PaginatedList<Dinner>;
 
             // Assert
-            Assert.AreEqual(100, list.TotalCount);
-            Assert.AreEqual(4, list.TotalPages);
+            Assert.AreEqual(101, list.TotalCount);
+            Assert.AreEqual(5, list.TotalPages);
         }
 
         [TestMethod]
-        public void IndexAction_Should_Return_PagedList_With_Total_of_100_And_Total_10_Pages_Given_Null()
+        public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_5_Pages_Given_Null()
         {
 
             // Arrange
@@ -201,8 +201,8 @@ namespace NerdDinner.Tests.Controllers {
             PaginatedList<Dinner> list = result.ViewData.Model as PaginatedList<Dinner>;
 
             // Assert
-            Assert.AreEqual(100, list.TotalCount);
-            Assert.AreEqual(4, list.TotalPages);
+            Assert.AreEqual(101, list.TotalCount);
+            Assert.AreEqual(5, list.TotalPages);
         }
 
 		[TestMethod]
@@ -377,27 +377,70 @@ namespace NerdDinner.Tests.Controllers {
             Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
         }
 
-        [TestMethod]
-        public void CreateAction_Should_Fail_Given_Bad_US_Phone_Number() {
+		//[TestMethod]
+		//public void CreateAction_Should_Fail_Given_Bad_US_Phone_Number() {
 
-            // Arrange
-            var dinner = FakeDinnerData.CreateDinner();
-            dinner.ContactPhone = "not a good number.";
-            dinner.HostedBy = "scottgu";
-            var controller = CreateDinnersControllerAs("scottgu");
+		//    // Arrange
+		//    var dinner = FakeDinnerData.CreateDinner();
+		//    dinner.ContactPhone = "not a good number.";
+		//    dinner.HostedBy = "scottgu";
+		//    var controller = CreateDinnersControllerAs("scottgu");
 
-            // Act
-            ViewResult result = (ViewResult)controller.Create(dinner);
+		//    // Act
+		//    ViewResult result = (ViewResult)controller.Create(dinner);
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-            Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
-            Assert.AreEqual(1, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
-            ModelState m = result.ViewData.ModelState["ContactPhone"];
-            Assert.IsNull(m.Value);
-            Assert.IsTrue(m.Errors.Count == 1);
-        }
+		//    // Assert
+		//    Assert.IsInstanceOfType(result, typeof(ViewResult));
+		//    Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
+		//    Assert.AreEqual(1, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+		//    ModelState m = result.ViewData.ModelState["ContactPhone"];
+		//    Assert.IsNull(m.Value);
+		//    Assert.IsTrue(m.Errors.Count == 1);
+		//}
 
+		[TestMethod]
+		public void CreateAction_Should_Fail_Given_Long_Title()
+		{
+
+			// Arrange
+			var dinner = FakeDinnerData.CreateDinner();
+			dinner.Title = new string('*', 55);
+			dinner.HostedBy = "jon";
+			var controller = CreateDinnersControllerAs("jon");
+
+			// Act
+			ViewResult result = (ViewResult)controller.Create(dinner);
+
+			// Assert
+			Assert.IsInstanceOfType(result, typeof(ViewResult));
+			Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
+			Assert.AreEqual(1, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+			ModelState m = result.ViewData.ModelState["Title"];
+			Assert.IsNull(m.Value);
+			Assert.IsTrue(m.Errors.Count == 1);
+		}
+
+		[TestMethod]
+		public void CreateAction_Should_Fail_Given_Long_Description()
+		{
+
+			// Arrange
+			var dinner = FakeDinnerData.CreateDinner();
+			dinner.Description = new string('*', 270);
+			dinner.HostedBy = "jon";
+			var controller = CreateDinnersControllerAs("jon");
+
+			// Act
+			ViewResult result = (ViewResult)controller.Create(dinner);
+
+			// Assert
+			Assert.IsInstanceOfType(result, typeof(ViewResult));
+			Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
+			Assert.AreEqual(1, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+			ModelState m = result.ViewData.ModelState["Description"];
+			Assert.IsNull(m.Value);
+			Assert.IsTrue(m.Errors.Count == 1);
+		}
 
         [TestMethod]
         public void CreateAction_Should_Fail_Give_Empty_Dinner() {
@@ -411,8 +454,8 @@ namespace NerdDinner.Tests.Controllers {
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
-            Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
-            Assert.AreEqual(6, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+			Assert.IsTrue(result.ViewData.ModelState.IsValid == false);
+			Assert.AreEqual(6, result.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
         }
 
 
@@ -505,27 +548,27 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual("InvalidOwner", result.ViewName);
         }
 
-        [TestMethod]
-        public void DinnersController_Edit_Post_Should_Fail_Given_Bad_US_Phone_Number() {
+		//Unit test is invalid until phone number verification is turned back on
+		//[TestMethod]
+		//public void DinnersController_Edit_Post_Should_Fail_Given_Bad_US_Phone_Number() {
             
-            // Arrange
-            var controller = CreateDinnersControllerAs("someuser");
-            var form = FakeDinnerData.CreateDinnerFormCollection();
-            form["ContactPhone"] = "foo"; //BAD
-            controller.ValueProvider = form.ToValueProvider();
+		//    // Arrange
+		//    var controller = CreateDinnersControllerAs("someuser");
+		//    var form = FakeDinnerData.CreateDinnerFormCollection();
+		//    form["ContactPhone"] = "foo"; //BAD
+		//    controller.ValueProvider = form.ToValueProvider();
 
-            // Act
-            var result = controller.Edit(1, form);
+		//    // Act
+		//    var result = controller.Edit(1, form);
 
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-            var viewResult = (ViewResult)result;
-            Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
-            Assert.AreEqual(1, viewResult.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
-            ModelState m = viewResult.ViewData.ModelState["ContactPhone"];
-            Assert.IsTrue(m.Errors.Count == 1);
-        }
-
+		//    // Assert
+		//    Assert.IsInstanceOfType(result, typeof(ViewResult));
+		//    var viewResult = (ViewResult)result;
+		//    Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
+		//    Assert.AreEqual(1, viewResult.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+		//    ModelState m = viewResult.ViewData.ModelState["ContactPhone"];
+		//    Assert.IsTrue(m.Errors.Count == 1);
+		//}
 
 
         [TestMethod]

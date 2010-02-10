@@ -33,8 +33,14 @@ namespace NerdDinner.Models
 			if (String.IsNullOrEmpty(Title))
 				yield return new RuleViolation("Title is required", "Title");
 
+			if (!String.IsNullOrEmpty(Title) && Title.Length > 50)
+				yield return new RuleViolation("Title may not be longer than 50 characters", "Title");
+
 			if (String.IsNullOrEmpty(Description))
 				yield return new RuleViolation("Description is required", "Description");
+
+			if (!String.IsNullOrEmpty(Description) && Description.Length > 256)
+				yield return new RuleViolation("Description may not be longer than 256 characters", "Description");
 
 			if (String.IsNullOrEmpty(HostedBy))
 				yield return new RuleViolation("HostedBy is required", "HostedBy");
