@@ -4,71 +4,45 @@ using System.Linq;
 using System.Data.Linq;
 using System.Web.Mvc;
 using NerdDinner.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace NerdDinner.Models
 {
+    [Bind(Include = "Title,Description,EventDate,Address,Country,ContactPhone,Latitude,Longitude")]
+    [MetadataType(typeof(Dinner_Validation))]
+    public partial class Dinner
+    {
+        public bool IsHostedBy(string userName)
+        {
+            return HostedBy.Equals(userName, StringComparison.InvariantCultureIgnoreCase);
+        }
 
-	[Bind(Include = "Title,Description,EventDate,Address,Country,ContactPhone,Latitude,Longitude")]
-	public partial class Dinner
-	{
+        public bool IsUserRegistered(string userName)
+        {
+            return RSVPs.Any(r => r.AttendeeName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
+        }
+    }
 
-		public bool IsHostedBy(string userName)
-		{
-			return HostedBy.Equals(userName, StringComparison.InvariantCultureIgnoreCase);
-		}
+    public class Dinner_Validation
+    {
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(50, ErrorMessage = "Title may not be longer than 50 characters")]
+        public string Title { get; set; }
 
-		public bool IsUserRegistered(string userName)
-		{
-			return RSVPs.Any(r => r.AttendeeName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
-		}
+        [Required(ErrorMessage = "Description is required")]
+        [StringLength(265, ErrorMessage = "Description may not be longer than 256 characters")]
+        public string Description { get; set; }
 
-		public bool IsValid
-		{
-			get { return (GetRuleViolations().Count() == 0); }
-		}
+        [Required(ErrorMessage = "HostedBy is required")]
+        public string HostedBy { get; set; }
 
-		public IEnumerable<RuleViolation> GetRuleViolations()
-		{
+        [Required(ErrorMessage = "Address is required")]
+        public string Address { get; set; }
 
-			if (String.IsNullOrEmpty(Title))
-				yield return new RuleViolation("Title is required", "Title");
+        [Required(ErrorMessage = "Country is required")]
+        public string Country { get; set; }
 
-			if (!String.IsNullOrEmpty(Title) && Title.Length > 50)
-				yield return new RuleViolation("Title may not be longer than 50 characters", "Title");
-
-			if (String.IsNullOrEmpty(Description))
-				yield return new RuleViolation("Description is required", "Description");
-
-			if (!String.IsNullOrEmpty(Description) && Description.Length > 256)
-				yield return new RuleViolation("Description may not be longer than 256 characters", "Description");
-
-			if (String.IsNullOrEmpty(HostedBy))
-				yield return new RuleViolation("HostedBy is required", "HostedBy");
-
-			if (String.IsNullOrEmpty(Address))
-				yield return new RuleViolation("Address is required", "Address");
-
-			if (String.IsNullOrEmpty(Country))
-				yield return new RuleViolation("Country is required", "Country");
-
-			if (String.IsNullOrEmpty(ContactPhone))
-				yield return new RuleViolation("Phone# is required", "ContactPhone");
-
-			if (Latitude == 0 || Longitude == 0)
-				yield return new RuleViolation("Make sure to enter a valid address!", "Address");
-
-			//TODO: For now, PhoneValidator is more trouble than it's worth. People 
-			// get very frustrated when it doesn't work.
-			//if (!PhoneValidator.IsValidNumber(ContactPhone, Country))
-			//    yield return new RuleViolation("Phone# does not match country", "ContactPhone");
-
-			yield break;
-		}
-
-		partial void OnValidate(ChangeAction action)
-		{
-			if (!IsValid)
-				throw new ApplicationException("Rule violations prevent saving");
-		}
-	}
+        [Required(ErrorMessage = "Phone# is required")]
+        public string ContactPhone { get; set; }
+    }
 }

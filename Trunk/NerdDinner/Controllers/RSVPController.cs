@@ -27,7 +27,7 @@ namespace NerdDinner.Controllers
         //
         // AJAX: /Dinners/Register/1
 
-        [Authorize, AcceptVerbs(HttpVerbs.Post)]
+        [Authorize, HttpPost]
         public ActionResult Register(int id) {
 
             Dinner dinner = dinnerRepository.GetDinner(id);

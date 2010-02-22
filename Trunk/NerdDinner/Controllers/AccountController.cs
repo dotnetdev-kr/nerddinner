@@ -43,7 +43,7 @@ namespace NerdDinner.Controllers {
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Needs to take same parameter type as Controller.Redirect()")]
         public ActionResult LogOn(string userName, string password, bool rememberMe, string returnUrl) {
@@ -76,7 +76,7 @@ namespace NerdDinner.Controllers {
             return View();
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public ActionResult Register(string userName, string email, string password, string confirmPassword) {
 
             ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
@@ -107,7 +107,7 @@ namespace NerdDinner.Controllers {
         }
 
         [Authorize]
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Exceptions result in password not being changed.")]
         public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword) {

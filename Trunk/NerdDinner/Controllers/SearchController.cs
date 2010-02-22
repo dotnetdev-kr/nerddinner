@@ -39,7 +39,7 @@ namespace NerdDinner.Controllers {
         //
         // AJAX: /Search/FindByLocation?longitude=45&latitude=-90
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public ActionResult SearchByLocation(float latitude, float longitude)
         {
             var dinners = dinnerRepository.FindByLocation(latitude, longitude);
@@ -50,7 +50,7 @@ namespace NerdDinner.Controllers {
             return Json(jsonDinners.ToList());
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public ActionResult SearchByPlaceNameOrZip(string placeOrZip)
         {
 					if (String.IsNullOrEmpty(placeOrZip)) return null; ;
@@ -97,7 +97,7 @@ namespace NerdDinner.Controllers {
         // AJAX: /Search/GetMostPopularDinners
         // AJAX: /Search/GetMostPopularDinners?limit=5
 
-        [AcceptVerbs(HttpVerbs.Post)]
+        [HttpPost]
         public ActionResult GetMostPopularDinners(int? limit)
         {
             var dinners = dinnerRepository.FindUpcomingDinners();

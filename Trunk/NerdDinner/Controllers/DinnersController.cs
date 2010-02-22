@@ -70,7 +70,7 @@ namespace NerdDinner.Controllers {
         //
         // POST: /Dinners/Edit/5
 
-        [AcceptVerbs(HttpVerbs.Post), Authorize]
+        [HttpPost, Authorize]
         public ActionResult Edit(int id, FormCollection collection) {
 
             Dinner dinner = dinnerRepository.GetDinner(id);
@@ -86,8 +86,6 @@ namespace NerdDinner.Controllers {
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
             catch {
-                ModelState.AddModelErrors(dinner.GetRuleViolations());
-
                 return View(new DinnerFormViewModel(dinner));
             }
         }
@@ -108,7 +106,7 @@ namespace NerdDinner.Controllers {
         //
         // POST: /Dinners/Create
 
-        [AcceptVerbs(HttpVerbs.Post), Authorize]
+        [HttpPost, Authorize]
         public ActionResult Create(Dinner dinner) {
 
             if (ModelState.IsValid) {
@@ -126,7 +124,6 @@ namespace NerdDinner.Controllers {
                     return RedirectToAction("Details", new { id=dinner.DinnerID });
                 }
                 catch {
-                    ModelState.AddModelErrors(dinner.GetRuleViolations());
                 }
             }
 
@@ -153,7 +150,7 @@ namespace NerdDinner.Controllers {
         // 
         // HTTP POST: /Dinners/Delete/1
 
-        [AcceptVerbs(HttpVerbs.Post), Authorize]
+        [HttpPost, Authorize]
         public ActionResult Delete(int id, string confirmButton) {
 
             Dinner dinner = dinnerRepository.GetDinner(id);
