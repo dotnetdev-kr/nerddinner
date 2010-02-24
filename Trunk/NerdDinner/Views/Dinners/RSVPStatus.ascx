@@ -21,7 +21,7 @@
     
     <% } else { %>  
     
-        <%= Ajax.ActionLink( "RSVP for this event",
+        <%: Ajax.ActionLink( "RSVP for this event",
                              "Register", "RSVP",
                              new { id=Model.DinnerID }, 
                              new AjaxOptions { UpdateTargetId="rsvpmsg", OnSuccess="AnimateRSVPMessage" }) %>         
@@ -29,7 +29,7 @@
     
 <% } else { %>
 
-    <strong><%= Html.ActionLink("Log On", "LogOn", new { controller = "Account", returnUrl = HttpContext.Current.Request.RawUrl }) %> to RSVP for this event.</strong>
+    <strong><%: Html.ActionLink("Log On", "LogOn", new { controller = "Account", returnUrl = HttpContext.Current.Request.RawUrl }) %> to RSVP for this event.</strong>
 
 <% } %>
     

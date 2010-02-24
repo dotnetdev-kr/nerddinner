@@ -108,6 +108,11 @@
     </Content>
     <Content Include="Content\nerd.jpg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Views\Dinners\Create.aspx" />
     <Content Include="Views\Dinners\Delete.aspx" />
     <Content Include="Views\Dinners\Deleted.aspx" />
@@ -134,8 +139,6 @@
     <Content Include="Views\Shared\LoginStatus.ascx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\jquery-1.3.2.js" />
-    <Content Include="Scripts\jquery-1.3.2.min-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -213,8 +216,6 @@
     <Content Include="Content\Production.css" />
     <Content Include="Default.aspx" />
     <Content Include="Scripts\date.format.js" />
-    <Content Include="Scripts\jquery-1.3.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.3.2.min.js" />
     <Content Include="Scripts\MSAjaxHistoryBundle.js" />
     <Content Include="Scripts\NerdDinner.js" />
     <Content Include="App_Browsers\Devices\mobile.browser" />

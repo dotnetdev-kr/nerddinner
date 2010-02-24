@@ -8,8 +8,8 @@
 <script type="text/javascript">
 //<![CDATA[   
     $(document).ready(function() {
-        var latitude = <%= Convert.ToString(Model.Latitude, CultureInfo.InvariantCulture) %>;
-        var longitude = <%= Convert.ToString(Model.Longitude, CultureInfo.InvariantCulture) %>;
+        var latitude = <%: Convert.ToString(Model.Latitude, CultureInfo.InvariantCulture) %>;
+        var longitude = <%: Convert.ToString(Model.Longitude, CultureInfo.InvariantCulture) %>;
                 
         if ((latitude == 0) || (longitude == 0))
             NerdDinner.LoadMap();
@@ -18,8 +18,8 @@
     });
       
     function mapLoaded() {
-        var title = "<%= Html.Encode(Model.Title) %>";
-        var address = "<%= Html.Encode(Model.Address) %>";
+        var title = "<%: Html.Encode(Model.Title) %>";
+        var address = "<%: Html.Encode(Model.Address) %>";
     
         NerdDinner.LoadPin(NerdDinner._map.GetCenter(), title, address);
         NerdDinner._map.SetZoomLevel(14);

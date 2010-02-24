@@ -19,11 +19,11 @@
         <% foreach (var dinner in Model) { %>
         
             <li>     
-                <%= Html.ActionLink(dinner.Title, "Details", new { id=dinner.DinnerID }) %>
+                <%: Html.ActionLink(dinner.Title, "Details", new { id=dinner.DinnerID }) %>
                 on 
-                <%= Html.Encode(dinner.EventDate.ToString("yyyy-MMM-dd"))%> 
+                <%: Html.Encode(dinner.EventDate.ToString("yyyy-MMM-dd"))%> 
                 @
-                <%= Html.Encode(dinner.EventDate.ToString("HH:mm tt"))%>
+                <%: Html.Encode(dinner.EventDate.ToString("HH:mm tt"))%>
             </li>
         
         <% } %>
@@ -34,7 +34,7 @@
 
         <% if (Model.HasPreviousPage) { %>
         
-            <%= Html.RouteLink("<<< Previous Page", 
+            <%: Html.RouteLink("<<< Previous Page", 
                                "UpcomingDinners", 
                                new { page=(Model.PageIndex-1) }) %>
         
@@ -42,7 +42,7 @@
         
         <% if (Model.HasNextPage) { %>
         
-            <%= Html.RouteLink("Next Page >>>", 
+            <%: Html.RouteLink("Next Page >>>", 
                                "UpcomingDinners", 
                                new { page = (Model.PageIndex + 1) })%>
         

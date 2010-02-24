@@ -8,7 +8,7 @@
     <meta http-equiv="Expires" content="Fri, 26 Mar 1999 23:59:59 GMT"/>
     <meta name="description" content="Find Nerd Dinners on your Windows Mobile device." />
     <meta name="keywords" content="dinner, nerd, technology, lunch, windows mobile" />
-    <meta name="viewport" content="width=<%= Request.Browser["ScreenPixelsWidth"] %>, height=<%=Request.Browser["ScreenPixelsHeight"]%>"/>
+    <meta name="viewport" content="width=<%: Request.Browser["ScreenPixelsWidth"] %>, height=<%:Request.Browser["ScreenPixelsHeight"]%>"/>
 </head>
 <body>
     <div id="content">

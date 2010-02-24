@@ -10,9 +10,9 @@
         Use the form below to change your password. 
     </p>
     <p>
-        New passwords are required to be a minimum of <%=Html.Encode(ViewData["PasswordLength"])%> characters in length.
+        New passwords are required to be a minimum of <%:Html.Encode(ViewData["PasswordLength"])%> characters in length.
     </p>
-    <%= Html.ValidationSummary() %>
+    <%: Html.ValidationSummary() %>
 
     <% using (Html.BeginForm()) { %>
         <div>
@@ -20,18 +20,18 @@
                 <legend>Account Information</legend>
                 <p>
                     <label for="currentPassword">Current password:</label>
-                    <%= Html.Password("currentPassword") %>
-                    <%= Html.ValidationMessage("currentPassword") %>
+                    <%: Html.Password("currentPassword") %>
+                    <%: Html.ValidationMessage("currentPassword") %>
                 </p>
                 <p>
                     <label for="newPassword">New password:</label>
-                    <%= Html.Password("newPassword") %>
-                    <%= Html.ValidationMessage("newPassword") %>
+                    <%: Html.Password("newPassword") %>
+                    <%: Html.ValidationMessage("newPassword") %>
                 </p>
                 <p>
                     <label for="confirmPassword">Confirm new password:</label>
-                    <%= Html.Password("confirmPassword") %>
-                    <%= Html.ValidationMessage("confirmPassword") %>
+                    <%: Html.Password("confirmPassword") %>
+                    <%: Html.ValidationMessage("confirmPassword") %>
                 </p>
                 <p>
                     <input type="submit" value="Change Password" />

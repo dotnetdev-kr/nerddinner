@@ -1,44 +1,44 @@
 <%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<NerdDinner.Models.Dinner>" MasterPageFile="~/Views/Shared/Site.Master"  %>
 
 <asp:Content ID="Title" ContentPlaceHolderID="TitleContent" runat="server">
-    <%= Html.Encode(Model.Title) %>
+    <%: Html.Encode(Model.Title) %>
 </asp:Content>
 
 <asp:Content ID="details" ContentPlaceHolderID="MainContent" runat="server">
 
     <div id="dinnerDiv" class="vevent">
 
-        <h2 class="summary"><%= Html.Encode(Model.Title) %></h2>
+        <h2 class="summary"><%: Html.Encode(Model.Title) %></h2>
         
         <p>
-            <a href="http://feeds.technorati.com/events/<%= Url.AbsoluteAction("Details", new { id = Model.DinnerID }) %>">
+            <a href="http://feeds.technorati.com/events/<%: Url.AbsoluteAction("Details", new { id = Model.DinnerID }) %>">
                 Add event to your calendar (iCal)
             </a>
         </p>
         
         <p>
             <strong>When:</strong> 
-            <abbr class="dtstart" title="<%= Model.EventDate.ToString("s") %>">
-                <%= Model.EventDate.ToString("MMM dd, yyyy") %> 
+            <abbr class="dtstart" title="<%: Model.EventDate.ToString("s") %>">
+                <%: Model.EventDate.ToString("MMM dd, yyyy") %> 
                 <strong>@</strong>
-                <%= Model.EventDate.ToShortTimeString() %>
+                <%: Model.EventDate.ToShortTimeString() %>
             </abbr>
         </p>
         
         <p>
             <strong>Where:</strong>
             <span class="location adr">
-                <span class="entended-address"><%= Html.Encode(Model.Address) %></span>, 
-                <span class="country-name"><%= Html.Encode(Model.Country) %></span>
-                <abbr class="geo" title="<%= Model.Latitude %>;<%= Model.Longitude %>" style="display: none;">Geolocation for hCalendar</abbr>
+                <span class="entended-address"><%: Html.Encode(Model.Address) %></span>, 
+                <span class="country-name"><%: Html.Encode(Model.Country) %></span>
+                <abbr class="geo" title="<%: Model.Latitude %>;<%: Model.Longitude %>" style="display: none;">Geolocation for hCalendar</abbr>
             </span>
         </p>
         
         <p>
             <strong>Description:</strong> 
-            <span class="description"><%= Html.Encode(Model.Description) %></span>
+            <span class="description"><%: Html.Encode(Model.Description) %></span>
             <span style="display: none;">
-                <%= Html.ActionLink("URL for hCalendar", "Details", new { id = Model.DinnerID }, new { @class = "url" })%>
+                <%: Html.ActionLink("URL for hCalendar", "Details", new { id = Model.DinnerID }, new { @class = "url" })%>
             </span>
         </p>
             
@@ -46,8 +46,8 @@
             <strong>Organizer:</strong>
             <span class="organizer">
                 <span class="vcard">
-                    <span class="fn nickname"><%= Html.Encode(Model.HostedBy) %></span>
-                    <span class="tel"> <%= Html.Encode(Model.ContactPhone) %></span>
+                    <span class="fn nickname"><%: Html.Encode(Model.HostedBy) %></span>
+                    <span class="tel"> <%: Html.Encode(Model.ContactPhone) %></span>
                 </span>                
             </span>
         </p>
@@ -67,7 +67,7 @@
                 <%foreach (var RSVP in Model.RSVPs){%>
                   <li class="attendee">
                     <span class="vcard">
-                        <span class="fn nickname"><%=Html.Encode(RSVP.AttendeeName.Replace("@"," at ")) %></span>
+                        <span class="fn nickname"><%:Html.Encode(RSVP.AttendeeName.Replace("@"," at ")) %></span>
                     </span>
                   </li>
                 <% } %>

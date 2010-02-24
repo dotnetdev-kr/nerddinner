@@ -2,13 +2,13 @@
 <%
     if (Request.IsAuthenticated) {
 %>
-        Welcome <b><%= Html.Encode(Page.User.Identity.Name) %></b>!
-        [ <%= Html.ActionLink("Log Off", "LogOff", "Account") %> ]
+        Welcome <b><%: Html.Encode(Page.User.Identity.Name) %></b>!
+        [ <%: Html.ActionLink("Log Off", "LogOff", "Account") %> ]
 <%
     }
     else {
 %> 
-        [ <%= Html.ActionLink("Log On", "LogOn", new { controller = "Account", returnUrl = HttpContext.Current.Request.RawUrl }) %> ]
+        [ <%: Html.ActionLink("Log On", "LogOn", new { controller = "Account", returnUrl = HttpContext.Current.Request.RawUrl }) %> ]
 <%
     }
 %>
