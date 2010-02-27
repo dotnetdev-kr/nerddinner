@@ -19,7 +19,7 @@
         </p>
         <p>
             <label for="EventDate">Event Date:</label>
-            <%: Html.TextBox("EventDate", String.Format("{0:g}", Model.Dinner.EventDate)) %>
+            <%: Html.EditorFor(m => m.Dinner.EventDate) %>
             <%: Html.ValidationMessage("EventDate", "*") %>
         </p>
         <p>

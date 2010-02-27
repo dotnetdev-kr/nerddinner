@@ -111,8 +111,25 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery_ui_datepicker.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Scripts\smothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\smothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\smothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\smothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\smothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\smothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\smothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\smothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\smothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\smothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\smothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\smothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\smothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\smothness\jquery_ui_datepicker.css" />
+    <Content Include="Scripts\timepicker_plug\css\style.css" />
+    <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Views\Dinners\Create.aspx" />
     <Content Include="Views\Dinners\Delete.aspx" />
     <Content Include="Views\Dinners\Deleted.aspx" />
@@ -124,6 +141,7 @@
     <Content Include="Views\Dinners\NotFound.aspx" />
     <Content Include="Views\Dinners\RSVPStatus.ascx" />
     <Content Include="Views\Dinners\Map.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Web.config" />
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftAjax.debug.js" />
@@ -139,10 +157,6 @@
     <Content Include="Views\Shared\LoginStatus.ascx" />
     <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.min-vsdoc.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Models\NerdDinner.dbml">
