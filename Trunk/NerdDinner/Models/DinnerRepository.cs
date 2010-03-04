@@ -2,57 +2,85 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Objects.DataClasses;
+using System.Data;
 
-namespace NerdDinner.Models {
+namespace NerdDinner.Models
+{
 
-    public class DinnerRepository : NerdDinner.Models.IDinnerRepository {
+    public class DinnerRepository : NerdDinner.Models.IDinnerRepository
+    {
 
-        NerdDinnerDataContext db = new NerdDinnerDataContext();
+        NerdDinnerEntities db = new NerdDinnerEntities();
 
         //
         // Query Methods
 
-        public IQueryable<Dinner> FindAllDinners() {
+        public IQueryable<Dinner> FindAllDinners()
+        {
             return db.Dinners;
         }
 
-        public IQueryable<Dinner> FindUpcomingDinners() {
+        public IQueryable<Dinner> FindUpcomingDinners()
+        {
             return from dinner in FindAllDinners()
-				   where dinner.EventDate > DateTime.Now.AddDays(-1)
-				   orderby dinner.EventDate
+                   where dinner.EventDate >= DateTime.Now
+                   orderby dinner.EventDate
                    select dinner;
         }
 
-        public IQueryable<Dinner> FindByLocation(float latitude, float longitude) {
+        public IQueryable<Dinner> FindByLocation(float latitude, float longitude)
+        {
             var dinners = from dinner in FindUpcomingDinners()
-                          join i in db.NearestDinners(latitude, longitude) 
+                          join i in NearestDinners(latitude, longitude)
                           on dinner.DinnerID equals i.DinnerID
                           select dinner;
 
             return dinners;
         }
 
-        public Dinner GetDinner(int id) {
+        public Dinner GetDinner(int id)
+        {
             return db.Dinners.SingleOrDefault(d => d.DinnerID == id);
         }
 
         //
         // Insert/Delete Methods
 
-        public void Add(Dinner dinner) {
-            db.Dinners.InsertOnSubmit(dinner);
+        public void Add(Dinner dinner)
+        {
+            db.Dinners.AddObject(dinner);
         }
 
-        public void Delete(Dinner dinner) {
-            db.RSVPs.DeleteAllOnSubmit(dinner.RSVPs);
-            db.Dinners.DeleteOnSubmit(dinner);
+        public void Delete(Dinner dinner)
+        {
+            foreach (RSVP rsvp in dinner.RSVPs.ToList())
+                db.RSVPs.DeleteObject(rsvp);
+            db.Dinners.DeleteObject(dinner);
         }
 
         //
         // Persistence 
 
-        public void Save() {
-            db.SubmitChanges();
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+
+
+        // Helper Methods
+
+        [EdmFunction("NerdDinnerModel.Store", "DistanceBetween")]
+        public static double DistanceBetween(double lat1, double long1, double lat2, double long2)
+        {
+            throw new NotImplementedException("Only call through LINQ expression");
+        }
+
+        public IQueryable<Dinner> NearestDinners(double latitude, double longitude)
+        {
+            return from d in db.Dinners
+                   where DistanceBetween(latitude, longitude, d.Latitude, d.Longitude) < 100
+                   select d;
         }
     }
 }
