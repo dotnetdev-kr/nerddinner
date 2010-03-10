@@ -60,8 +60,20 @@
 
     <script type="text/javascript">
     //<![CDATA[
-        $(document).ready(function() {
-            $("#Address").blur(function(evt) {
+        function _IpLocationUpdated(data) {
+          switch (data.CountryName) {
+            case 'United States':
+              $('#Country').val('USA');
+              break;
+            default:
+                $('#Country').val(data.CountryName);
+        }
+
+        $(document).ready(function () {
+
+            NerdDinner.GetIpLocation(_IpLocationUpdated);
+
+            $("#Address").blur(function (evt) {
                 //If it's time to look for an address, 
                 // clear out the Lat and Lon
                 $("#Latitude").val("0");

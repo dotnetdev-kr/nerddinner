@@ -99,6 +99,14 @@ NerdDinner.FindMostPopularDinners = function(limit) {
     $.post("/Search/GetMostPopularDinners", { "limit": limit }, NerdDinner._renderDinners, "json");
 }
 
+NerdDinner.GetIpLocation = function (locationUpdatedCallback) {
+    //TODO: Save location to session cookie (need to stringify json) and only pull it if cookie not set
+    $.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false',
+        function (data) {
+            locationUpdatedCallback(data);
+        });
+}
+
 NerdDinner._callbackUpdateMapDinners = function(layer, resultsArray, places, hasMore, VEErrorMessage) {
     var center = NerdDinner._map.GetCenter();
 
@@ -109,12 +117,12 @@ NerdDinner._callbackUpdateMapDinners = function(layer, resultsArray, places, has
 }
 
 
-NerdDinner._renderDinners = function(dinners) {
+NerdDinner._renderDinners = function (dinners) {
     $("#dinnerList").empty();
 
     NerdDinner.ClearMap();
 
-    $.each(dinners, function(i, dinner) {
+    $.each(dinners, function (i, dinner) {
 
         var LL = new VELatLong(dinner.Latitude, dinner.Longitude, 0, null);
 
@@ -136,10 +144,10 @@ NerdDinner._renderDinners = function(dinners) {
     }
 
     // Display the event's pin-bubble on hover.
-    $(".dinnerItem").each(function(i, dinner) {
+    $(".dinnerItem").each(function (i, dinner) {
         $(dinner).hover(
-            function() { NerdDinner._map.ShowInfoBox(NerdDinner._shapes[i]); },
-            function() { NerdDinner._map.HideInfoBox(NerdDinner._shapes[i]); }
+            function () { NerdDinner._map.ShowInfoBox(NerdDinner._shapes[i]); },
+            function () { NerdDinner._map.HideInfoBox(NerdDinner._shapes[i]); }
         );
     });
 
@@ -152,7 +160,7 @@ NerdDinner._renderDinners = function(dinners) {
     }
 
     function _getDinnerDescriptionHTML(dinner) {
-        return '<p>' + _getDinnerDate(dinner,"mmmm d, yyyy") +'</p><p>' + dinner.Description + '</p>' + _getRSVPMessage(dinner.RSVPCount);
+        return '<p>' + _getDinnerDate(dinner, "mmmm d, yyyy") + '</p><p>' + dinner.Description + '</p>' + _getRSVPMessage(dinner.RSVPCount);
     }
 
     function _dateDeserialize(dateStr) {
@@ -168,4 +176,5 @@ NerdDinner._renderDinners = function(dinners) {
 
         return rsvpMessage;
     }
+
 }
