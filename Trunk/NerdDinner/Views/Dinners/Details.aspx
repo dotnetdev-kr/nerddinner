@@ -11,9 +11,7 @@
         <h2 class="summary"><%: Html.Encode(Model.Title) %></h2>
         
         <p>
-            <a href="http://feeds.technorati.com/events/<%: Url.AbsoluteAction("Details", new { id = Model.DinnerID }) %>">
-                Add event to your calendar (iCal)
-            </a>
+            <%: Html.ActionLink("Add event to your calendar (iCal)", "DownloadCalendar", new { id = Model.DinnerID }) %>
         </p>
         
         <p>

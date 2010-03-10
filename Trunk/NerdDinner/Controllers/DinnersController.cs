@@ -3,6 +3,9 @@ using System.Web;
 using System.Web.Mvc;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
+using DDay.iCal;
+using DDay.iCal.Components;
+using DDay.iCal.Serialization;
 
 namespace NerdDinner.Controllers {
 
@@ -165,6 +168,26 @@ namespace NerdDinner.Controllers {
             dinnerRepository.Save();
 
             return View("Deleted");
+        }
+
+        public ActionResult DownloadCalendar(int id)
+        {
+            Dinner dinner = dinnerRepository.GetDinner(id);
+
+            if (dinner == null)
+                return View("NotFound");
+
+            string content = CalendarHelpers.GetCalendarText(dinner);
+
+            Response.AddHeader("Content-Disposition", "attachment;filename=\"calendar.ics\"");
+            var result = new ContentResult
+            {
+                ContentType = "text/calendar",
+                Content = content, 
+                ContentEncoding = System.Text.Encoding.UTF8
+            };
+
+            return result;
         }
 
 		protected override void HandleUnknownAction(string actionName)

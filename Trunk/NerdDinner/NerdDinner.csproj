@@ -39,6 +39,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DDay.iCal">
+      <HintPath>lib\DDay.iCal.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.0.10617.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Elmah.dll</HintPath>
@@ -96,6 +99,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CalendarHelpers.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\PhoneValidator.cs" />
