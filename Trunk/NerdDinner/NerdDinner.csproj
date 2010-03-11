@@ -42,6 +42,9 @@
     <Reference Include="DDay.iCal">
       <HintPath>lib\DDay.iCal.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>lib\DotNetOpenAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.0.10617.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Elmah.dll</HintPath>
@@ -101,8 +104,10 @@
     </Compile>
     <Compile Include="Helpers\CalendarHelpers.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
+    <Compile Include="Helpers\InMemoryTokenManager.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\PhoneValidator.cs" />
+    <Compile Include="Helpers\TwitterConsumer.cs" />
     <Compile Include="Models\Dinner.cs" />
     <Compile Include="Models\DinnerRepository.cs" />
     <Compile Include="Models\IDinnerRepository.cs" />
@@ -130,6 +135,7 @@
     <Content Include="Content\Img\icon-facebook.png" />
     <Content Include="Content\Img\icon-google.png" />
     <Content Include="Content\Img\icon-twitter.png" />
+    <Content Include="Content\Img\icon-yahoo.png" />
     <Content Include="Content\nerd.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />

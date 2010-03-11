@@ -263,6 +263,21 @@ select.input-validation-error
     text-decoration: underline;
 }
 
+#share a 
+{
+    text-decoration: none; 
+}
+
+#share input  
+{
+    width: 120px; 
+    font-size: 90%; 
+    padding: 1px 2px 0px 2px;
+    line-height: 100%; 
+    vertical-align: top; 
+    margin-right: 0; 
+}
+
 input:focus, textarea:focus
 {
     background-color: #FFFFE0;

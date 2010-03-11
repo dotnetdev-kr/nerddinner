@@ -190,19 +190,19 @@ namespace NerdDinner.Controllers {
             return result;
         }
 
-		protected override void HandleUnknownAction(string actionName)
-		{
+        protected override void HandleUnknownAction(string actionName)
+        {
             throw new HttpException(404, "Action not found");
-		}
+        }
 
-		public ActionResult Confused()
-		{
-			return View();
-		}
+        public ActionResult Confused()
+        {
+            return View();
+        }
 
-		public ActionResult Trouble()
-		{
-			return View("Error");
-		}
+        public ActionResult Trouble()
+        {
+            return View("Error");
+        }
     }
 }
