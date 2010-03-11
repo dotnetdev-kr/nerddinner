@@ -127,6 +127,9 @@
     <Content Include="App_Data\NerdDinner_log.ldf">
       <DependentUpon>NerdDinner.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Img\icon-facebook.png" />
+    <Content Include="Content\Img\icon-google.png" />
+    <Content Include="Content\Img\icon-twitter.png" />
     <Content Include="Content\nerd.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
