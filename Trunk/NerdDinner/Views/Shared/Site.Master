@@ -7,7 +7,7 @@
     <link href="/Content/Production.css" rel="stylesheet" type="text/css" media="screen"/>
   	<meta content="Nerd, Dinner, Geek, Luncheon, Dweeb, Breakfast, Technology, Bar, Beer, Wonk" name="keywords" /> 
     <meta name="description" content="Host and promote your own Nerd Dinner free!" /> 
-    <link title="My Site" rel="search" type="application/opensearchdescription+xml" href="~/OpenSearch.ashx" />
+    <link title="NerdDinner.com" rel="search" type="application/opensearchdescription+xml" href="~/OpenSearch.ashx" />
 
     <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>    
     <script src="/Scripts/date.format.js" type="text/javascript"></script>
@@ -15,8 +15,8 @@
 
     <script src="/Scripts/jquery_ui_datepicker.js" type="text/javascript"></script>
     <script src="/Scripts/timepicker_plug/timepicker.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="/Scripts/timepicker_plug/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/Scripts/smothness/jquery_ui_datepicker.css">
+    <link rel="stylesheet" type="text/css" href="/Scripts/timepicker_plug/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/Scripts/smothness/jquery_ui_datepicker.css"/>
 
     <asp:ContentPlaceHolder runat="server" ID="HeadArea" />
 
@@ -32,13 +32,15 @@
 
             <div id="logindisplay">
                 <% Html.RenderPartial("LoginStatus"); %>
-            </div> 
-            
+            </div>
             <div id="menucontainer">
-                <ul id="menu">      
-                   <li><%: Html.ActionLink("Find Dinner", "Index", "Home")%></li>
-                   <li><%: Html.ActionLink("Host Dinner", "Create", "Dinners")%></li>
-                   <li><%: Html.ActionLink("About", "About", "Home")%></li>   
+                <ul id="menu">
+                    <li><%: Html.ActionLink("Find Dinner", "Index", "Home")%></li>
+                    <li><%: Html.ActionLink("Host Dinner", "Create", "Dinners")%></li>
+                    <li><%: Html.ActionLink("About", "About", "Home")%></li>
+                    <img alt="OData Feed" class="first" src="/Content/Img/icon-odatafeed-28x28.png" />
+                    <img alt="RSS Feed" src="/Content/Img/icon-feed-28x28.png" />
+                    <img alt="iCal Feed" src="/Content/Img/icon-icalfeed-28x28.png" />
                 </ul>
             </div>
         </div>

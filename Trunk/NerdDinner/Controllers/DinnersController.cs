@@ -1,6 +1,8 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
 using DDay.iCal;
@@ -28,13 +30,22 @@ namespace NerdDinner.Controllers {
         //
         // GET: /Dinners/
         //      /Dinners/Page/2
+        //      /Dinners?query=search
 
-        public ActionResult Index(int? page) {
+        public ActionResult Index(string term, int? page) {
 
             const int pageSize = 25;
 
-            var upcomingDinners = dinnerRepository.FindUpcomingDinners();
-            var paginatedDinners = new PaginatedList<Dinner>(upcomingDinners, page ?? 0, pageSize);
+            var dinners = dinnerRepository.FindUpcomingDinners();
+
+            if (!string.IsNullOrWhiteSpace(term))
+            {
+                dinners = dinners.Where(d => d.Title.Contains(term)
+                            || d.Description.Contains(term)
+                            || d.HostedBy.Contains(term));
+            }
+
+            var paginatedDinners = new PaginatedList<Dinner>(dinners, page ?? 0, pageSize);
 
             return View(paginatedDinners);
         }

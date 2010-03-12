@@ -90,7 +90,7 @@ h4 {}
 */
 #header #title h1 a {display:block; position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('Img/logo.png') no-repeat bottom left; text-indent: -5000;}
 
-#menucontainer {position: absolute; right:65px; bottom: 0px; vertical-align:bottom;}
+#menucontainer {position: absolute; right:25px; bottom: 0px; vertical-align:bottom;}
 #menucontainer li {position:relative; left:0px; bottom:0px; float: left; margin:0px 0px 0px 4px; background: transparent url('img/menu-left.png') no-repeat bottom left;}
 #menucontainer li a {display:block; text-decoration: none; height:28px; padding:30px 20px 0px 20px; font-size: 108%; color:#FFFFFF; background: transparent url('img/menu-right.png') no-repeat bottom right;}
 #menucontainer li a:hover {color:#003300;}
@@ -102,6 +102,9 @@ h4 {}
 #menucontainer li.selected {}
 #menucontainer li.selected a {}
 #menucontainer li.selected a:hover {}
+
+#menu img { margin-top: 25px; }
+#menu img.first { margin-left: 10px; }        
 
 #main-top {width: 863px; height:10px; background: transparent url('img/content-top.png') no-repeat top left;}
 #main {width: 803px; background: transparent url('img/content-bottom.png') no-repeat bottom left; margin: 0px 0px 0px 0px; padding: 20px 30px 30px 30px;}

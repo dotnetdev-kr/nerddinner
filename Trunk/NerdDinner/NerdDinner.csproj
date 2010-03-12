@@ -149,6 +149,7 @@
     <Content Include="Content\Img\icon-facebook.png" />
     <Content Include="Content\Img\icon-feed-28x28.png" />
     <Content Include="Content\Img\icon-google.png" />
+    <Content Include="Content\Img\icon-icalfeed-28x28.png" />
     <Content Include="Content\Img\icon-odatafeed-28x28.png" />
     <Content Include="Content\Img\icon-twitter.png" />
     <Content Include="Content\Img\icon-yahoo.png" />

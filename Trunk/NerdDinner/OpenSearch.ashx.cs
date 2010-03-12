@@ -20,7 +20,7 @@ namespace NerdDinner
                 {
                     DisplayName = "Nerd Dinner",
                     LongDescription = "Nerd Dinner - Organizing the world's nerds and helping them eat in packs",
-                    SearchPathTemplate = "/#where={0}",
+                    SearchPathTemplate = "/Dinners?term={0}",
                     IconPath = "~/favicon.ico"
                 };
             }
