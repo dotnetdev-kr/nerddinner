@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.Linq;
+using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Web;
-using NerdDinner.Models;
 using System.Xml.Linq;
-using System.ServiceModel;
-using System.ServiceModel.Activation;
+using NerdDinner.Helpers;
+using NerdDinner.Models;
 
 namespace NerdDinner
 {
@@ -55,7 +54,7 @@ namespace NerdDinner
             if (String.IsNullOrEmpty(placeOrZip)) return null; ;
 
             string url = "http://ws.geonames.org/postalCodeSearch?{0}={1}&maxRows=1&style=SHORT";
-            url = String.Format(url, IsNumeric(placeOrZip) ? "postalcode" : "placename", placeOrZip);
+            url = String.Format(url, placeOrZip.IsNumeric() ? "postalcode" : "placename", placeOrZip);
 
             var result = HttpContext.Current.Cache[placeOrZip] as XDocument;
             if (result == null)
@@ -77,19 +76,5 @@ namespace NerdDinner
             return dinners;
         }
 
-        // IsNumeric Function
-        private bool IsNumeric(object Expression)
-        {
-            // Variable to collect the Return value of the TryParse method.
-            bool isNum;
-
-            // Define variable to collect out parameter of the TryParse method. If the conversion fails, the out parameter is zero.
-            double retNum;
-
-            // The TryParse method converts a string in a specified style and culture-specific format to its double-precision floating point number equivalent.
-            // The TryParse method does not generate an exception if the conversion fails. If the conversion passes, True is returned. If it does not, False is returned.
-            isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
-            return isNum;
-        }
     }
 }

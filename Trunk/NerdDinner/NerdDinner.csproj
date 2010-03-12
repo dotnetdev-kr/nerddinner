@@ -96,19 +96,23 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DinnersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RSSResult.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\RSVPController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CalendarHelpers.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
+    <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
     <Compile Include="Helpers\OpenIdRelyingPartyService.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\PhoneValidator.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\TwitterConsumer.cs" />
     <Compile Include="Models\Dinner.cs" />
     <Compile Include="Models\DinnerRepository.cs" />
@@ -149,6 +153,7 @@
     <Content Include="Content\Img\icon-facebook.png" />
     <Content Include="Content\Img\icon-feed-28x28.png" />
     <Content Include="Content\Img\icon-google.png" />
+    <Content Include="Content\Img\icon-icalfeed-16x16.png" />
     <Content Include="Content\Img\icon-icalfeed-28x28.png" />
     <Content Include="Content\Img\icon-odatafeed-28x28.png" />
     <Content Include="Content\Img\icon-twitter.png" />

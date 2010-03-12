@@ -18,20 +18,17 @@ namespace NerdDinner
             {
                 return new Description
                 {
-                    DisplayName = "Nerd Dinner",
+                    DisplayName = "NerdDinner.com",
                     LongDescription = "Nerd Dinner - Organizing the world's nerds and helping them eat in packs",
-                    SearchPathTemplate = "/Dinners?term={0}",
+                    SearchPathTemplate = "/Dinners?q={0}",
                     IconPath = "~/favicon.ico"
                 };
             }
         }
 
-        protected override IEnumerable<SearchResult> GetResults(string term)
+        protected override IEnumerable<SearchResult> GetResults(string q)
         {
-            var dinnerRepository = new DinnerRepository();
-            var dinners = dinnerRepository.FindAllDinners().Where(d => d.Title.Contains(term) 
-                            || d.Description.Contains(term) 
-                            || d.HostedBy.Contains(term) ).AsEnumerable();
+            var dinners = new DinnerRepository().FindDinnersByText(q);
 
             return from dinner in dinners
                    select new

@@ -8,6 +8,8 @@ namespace NerdDinner.Models {
         IQueryable<Dinner> FindAllDinners();
         IQueryable<Dinner> FindByLocation(float latitude, float longitude);
         IQueryable<Dinner> FindUpcomingDinners();
+        IQueryable<Dinner> FindDinnersByText(string q);
+
         Dinner GetDinner(int id);
 
         void Add(Dinner dinner);

@@ -16,6 +16,13 @@ namespace NerdDinner.Models
         //
         // Query Methods
 
+        public IQueryable<Dinner> FindDinnersByText(string q)
+        {
+            return db.Dinners.Where(d => d.Title.Contains(q)
+                            || d.Description.Contains(q)
+                            || d.HostedBy.Contains(q));
+        }
+
         public IQueryable<Dinner> FindAllDinners()
         {
             return db.Dinners;

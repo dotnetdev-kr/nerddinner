@@ -30,20 +30,19 @@ namespace NerdDinner.Controllers {
         //
         // GET: /Dinners/
         //      /Dinners/Page/2
-        //      /Dinners?query=search
+        //      /Dinners?q=term
 
-        public ActionResult Index(string term, int? page) {
+        public ActionResult Index(string q, int? page) {
 
             const int pageSize = 25;
 
-            var dinners = dinnerRepository.FindUpcomingDinners();
+            IQueryable<Dinner> dinners = null;
 
-            if (!string.IsNullOrWhiteSpace(term))
-            {
-                dinners = dinners.Where(d => d.Title.Contains(term)
-                            || d.Description.Contains(term)
-                            || d.HostedBy.Contains(term));
-            }
+            //Searching?
+            if (!string.IsNullOrWhiteSpace(q))
+                dinners = new DinnerRepository().FindDinnersByText(q);
+            else 
+                dinners = dinnerRepository.FindUpcomingDinners();
 
             var paginatedDinners = new PaginatedList<Dinner>(dinners, page ?? 0, pageSize);
 
@@ -184,26 +183,7 @@ namespace NerdDinner.Controllers {
             return View("Deleted");
         }
 
-        public ActionResult DownloadCalendar(int id)
-        {
-            Dinner dinner = dinnerRepository.GetDinner(id);
-
-            if (dinner == null)
-                return View("NotFound");
-
-            string content = CalendarHelpers.GetCalendarText(dinner);
-
-            Response.AddHeader("Content-Disposition", "attachment;filename=\"calendar.ics\"");
-            var result = new ContentResult
-            {
-                ContentType = "text/calendar",
-                Content = content, 
-                ContentEncoding = System.Text.Encoding.UTF8
-            };
-
-            return result;
-        }
-
+  
         protected override void HandleUnknownAction(string actionName)
         {
             throw new HttpException(404, "Action not found");

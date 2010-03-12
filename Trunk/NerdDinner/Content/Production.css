@@ -105,7 +105,7 @@ h4 {}
 
 #menu { float: left; }
 #menu li.last { margin-right: 10px; }
-a.feed { position: relative; top: 30px; text-decoration: none; }
+a.feed { position: relative; top: 23px; text-decoration: none; }
 
 #main-top {width: 863px; height:10px; background: transparent url('img/content-top.png') no-repeat top left;}
 #main {width: 803px; background: transparent url('img/content-bottom.png') no-repeat bottom left; margin: 0px 0px 0px 0px; padding: 20px 30px 30px 30px;}

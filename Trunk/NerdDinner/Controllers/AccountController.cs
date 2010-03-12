@@ -7,18 +7,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
-using DotNetOpenAuth.Messaging;
-using DotNetOpenAuth.OpenId;
-using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
-using DotNetOpenAuth.OpenId.RelyingParty;
 using NerdDinner.Helpers;
 
 namespace NerdDinner.Controllers {
 
 	  [HandleErrorWithELMAH]
     public class AccountController : Controller {
-
-        private static OpenIdRelyingParty relyingParty = new OpenIdRelyingParty(null);
 
         // This constructor is used by the MVC framework to instantiate the controller using
         // the default forms authentication and membership providers.

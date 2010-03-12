@@ -22,7 +22,7 @@
         </p>
         <p>
             <label for="Description">Description:</label>
-            <%: Html.TextAreaFor(m => Model.Dinner.Description) %>
+            <%: Html.TextAreaFor(m => Model.Dinner.Description, 6, 35, null) %>
         </p>
         <p>
             <label for="Address">Address:</label>

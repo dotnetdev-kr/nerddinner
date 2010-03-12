@@ -37,5 +37,16 @@ namespace System.Web.Mvc
 
             return absoluteAction;
         }
+        public static string AbsoluteAction(this UrlHelper url, string scheme, string action, object routeValues)
+        {
+            Uri requestUrl = url.RequestContext.HttpContext.Request.Url;
+
+            string absoluteAction = string.Format("{0}://{1}{2}",
+                                                  scheme,
+                                                  requestUrl.Authority,
+                                                  url.Action(action, routeValues));
+
+            return absoluteAction;
+        }
     }
 }

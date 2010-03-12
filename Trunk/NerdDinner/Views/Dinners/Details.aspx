@@ -1,5 +1,5 @@
 <%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<NerdDinner.Models.Dinner>" MasterPageFile="~/Views/Shared/Site.Master"  %>
-
+<%@ Import Namespace="NerdDinner.Helpers" %>
 <asp:Content ID="Title" ContentPlaceHolderID="TitleContent" runat="server">
     <%: Model.Title %>
 </asp:Content>
@@ -12,7 +12,7 @@
 
         <div id="share">
         <strong>Share: </strong>
-        <a href="http://twitter.com/home/?source=nerddinner&status=Nerd+Dinner%3A+<%: Model.Title %>+on+<%: Model.EventDate.ToString("MMM dd, yyyy") %>+|+RSVP%3A+http%3A%2F%2Fnrddnr.com/<%: Model.DinnerID %>+%23NerdDinner<%: Model.DinnerID %>"  
+        <a href="http://twitter.com/home/?source=nerddinner&status=Nerd+Dinner%3A+<%: Model.Title.Truncate(40) %>+on+<%: Model.EventDate.ToString("MMM dd") %>+-+RSVP%3A+http%3A%2F%2Fnrddnr.com/<%: Model.DinnerID %>"  
             title="Tweet this" target="_blank">
             <img src="/Content/Img/icon-twitter.png" alt="Twitter" border="0" />
         </a><a href="http://www.facebook.com/share.php?u=http%3A%2F%2Fnrddnr.com/<%: Model.DinnerID %>"  
@@ -25,7 +25,8 @@
 
         
         <p>
-            <%: Html.ActionLink("Add event to your calendar (iCal)", "DownloadCalendar", new { id = Model.DinnerID }) %>
+            <%: Html.ActionLink("Add event to your calendar:", "iCal", "Services", new { id = Model.DinnerID }, null) %> 
+            <a href="<%:Url.Action("iCal","Services", new { id = Model.DinnerID }, null) %>"><img src="/Content/Img/icon-icalfeed-16x16.png" /></a>
         </p>
         
         <p>
@@ -50,7 +51,7 @@
             <strong>Description:</strong> 
             <span class="description"><%: Model.Description %></span>
             <span style="display: none;">
-                <%: Html.ActionLink("URL for hCalendar", "Details", new { id = Model.DinnerID }, new { @class = "url" })%>
+                <%: Html.ActionLink("URL for hCalendar", "iCal", "Services", new { id = Model.DinnerID }, new { @class = "url" })%>
             </span>
         </p>
             
@@ -94,7 +95,7 @@
     <div id="mapDiv">
         <% Html.RenderPartial("map"); %>    
         <p>
-                    <img src="/content/img/microformat_hcalendar.png" alt="hCalendar"/>
+             <img src="/content/img/microformat_hcalendar.png" alt="hCalendar"/>
         </p>
     </div>   
          

@@ -44,7 +44,7 @@
         if (Sys.Application.get_stateString() === '') {
             $get('Location').value = '';
             NerdDinner.FindMostPopularDinners(8);
-            NerdDinner.GetIpLocation(_IpLocationUpdated);
+            //NerdDinner.GetIpLocation(_IpLocationUpdated);
         }
         else {
             var where = Sys.Application._state.where;
