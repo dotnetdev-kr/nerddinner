@@ -14,12 +14,12 @@ namespace NerdDinner.Models
     {
         public bool IsHostedBy(string userName)
         {
-            return HostedBy.Equals(userName, StringComparison.InvariantCultureIgnoreCase);
+            return String.Equals(HostedById ?? HostedBy, userName, StringComparison.Ordinal);
         }
 
         public bool IsUserRegistered(string userName)
         {
-            return RSVPs.Any(r => r.AttendeeName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
+            return RSVPs.Any(r => r.AttendeeNameId == userName || (r.AttendeeNameId == null && r.AttendeeName == userName));
         }
     }
 
@@ -32,6 +32,8 @@ namespace NerdDinner.Models
         [Required(ErrorMessage = "Description is required")]
         [StringLength(265, ErrorMessage = "Description may not be longer than 256 characters")]
         public string Description { get; set; }
+
+        public string HostedById { get; set; }
 
         public string HostedBy { get; set; }
 

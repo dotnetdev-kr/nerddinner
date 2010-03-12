@@ -14,7 +14,7 @@
         Use the form below to create a new account. 
     </p>
     <p>
-        Passwords are required to be a minimum of <%:Html.Encode(ViewData["PasswordLength"])%> characters in length.
+        Passwords are required to be a minimum of <%:ViewData["PasswordLength"]%> characters in length.
     </p>
     <%: Html.ValidationSummary() %>
     <% Html.EnableClientValidation(); %>

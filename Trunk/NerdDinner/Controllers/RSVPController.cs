@@ -40,7 +40,9 @@ namespace NerdDinner.Controllers
             if (!dinner.IsUserRegistered(User.Identity.Name)) {
 
                 RSVP rsvp = new RSVP();
-                rsvp.AttendeeName = User.Identity.Name;
+                NerdIdentity nerd = (NerdIdentity)User.Identity;
+                rsvp.AttendeeNameId = nerd.Name;
+                rsvp.AttendeeName = nerd.FriendlyName;
 
                 dinner.RSVPs.Add(rsvp);
                 dinnerRepository.Save();
@@ -94,7 +96,8 @@ namespace NerdDinner.Controllers
                 if (!dinner.IsUserRegistered(alias))
                 {
                     RSVP rsvp = new RSVP();
-                    rsvp.AttendeeName = alias.Substring(0,30);
+                    rsvp.AttendeeName = alias;
+                    rsvp.AttendeeNameId = response.ClaimedIdentifier;
 
                     dinner.RSVPs.Add(rsvp);
                     dinnerRepository.Save();

@@ -25,54 +25,51 @@ using System.Runtime.Serialization;
 namespace NerdDinner.Models
 {
     #region Contexts
-
+    
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
     public partial class NerdDinnerEntities : ObjectContext
     {
         #region Constructors
-
+    
         /// <summary>
         /// Initializes a new NerdDinnerEntities object using the connection string found in the 'NerdDinnerEntities' section of the application configuration file.
         /// </summary>
-        public NerdDinnerEntities()
-            : base("name=NerdDinnerEntities", "NerdDinnerEntities")
+        public NerdDinnerEntities() : base("name=NerdDinnerEntities", "NerdDinnerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
-
+    
         /// <summary>
         /// Initialize a new NerdDinnerEntities object.
         /// </summary>
-        public NerdDinnerEntities(string connectionString)
-            : base(connectionString, "NerdDinnerEntities")
+        public NerdDinnerEntities(string connectionString) : base(connectionString, "NerdDinnerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
-
+    
         /// <summary>
         /// Initialize a new NerdDinnerEntities object.
         /// </summary>
-        public NerdDinnerEntities(EntityConnection connection)
-            : base(connection, "NerdDinnerEntities")
+        public NerdDinnerEntities(EntityConnection connection) : base(connection, "NerdDinnerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
-
+    
         #endregion
-
+    
         #region Partial Methods
-
+    
         partial void OnContextCreated();
-
+    
         #endregion
-
+    
         #region ObjectSet Properties
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
@@ -88,7 +85,7 @@ namespace NerdDinner.Models
             }
         }
         private ObjectSet<Dinner> _Dinners;
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
@@ -107,7 +104,7 @@ namespace NerdDinner.Models
 
         #endregion
         #region AddTo Methods
-
+    
         /// <summary>
         /// Deprecated Method for adding a new object to the Dinners EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
@@ -115,7 +112,7 @@ namespace NerdDinner.Models
         {
             base.AddObject("Dinners", dinner);
         }
-
+    
         /// <summary>
         /// Deprecated Method for adding a new object to the RSVPs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
@@ -126,22 +123,22 @@ namespace NerdDinner.Models
 
         #endregion
     }
-
+    
 
     #endregion
-
+    
     #region Entities
-
+    
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName = "NerdDinnerModel", Name = "Dinner")]
+    [EdmEntityTypeAttribute(NamespaceName="NerdDinnerModel", Name="Dinner")]
     [Serializable()]
-    [DataContractAttribute(IsReference = true)]
+    [DataContractAttribute(IsReference=true)]
     public partial class Dinner : EntityObject
     {
         #region Factory Method
-
+    
         /// <summary>
         /// Create a new Dinner object.
         /// </summary>
@@ -173,11 +170,11 @@ namespace NerdDinner.Models
 
         #endregion
         #region Primitive Properties
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = true, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 DinnerID
         {
@@ -200,11 +197,11 @@ namespace NerdDinner.Models
         private global::System.Int32 _DinnerID;
         partial void OnDinnerIDChanging(global::System.Int32 value);
         partial void OnDinnerIDChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Title
         {
@@ -224,11 +221,11 @@ namespace NerdDinner.Models
         private global::System.String _Title;
         partial void OnTitleChanging(global::System.String value);
         partial void OnTitleChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.DateTime EventDate
         {
@@ -248,11 +245,11 @@ namespace NerdDinner.Models
         private global::System.DateTime _EventDate;
         partial void OnEventDateChanging(global::System.DateTime value);
         partial void OnEventDateChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Description
         {
@@ -272,11 +269,11 @@ namespace NerdDinner.Models
         private global::System.String _Description;
         partial void OnDescriptionChanging(global::System.String value);
         partial void OnDescriptionChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String HostedBy
         {
@@ -296,11 +293,11 @@ namespace NerdDinner.Models
         private global::System.String _HostedBy;
         partial void OnHostedByChanging(global::System.String value);
         partial void OnHostedByChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String ContactPhone
         {
@@ -320,11 +317,11 @@ namespace NerdDinner.Models
         private global::System.String _ContactPhone;
         partial void OnContactPhoneChanging(global::System.String value);
         partial void OnContactPhoneChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Address
         {
@@ -344,11 +341,11 @@ namespace NerdDinner.Models
         private global::System.String _Address;
         partial void OnAddressChanging(global::System.String value);
         partial void OnAddressChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Country
         {
@@ -368,11 +365,11 @@ namespace NerdDinner.Models
         private global::System.String _Country;
         partial void OnCountryChanging(global::System.String value);
         partial void OnCountryChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Double Latitude
         {
@@ -392,11 +389,11 @@ namespace NerdDinner.Models
         private global::System.Double _Latitude;
         partial void OnLatitudeChanging(global::System.Double value);
         partial void OnLatitudeChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Double Longitude
         {
@@ -416,11 +413,35 @@ namespace NerdDinner.Models
         private global::System.Double _Longitude;
         partial void OnLongitudeChanging(global::System.Double value);
         partial void OnLongitudeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String HostedById
+        {
+            get
+            {
+                return _HostedById;
+            }
+            set
+            {
+                OnHostedByIdChanging(value);
+                ReportPropertyChanging("HostedById");
+                _HostedById = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("HostedById");
+                OnHostedByIdChanged();
+            }
+        }
+        private global::System.String _HostedById;
+        partial void OnHostedByIdChanging(global::System.String value);
+        partial void OnHostedByIdChanged();
 
         #endregion
-
+    
         #region Navigation Properties
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
@@ -445,17 +466,17 @@ namespace NerdDinner.Models
 
         #endregion
     }
-
+    
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName = "NerdDinnerModel", Name = "RSVP")]
+    [EdmEntityTypeAttribute(NamespaceName="NerdDinnerModel", Name="RSVP")]
     [Serializable()]
-    [DataContractAttribute(IsReference = true)]
+    [DataContractAttribute(IsReference=true)]
     public partial class RSVP : EntityObject
     {
         #region Factory Method
-
+    
         /// <summary>
         /// Create a new RSVP object.
         /// </summary>
@@ -473,11 +494,11 @@ namespace NerdDinner.Models
 
         #endregion
         #region Primitive Properties
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = true, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 RsvpID
         {
@@ -500,11 +521,11 @@ namespace NerdDinner.Models
         private global::System.Int32 _RsvpID;
         partial void OnRsvpIDChanging(global::System.Int32 value);
         partial void OnRsvpIDChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 DinnerID
         {
@@ -524,11 +545,11 @@ namespace NerdDinner.Models
         private global::System.Int32 _DinnerID;
         partial void OnDinnerIDChanging(global::System.Int32 value);
         partial void OnDinnerIDChanged();
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty = false, IsNullable = false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String AttendeeName
         {
@@ -548,11 +569,35 @@ namespace NerdDinner.Models
         private global::System.String _AttendeeName;
         partial void OnAttendeeNameChanging(global::System.String value);
         partial void OnAttendeeNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttendeeNameId
+        {
+            get
+            {
+                return _AttendeeNameId;
+            }
+            set
+            {
+                OnAttendeeNameIdChanging(value);
+                ReportPropertyChanging("AttendeeNameId");
+                _AttendeeNameId = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttendeeNameId");
+                OnAttendeeNameIdChanged();
+            }
+        }
+        private global::System.String _AttendeeNameId;
+        partial void OnAttendeeNameIdChanging(global::System.String value);
+        partial void OnAttendeeNameIdChanged();
 
         #endregion
-
+    
         #region Navigation Properties
-
+    
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
@@ -595,5 +640,5 @@ namespace NerdDinner.Models
     }
 
     #endregion
-
+    
 }

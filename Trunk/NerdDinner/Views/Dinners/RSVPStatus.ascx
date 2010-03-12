@@ -32,7 +32,7 @@
     <strong>RSVP for this event:</strong>
     <a href="<%= Url.Action("RsvpTwitterBegin", "RSVP", new { id = Model.DinnerID }) %>"><img alt="Twitter" src="/Content/Img/icon-twitter.png" border="0" /></a>
     <a href="<%= Url.Action("RsvpBegin", "RSVP", new { id = Model.DinnerID, identifier = "https://www.google.com/accounts/o8/id" }) %>"><img alt="Google" src="/Content/Img/icon-google.png" border="0" /></a>
-    <a href="<%= Url.Action("RsvpBegin", "RSVP", new { id = Model.DinnerID, identifier = "https://me.yahoo.com/" }) %>"><img alt="Yahoo!" src="/Content/Img/icon-yahoo.png" border="0" /></a>    </strong>
+    <a href="<%= Url.Action("RsvpBegin", "RSVP", new { id = Model.DinnerID, identifier = "https://me.yahoo.com/" }) %>"><img alt="Yahoo!" src="/Content/Img/icon-yahoo.png" border="0" /></a>
 <% } %>
     
 </div>    

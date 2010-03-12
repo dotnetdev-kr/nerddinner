@@ -1,14 +1,14 @@
 <%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<NerdDinner.Models.Dinner>" MasterPageFile="~/Views/Shared/Site.Master"  %>
 
 <asp:Content ID="Title" ContentPlaceHolderID="TitleContent" runat="server">
-    <%: Html.Encode(Model.Title) %>
+    <%: Model.Title %>
 </asp:Content>
 
 <asp:Content ID="details" ContentPlaceHolderID="MainContent" runat="server">
 
     <div id="dinnerDiv" class="vevent">
 
-        <h2 class="summary"><%: Html.Encode(Model.Title) %></h2>
+        <h2 class="summary"><%: Model.Title %></h2>
 
         <div id="share">
         <strong>Share: </strong>
@@ -40,15 +40,15 @@
         <p>
             <strong>Where:</strong>
             <span class="location adr">
-                <span class="entended-address"><%: Html.Encode(Model.Address) %></span>, 
-                <span class="country-name"><%: Html.Encode(Model.Country) %></span>
+                <span class="entended-address"><%: Model.Address %></span>, 
+                <span class="country-name"><%: Model.Country %></span>
                 <abbr class="geo" title="<%: Model.Latitude %>;<%: Model.Longitude %>" style="display: none;">Geolocation for hCalendar</abbr>
             </span>
         </p>
         
         <p>
             <strong>Description:</strong> 
-            <span class="description"><%: Html.Encode(Model.Description) %></span>
+            <span class="description"><%: Model.Description %></span>
             <span style="display: none;">
                 <%: Html.ActionLink("URL for hCalendar", "Details", new { id = Model.DinnerID }, new { @class = "url" })%>
             </span>
@@ -58,8 +58,8 @@
             <strong>Organizer:</strong>
             <span class="organizer">
                 <span class="vcard">
-                    <span class="fn nickname"><%: Html.Encode(Model.HostedBy) %></span>
-                    <span class="tel"> <%: Html.Encode(Model.ContactPhone) %></span>
+                    <span class="fn nickname"><%: Model.HostedBy %></span>
+                    <span class="tel"> <%: Model.ContactPhone %></span>
                 </span>                
             </span>
         </p>
@@ -79,7 +79,7 @@
                 <%foreach (var RSVP in Model.RSVPs.Reverse()){%>
                   <li class="attendee">
                     <span class="vcard">
-                        <span class="fn nickname"><%:Html.Encode(RSVP.AttendeeName.StartsWith("@") ? RSVP.AttendeeName : RSVP.AttendeeName.Replace("@"," at ")) %></span>
+                        <span class="fn nickname"><%:RSVP.AttendeeName.StartsWith("@") ? RSVP.AttendeeName : RSVP.AttendeeName.Replace("@"," at ") %></span>
                     </span>
                   </li>
                 <% } %>

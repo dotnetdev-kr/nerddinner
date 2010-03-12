@@ -9,6 +9,16 @@ namespace System.Web.Mvc
 {
     public static class UrlHelperExtensions
     {
+        internal static Uri ActionFull(this UrlHelper urlHelper, string actionName)
+        {
+            return new Uri(HttpContext.Current.Request.Url, urlHelper.Action(actionName));
+        }
+
+        internal static Uri ActionFull(this UrlHelper urlHelper, string actionName, string controllerName)
+        {
+            return new Uri(HttpContext.Current.Request.Url, urlHelper.Action(actionName, controllerName));
+        }
+
         /// <summary>
         /// Returns an absolute url for an action
         /// </summary>

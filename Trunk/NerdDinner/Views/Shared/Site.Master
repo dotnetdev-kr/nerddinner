@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="/Scripts/timepicker_plug/css/style.css">
     <link rel="stylesheet" type="text/css" href="/Scripts/smothness/jquery_ui_datepicker.css">
 
+    <asp:ContentPlaceHolder runat="server" ID="HeadArea" />
 
 </head>
 

@@ -21,9 +21,9 @@
             <li>     
                 <%: Html.ActionLink(dinner.Title, "Details", new { id=dinner.DinnerID }) %>
                 on 
-                <%: Html.Encode(dinner.EventDate.ToString("yyyy-MMM-dd"))%> 
+                <%: dinner.EventDate.ToString("yyyy-MMM-dd")%> 
                 @
-                <%: Html.Encode(dinner.EventDate.ToString("HH:mm tt"))%>
+                <%: dinner.EventDate.ToString("HH:mm tt")%>
             </li>
         
         <% } %>

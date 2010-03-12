@@ -12,12 +12,12 @@
         <li>     
             <ul>
             <li>
-	            <a href="<%: Url.RouteUrl("PrettyDetails", new { Id = dinner.DinnerID }) %>"><%:Html.Encode(dinner.Title) %></a>
+	            <a href="<%: Url.RouteUrl("PrettyDetails", new { Id = dinner.DinnerID }) %>"><%:dinner.Title %></a>
             </li>
             <li>
-		          <%: Html.Encode(dinner.EventDate.ToString("yyyy-MMM-dd"))%> 
+		          <%:dinner.EventDate.ToString("yyyy-MMM-dd")%> 
 							@
-							<%: Html.Encode(dinner.EventDate.ToString("h:mm tt"))%>
+							<%: dinner.EventDate.ToString("h:mm tt")%>
             </li>
 						</ul>
 

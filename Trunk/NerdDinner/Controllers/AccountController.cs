@@ -7,11 +7,18 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
+using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OpenId;
+using DotNetOpenAuth.OpenId.Extensions.SimpleRegistration;
+using DotNetOpenAuth.OpenId.RelyingParty;
+using NerdDinner.Helpers;
 
 namespace NerdDinner.Controllers {
 
 	  [HandleErrorWithELMAH]
     public class AccountController : Controller {
+
+        private static OpenIdRelyingParty relyingParty = new OpenIdRelyingParty(null);
 
         // This constructor is used by the MVC framework to instantiate the controller using
         // the default forms authentication and membership providers.
@@ -52,6 +59,10 @@ namespace NerdDinner.Controllers {
                 ViewData["rememberMe"] = rememberMe;
                 return View();
             }
+
+            // Make sure we have the username with the right capitalization
+            // since we do case sensitive checks for OpenID Claimed Identifiers later.
+            userName = this.MembershipService.GetCanonicalUsername(userName);
 
             FormsAuth.SignIn(userName, rememberMe);
             if (!String.IsNullOrEmpty(returnUrl)) {
@@ -138,7 +149,8 @@ namespace NerdDinner.Controllers {
             return View();
         }
 
-        protected override void OnActionExecuting(ActionExecutingContext filterContext) {
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
             if (filterContext.HttpContext.User.Identity is WindowsIdentity) {
                 throw new InvalidOperationException("Windows authentication is not supported.");
             }
@@ -258,6 +270,7 @@ namespace NerdDinner.Controllers {
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
+        string GetCanonicalUsername(string userName);
         MembershipCreateStatus CreateUser(string userName, string password, string email);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
     }
@@ -281,6 +294,17 @@ namespace NerdDinner.Controllers {
 
         public bool ValidateUser(string userName, string password) {
             return _provider.ValidateUser(userName, password);
+        }
+
+        public string GetCanonicalUsername(string userName)
+        {
+            var user = _provider.GetUser(userName, true);
+            if (user != null)
+            {
+               return user.UserName;
+            }
+
+            return null;
         }
 
         public MembershipCreateStatus CreateUser(string userName, string password, string email) {

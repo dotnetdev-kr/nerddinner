@@ -115,10 +115,13 @@ namespace NerdDinner.Controllers {
             if (ModelState.IsValid) {
 
                 try {
-                    dinner.HostedBy = User.Identity.Name;
+                    NerdIdentity nerd = (NerdIdentity)User.Identity;
+                    dinner.HostedById = nerd.Name;
+                    dinner.HostedBy = nerd.FriendlyName;
 
                     RSVP rsvp = new RSVP();
-                    rsvp.AttendeeName = User.Identity.Name;
+                    rsvp.AttendeeNameId = nerd.Name;
+                    rsvp.AttendeeName = nerd.FriendlyName;
                     dinner.RSVPs.Add(rsvp);
 
                     dinnerRepository.Add(dinner);

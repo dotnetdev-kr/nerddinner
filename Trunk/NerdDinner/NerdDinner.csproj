@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DinnersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Helpers\CalendarHelpers.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
+    <Compile Include="Helpers\OpenIdRelyingPartyService.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\PhoneValidator.cs" />
     <Compile Include="Helpers\TwitterConsumer.cs" />
@@ -117,6 +119,7 @@
       <DependentUpon>NerdDinner.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\RuleViolation.cs" />
+    <Compile Include="NerdIdentity.cs" />
     <Compile Include="OpenSearch.ashx.cs">
       <DependentUpon>OpenSearch.ashx</DependentUpon>
     </Compile>
@@ -132,6 +135,17 @@
     <Content Include="App_Data\NerdDinner_log.ldf">
       <DependentUpon>NerdDinner.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\images\google.gif" />
+    <Content Include="Content\images\infocard_23x16.png" />
+    <Content Include="Content\images\myopenid.png" />
+    <Content Include="Content\images\openid.gif" />
+    <Content Include="Content\images\openid_login.gif" />
+    <Content Include="Content\images\verisign.gif" />
+    <Content Include="Content\images\yahoo.gif" />
+    <Content Include="Content\images\yahoo_login.png" />
+    <Content Include="Content\Img\button-google.png" />
+    <Content Include="Content\Img\button-twitter.png" />
+    <Content Include="Content\Img\button-yahoo.png" />
     <Content Include="Content\Img\icon-facebook.png" />
     <Content Include="Content\Img\icon-feed-28x28.png" />
     <Content Include="Content\Img\icon-google.png" />
@@ -139,10 +153,12 @@
     <Content Include="Content\Img\icon-twitter.png" />
     <Content Include="Content\Img\icon-yahoo.png" />
     <Content Include="Content\nerd.jpg" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery_ui_datepicker.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Scripts\MicrosoftMvcValidation.js" />
@@ -163,6 +179,8 @@
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Services.svc" />
+    <Content Include="Views\Shared\LogOn.aspx" />
+    <Content Include="Views\Shared\LogOnContent.ascx" />
     <Content Include="Views\Dinners\Create.aspx" />
     <Content Include="Views\Dinners\Delete.aspx" />
     <Content Include="Views\Dinners\Deleted.aspx" />
@@ -174,8 +192,11 @@
     <Content Include="Views\Dinners\NotFound.aspx" />
     <Content Include="Views\Dinners\RSVPStatus.ascx" />
     <Content Include="Views\Dinners\Map.ascx" />
+    <Content Include="Views\Home\PrivacyPolicy.aspx" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
@@ -279,6 +300,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OpenSearch.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

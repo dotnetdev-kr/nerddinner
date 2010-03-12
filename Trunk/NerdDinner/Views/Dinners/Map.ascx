@@ -18,8 +18,8 @@
     });
       
     function mapLoaded() {
-        var title = "<%: Html.Encode(Model.Title) %>";
-        var address = "<%: Html.Encode(Model.Address) %>";
+        var title = "<%: Model.Title %>";
+        var address = "<%: Model.Address %>";
     
         NerdDinner.LoadPin(NerdDinner._map.GetCenter(), title, address);
         NerdDinner._map.SetZoomLevel(14);

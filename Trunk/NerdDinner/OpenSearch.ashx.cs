@@ -29,14 +29,16 @@ namespace NerdDinner
         protected override IEnumerable<SearchResult> GetResults(string term)
         {
             var dinnerRepository = new DinnerRepository();
-            var dinners = dinnerRepository.FindAllDinners().Where(d => d.Title.Contains(term)).AsEnumerable();
+            var dinners = dinnerRepository.FindAllDinners().Where(d => d.Title.Contains(term) 
+                            || d.Description.Contains(term) 
+                            || d.HostedBy.Contains(term) ).AsEnumerable();
 
             return from dinner in dinners
                    select new
                        SearchResult
                        {
                            Description = dinner.Description,
-                           Title = dinner.Title,
+                           Title = dinner.Title + " with " + dinner.HostedBy,
                            Path = "/" + dinner.DinnerID
                        };
         }

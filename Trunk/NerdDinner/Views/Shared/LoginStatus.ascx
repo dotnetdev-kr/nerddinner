@@ -1,8 +1,9 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl" %>
+<%@ Import Namespace="NerdDinner" %>
 <%
     if (Request.IsAuthenticated) {
 %>
-        Welcome <b><%: Html.Encode(Page.User.Identity.Name) %></b>!
+        Welcome <b><%: ((NerdIdentity)Page.User.Identity).FriendlyName %></b>!
         [ <%: Html.ActionLink("Log Off", "LogOff", "Account") %> ]
 <%
     }

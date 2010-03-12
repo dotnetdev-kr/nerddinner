@@ -16,5 +16,10 @@ namespace NerdDinner.Controllers {
         public ActionResult About() {
             return View();
         }
-    }
+
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+   }
 }
