@@ -33,7 +33,6 @@ namespace NerdDinner.Models
         [StringLength(265, ErrorMessage = "Description may not be longer than 256 characters")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "HostedBy is required")]
         public string HostedBy { get; set; }
 
         [Required(ErrorMessage = "Address is required")]

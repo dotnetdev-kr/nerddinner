@@ -14,37 +14,31 @@
 
         <p>
             <label for="Title">Dinner Title:</label>
-            <%: Html.TextBox("Title", Model.Dinner.Title) %>
-            <%: Html.ValidationMessage("Title", "*") %>
+            <%: Html.EditorFor(m => Model.Dinner.Title) %>
         </p>
         <p>
             <label for="EventDate">Event Date:</label>
             <%: Html.EditorFor(m => m.Dinner.EventDate) %>
-            <%: Html.ValidationMessage("EventDate", "*") %>
         </p>
         <p>
             <label for="Description">Description:</label>
-            <%: Html.TextArea("Description", Model.Dinner.Description) %>
-            <%: Html.ValidationMessage("Description", "*")%>
+            <%: Html.TextAreaFor(m => Model.Dinner.Description) %>
         </p>
         <p>
             <label for="Address">Address:</label>
-            <%: Html.TextBox("Address", Model.Dinner.Address) %>
-            <%: Html.ValidationMessage("Address", "*") %>
+            <%: Html.EditorFor(m => Model.Dinner.Address)%>
         </p>
         <p>
             <label for="Country">Country:</label>
-            <%: Html.DropDownList("Country", Model.Countries) %>                
-            <%: Html.ValidationMessage("Country", "*") %>
+            <%: Html.DropDownList("Dinner.Country", Model.Countries) %>                
         </p>
         <p>
             <label for="ContactPhone">Contact Info:</label>
-            <%: Html.TextBox("ContactPhone", Model.Dinner.ContactPhone) %>
-            <%: Html.ValidationMessage("ContactPhone", "*") %>
+            <%: Html.EditorFor(m => Model.Dinner.ContactPhone)%>
         </p>
         <p>
-            <%: Html.Hidden("Latitude", Model.Dinner.Latitude)%>
-            <%: Html.Hidden("Longitude", Model.Dinner.Longitude)%>
+            <%: Html.HiddenFor(m => Model.Dinner.Latitude)%>
+            <%: Html.HiddenFor(m => Model.Dinner.Longitude)%>
         </p>                 
         <p>
             <input type="submit" value="Save" />
@@ -58,35 +52,23 @@
             
     </fieldset>
 
-    <script type="text/javascript">
-    //<![CDATA[
-        function _IpLocationUpdated(data) {
-          switch (data.CountryName) {
-            case 'United States':
-              $('#Country').val('USA');
-              break;
-            default:
-                $('#Country').val(data.CountryName);
-        }
-
-        $(document).ready(function () {
-
-            NerdDinner.GetIpLocation(_IpLocationUpdated);
-
-            $("#Address").blur(function (evt) {
-                //If it's time to look for an address, 
-                // clear out the Lat and Lon
-                $("#Latitude").val("0");
-                $("#Longitude").val("0");
-
-                var address = jQuery.trim($("#Address").val());
-                if (address.length < 1)
-                    return;
-
-                NerdDinner.FindAddressOnMap(address);
-            });
-        });
-    //]]>
-    </script>
-
 <% } %>
+
+
+<script type="text/javascript">
+//<![CDATA[
+    $(document).ready(function () {
+        $("#Dinner_Address").blur(function (evt) {
+            //If it's time to look for an address, 
+            // clear out the Lat and Lon
+            $("#Dinner_Latitude").val("0");
+            $("#Dinner_Longitude").val("0");
+            var address = jQuery.trim($("#Dinner_Address").val());
+            if (address.length < 1)
+                return;
+            NerdDinner.FindAddressOnMap(address);
+        });
+    });
+//]]>
+</script>
+
