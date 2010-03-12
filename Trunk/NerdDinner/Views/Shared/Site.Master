@@ -37,11 +37,11 @@
                 <ul id="menu">
                     <li><%: Html.ActionLink("Find Dinner", "Index", "Home")%></li>
                     <li><%: Html.ActionLink("Host Dinner", "Create", "Dinners")%></li>
-                    <li><%: Html.ActionLink("About", "About", "Home")%></li>
-                    <img alt="OData Feed" class="first" src="/Content/Img/icon-odatafeed-28x28.png" />
-                    <img alt="RSS Feed" src="/Content/Img/icon-feed-28x28.png" />
-                    <img alt="iCal Feed" src="/Content/Img/icon-icalfeed-28x28.png" />
+                    <li class="last"><%: Html.ActionLink("About", "About", "Home")%></li>
                 </ul>
+                <a class="feed" href="/Services.svc"><img alt="OData Feed" src="/Content/Img/icon-odatafeed-28x28.png" /></a>
+                <a class="feed" href="#"><img alt="RSS Feed" src="/Content/Img/icon-feed-28x28.png" /></a>
+                <a class="feed" href="#"><img alt="iCal Feed" src="/Content/Img/icon-icalfeed-28x28.png" /></a>
             </div>
         </div>
 
