@@ -22,6 +22,7 @@
 
     <link rel="alternate" type="application/rss+xml" title="NerdDinner.com - Upcoming Dinners" href="/Services/RSS" /> 
     <link rel="odata.service" title="NerdDinner.com OData Service" href="/Services/OData.svc" />
+    <link rel="odata.feed" title="NerdDinner.com OData Service - Dinners" href="/Services/OData.svc/Dinners" />
 
     <asp:ContentPlaceHolder runat="server" ID="HeadArea" />
 
