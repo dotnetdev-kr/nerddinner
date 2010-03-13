@@ -100,6 +100,22 @@
              <img src="/content/img/microformat_hcalendar.png" alt="hCalendar"/>
         </p>
     </div>   
+
+<div id="disqus_thread"></div>
+
+<script type="text/javascript">
+    var disqus_url = '<%: "http://www.nerddinner.com/" + Model.DinnerID.ToString() %>';
+    var disqus_developer = 1;
+
+    (function () {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://nerddinner.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=nerddinner">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
          
 </asp:Content> 
 

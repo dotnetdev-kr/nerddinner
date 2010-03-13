@@ -316,3 +316,5 @@ strong {
     padding-top: 10px;
     font-weight: bold;
 }
+
+#disqus_thread { clear: both; padding-top: 15px; }

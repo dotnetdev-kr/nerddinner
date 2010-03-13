@@ -14,11 +14,10 @@ namespace NerdDinner.Controllers
     class iCalResult : FileResult
     {
         public List<Dinner> Dinners { get; set; }
-        public string Filename { get; set; }
 
         public iCalResult(string filename) : base("text/calendar")
         {
-            this.Filename = filename;
+            this.FileDownloadName = filename;
         }
 
         public iCalResult(List<Dinner> dinners, string filename) : this(filename)
@@ -37,15 +36,22 @@ namespace NerdDinner.Controllers
             iCalendar iCal = new iCalendar();
             foreach (Dinner d in this.Dinners)
             {
-                Event e = CalendarHelpers.DinnerToEvent(d, iCal);
-                iCal.Events.Add(e);
+                try
+                {
+                    Event e = CalendarHelpers.DinnerToEvent(d, iCal);
+                    iCal.Events.Add(e);
+                }
+                catch (ArgumentOutOfRangeException)
+                { 
+                    //Swallow folks that have dinners in 9999. 
+                }
             }
 
             iCalendarSerializer serializer = new iCalendarSerializer(iCal);
-            
             string result = serializer.SerializeToString();
             response.ContentEncoding = Encoding.UTF8;
             response.Write(result);
         }
+
     }
 }
