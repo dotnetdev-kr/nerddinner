@@ -35,14 +35,18 @@ namespace NerdDinner.Controllers
 
             foreach (Dinner d in this.Dinners)
             {
+                string contentString = String.Format("{0} with {1} on {2:MMM dd, yyyy} at {3}. Where: {4}, {5}",
+                            d.Description, d.HostedBy, d.EventDate, d.EventDate.ToShortTimeString(), d.Address, d.Country);
+                
                 var item = new SyndicationItem(
                     title: d.Title,
-                    content: d.Description,
+                    content: contentString,
                     itemAlternateLink: new Uri("http://nrddnr.com/" + d.DinnerID),
                     id: "http://nrddnr.com/" + d.DinnerID,
-                    lastUpdatedTime: d.EventDate
+                    lastUpdatedTime: d.EventDate.ToUniversalTime()
                     );
-
+                item.PublishDate = d.EventDate.ToUniversalTime();
+                item.Summary = new TextSyndicationContent(contentString, TextSyndicationContentKind.Plaintext);
                 items.Add(item);
             }
 
