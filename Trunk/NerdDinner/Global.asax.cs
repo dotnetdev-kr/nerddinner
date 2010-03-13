@@ -67,7 +67,6 @@ namespace NerdDinner
                 if (!String.IsNullOrEmpty(encTicket))
                 {
                     FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(encTicket);
-                    string friendlyName = ticket.UserData;
                     NerdIdentity id = new NerdIdentity(ticket);
                     GenericPrincipal prin = new GenericPrincipal(id, null);
                     HttpContext.Current.User = prin;

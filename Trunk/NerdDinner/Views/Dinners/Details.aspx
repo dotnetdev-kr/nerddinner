@@ -77,7 +77,9 @@
         <%if(Model.RSVPs.Count > 0) {%>
                     <div id="whoscomingDiv">
             <ul class="attendees">
-                <%foreach (var RSVP in Model.RSVPs.Reverse()){%>
+                <%
+                    var RSVPs = Model.RSVPs.Reverse();      
+                    foreach (var RSVP in RSVPs){%>
                   <li class="attendee">
                     <span class="vcard">
                         <span class="fn nickname"><%:RSVP.AttendeeName.StartsWith("@") ? RSVP.AttendeeName : RSVP.AttendeeName.Replace("@"," at ") %></span>

@@ -58,7 +58,17 @@ namespace NerdDinner.Controllers {
             // since we do case sensitive checks for OpenID Claimed Identifiers later.
             userName = this.MembershipService.GetCanonicalUsername(userName);
 
-            FormsAuth.SignIn(userName, rememberMe);
+            FormsAuthenticationTicket authTicket = new
+                            FormsAuthenticationTicket(1, //version
+                            userName, // user name
+                            DateTime.Now,             //creation
+                            DateTime.Now.AddMinutes(30), //Expiration
+                            rememberMe, //Persistent
+                            userName); //since Classic logins don't have a "Friendly Name"
+
+            string encTicket = FormsAuthentication.Encrypt(authTicket);
+            this.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+
             if (!String.IsNullOrEmpty(returnUrl)) {
                 return Redirect(returnUrl);
             }
