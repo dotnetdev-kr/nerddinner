@@ -44,7 +44,11 @@
         if (Sys.Application.get_stateString() === '') {
             $get('Location').value = '';
             NerdDinner.FindMostPopularDinners(8);
-            //NerdDinner.GetIpLocation(_IpLocationUpdated);
+
+            $.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false&callback=?',
+            function (data) {
+                $get('Location').value = data.RegionName + ', ' + data.CountryName;
+            });
         }
         else {
             var where = Sys.Application._state.where;
@@ -61,10 +65,6 @@
             ValidateAndFindDinners();
         }
     });
-
-    function _IpLocationUpdated(data) {
-        $get('Location').value = data.RegionName + ', ' + data.CountryName;
-    }
 
     function ValidateAndFindDinners() {
         var where = $.trim($get('Location').value);

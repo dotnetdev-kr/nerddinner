@@ -99,14 +99,6 @@ NerdDinner.FindMostPopularDinners = function(limit) {
     $.post("/Search/GetMostPopularDinners", { "limit": limit }, NerdDinner._renderDinners, "json");
 }
 
-NerdDinner.GetIpLocation = function (locationUpdatedCallback) {
-    //TODO: Save location to session cookie (need to stringify json) and only pull it if cookie not set
-    $.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false',
-        function (data) {
-            locationUpdatedCallback(data);
-        });
-}
-
 NerdDinner._callbackUpdateMapDinners = function(layer, resultsArray, places, hasMore, VEErrorMessage) {
     var center = NerdDinner._map.GetCenter();
 
