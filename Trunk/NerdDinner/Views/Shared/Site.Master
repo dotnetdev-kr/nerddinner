@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/Scripts/smothness/jquery_ui_datepicker.css"/>
 
     <link rel="odata.feed" type="application/rss+xml" title="NerdDinner.com - Upcoming Dinners" href="/Services/RSS" /> 
-    <link rel="odata.service" type="application/odata+xml" title="OData" href="/Services.svc" />
+    <link rel="odata.service" type="application/odata+xml" title="OData" href="/Services/OData.svc" />
 
     <asp:ContentPlaceHolder runat="server" ID="HeadArea" />
 
@@ -42,7 +42,7 @@
                     <li><%: Html.ActionLink("Host Dinner", "Create", "Dinners")%></li>
                     <li class="last"><%: Html.ActionLink("About", "About", "Home")%></li>
                 </ul>
-                <a class="feed" href="/Services.svc"><img alt="OData Feed" src="/Content/Img/icon-odatafeed-28x28.png" /></a>
+                <a class="feed" href="/Services/OData.svc"><img alt="OData Feed" src="/Content/Img/icon-odatafeed-28x28.png" /></a>
                 <a class="feed" href="/Services/RSS"><img alt="RSS Feed" src="/Content/Img/icon-feed-28x28.png" /></a>
                 <a class="feed" href="<%: Url.Action("iCalFeed", "Services", null, "webcal") %>"><img alt="iCal Calendar Feed for Nerd Dinners" src="/Content/Img/icon-icalfeed-28x28.png" /></a>
             </div>
@@ -54,7 +54,7 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
 
-        <div id="footer">Code by <a href="http://www.hanselman.com">Hanselman</a>, <a href="http://weblogs.asp.net/scottgu">Guthrie</a>, and <a href="http://blog.wekeroad.com">Conery</a>. JavaScript by <a href="http://encosia.com">Dave Ward</a>. ASP.NET MVC by <a href="http://www.haacked.com">Haack</a> and friends. Style by <a href="http://michaeldorian.com/">Michael Dorian Bach</a>.<br/> Source Code at <a href="http://nerddinner.codeplex.com">http://nerddinner.codeplex.com</a>. Free Sample Book Chapter and code walkthrough at <a href="http://tinyurl.com/aspnetmvc">http://tinyurl.com/aspnetmvc</a>.</div>
+        <div id="footer">Code by <a href="http://www.hanselman.com">Hanselman</a>, <a href="http://weblogs.asp.net/scottgu">Guthrie</a>, <a href="http://weblogs.asp.net/jongalloway">Galloway</a>, <a href="http://blog.wekeroad.com">Conery</a> and <a href="http://blogs.msdn.com/andrewarnottms/">Arnott</a>. JavaScript by <a href="http://encosia.com">Dave Ward</a>. ASP.NET MVC by <a href="http://www.haacked.com">Haack</a> and friends. Style by <a href="http://michaeldorian.com/">Michael Dorian Bach</a>.<br/> Source Code at <a href="http://nerddinner.codeplex.com">http://nerddinner.codeplex.com</a>. Free Sample Book Chapter and code walkthrough at <a href="http://tinyurl.com/aspnetmvc">http://tinyurl.com/aspnetmvc</a>.</div>
 
     </div>
     

@@ -126,12 +126,12 @@
     <Compile Include="Models\RuleViolation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeolocationService.cs" />
+    <Compile Include="Services\OData.svc.cs">
+      <DependentUpon>OData.svc</DependentUpon>
+    </Compile>
     <Compile Include="Services\OpenIdRelyingPartyService.cs" />
     <Compile Include="Services\OpenSearch.ashx.cs">
       <DependentUpon>OpenSearch.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="Services\Services.svc.cs">
-      <DependentUpon>Services.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -185,7 +185,7 @@
     <Content Include="Scripts\smothness\jquery_ui_datepicker.css" />
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
-    <Content Include="Services\Services.svc" />
+    <Content Include="Services\OData.svc" />
     <Content Include="Views\Shared\LogOn.aspx" />
     <Content Include="Views\Shared\LogOnContent.ascx" />
     <Content Include="Views\Dinners\Create.aspx" />
