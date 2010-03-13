@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
+using NerdDinner.Services;
 
 namespace NerdDinner.Controllers
 {
@@ -57,26 +58,10 @@ namespace NerdDinner.Controllers
         public ActionResult SearchByPlaceNameOrZip(string placeOrZip)
         {
             if (String.IsNullOrEmpty(placeOrZip)) return null; ;
-
-            string url = "http://ws.geonames.org/postalCodeSearch?{0}={1}&maxRows=1&style=SHORT";
-            url = String.Format(url, placeOrZip.IsNumeric() ? "postalcode" : "placename", placeOrZip);
-
-            var result = ControllerContext.HttpContext.Cache[placeOrZip] as XDocument;
-            if (result == null)
-            {
-                result = XDocument.Load(url);
-                ControllerContext.HttpContext.Cache.Insert(placeOrZip, result, null, DateTime.Now.AddDays(1), System.Web.Caching.Cache.NoSlidingExpiration);
-            }
-
-            var LatLong = (from x in result.Descendants("code")
-                           select new
-                           {
-                               Lat = (float)x.Element("lat"),
-                               Long = (float)x.Element("lng")
-                           }).First();
+            LatLong location = GeolocationService.PlaceOrZipToLatLong(placeOrZip);
 
             var dinners = dinnerRepository.
-                            FindByLocation(LatLong.Lat, LatLong.Long).
+                            FindByLocation(location.Lat, location.Long).
                             OrderByDescending(p => p.EventDate);
 
             return View("Results", new PaginatedList<Dinner>(dinners, 0, 20));

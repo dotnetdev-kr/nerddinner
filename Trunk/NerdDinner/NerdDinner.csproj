@@ -62,6 +62,7 @@
     </Reference>
     <Reference Include="System.Data.Services" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -96,7 +97,6 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DinnersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RSSResult.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\RSVPController.cs">
       <SubType>Code</SubType>
@@ -109,9 +109,9 @@
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
-    <Compile Include="Helpers\OpenIdRelyingPartyService.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\PhoneValidator.cs" />
+    <Compile Include="Helpers\RSSResult.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\TwitterConsumer.cs" />
     <Compile Include="Models\Dinner.cs" />
@@ -122,15 +122,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NerdDinner.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\NerdIdentity.cs" />
     <Compile Include="Models\RuleViolation.cs" />
-    <Compile Include="NerdIdentity.cs" />
-    <Compile Include="OpenSearch.ashx.cs">
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\GeolocationService.cs" />
+    <Compile Include="Services\OpenIdRelyingPartyService.cs" />
+    <Compile Include="Services\OpenSearch.ashx.cs">
       <DependentUpon>OpenSearch.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services.svc.cs">
+    <Compile Include="Services\Services.svc.cs">
       <DependentUpon>Services.svc</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +185,7 @@
     <Content Include="Scripts\smothness\jquery_ui_datepicker.css" />
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
-    <Content Include="Services.svc" />
+    <Content Include="Services\Services.svc" />
     <Content Include="Views\Shared\LogOn.aspx" />
     <Content Include="Views\Shared\LogOnContent.ascx" />
     <Content Include="Views\Dinners\Create.aspx" />
@@ -305,10 +306,10 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OpenSearch.ashx" />
+    <Folder Include="Views\Auth\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Auth\" />
+    <Content Include="Services\OpenSearch.ashx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

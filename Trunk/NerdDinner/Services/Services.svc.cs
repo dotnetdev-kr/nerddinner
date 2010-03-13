@@ -8,21 +8,22 @@ using System.Web;
 using System.Xml.Linq;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
+using NerdDinner.Services;
 
 namespace NerdDinner
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
-    public class Services : DataService<NerdDinnerEntities>
+    public class ODataServices : DataService<NerdDinnerEntities>
     {
         IDinnerRepository dinnerRepository;
         //
         // Dependency Injection enabled constructors
 
-        public Services()
+        public ODataServices()
             : this(new DinnerRepository()) {
         }
 
-        public Services(IDinnerRepository repository)
+        public ODataServices(IDinnerRepository repository)
         {
             dinnerRepository = repository;
         }
@@ -53,25 +54,10 @@ namespace NerdDinner
         {
             if (String.IsNullOrEmpty(placeOrZip)) return null; ;
 
-            string url = "http://ws.geonames.org/postalCodeSearch?{0}={1}&maxRows=1&style=SHORT";
-            url = String.Format(url, placeOrZip.IsNumeric() ? "postalcode" : "placename", placeOrZip);
-
-            var result = HttpContext.Current.Cache[placeOrZip] as XDocument;
-            if (result == null)
-            {
-                result = XDocument.Load(url);
-                HttpContext.Current.Cache.Insert(placeOrZip, result, null, DateTime.Now.AddDays(1), System.Web.Caching.Cache.NoSlidingExpiration);
-            }
-
-            var LatLong = (from x in result.Descendants("code")
-                           select new
-                           {
-                               Lat = (float)x.Element("lat"),
-                               Long = (float)x.Element("lng")
-                           }).First();
+            LatLong location = GeolocationService.PlaceOrZipToLatLong(placeOrZip);
 
             var dinners = dinnerRepository.
-                            FindByLocation(LatLong.Lat, LatLong.Long).
+                            FindByLocation(location.Lat, location.Long).
                             OrderByDescending(p => p.EventDate);
             return dinners;
         }
