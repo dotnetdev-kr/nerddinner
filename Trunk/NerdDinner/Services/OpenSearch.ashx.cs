@@ -28,7 +28,7 @@ namespace NerdDinner
 
         protected override IEnumerable<SearchResult> GetResults(string q)
         {
-            var dinners = new DinnerRepository().FindDinnersByText(q);
+            var dinners = new DinnerRepository().FindDinnersByText(q).ToArray();
 
             return from dinner in dinners
                    select new
@@ -42,12 +42,20 @@ namespace NerdDinner
 
         protected override IEnumerable<SearchSuggestion> GetSuggestions(string term)
         {
-            throw new NotImplementedException();
+            var dinners = new DinnerRepository().FindDinnersByText(term).ToArray();
+
+            return from dinner in dinners
+                   select new
+                       SearchSuggestion
+                   {
+                       Description = dinner.Description,
+                       Term = dinner.Title + " with " + dinner.HostedBy,
+                   };
         }
 
         protected override bool SupportsSuggestions
         {
-            get { return false; }
+            get { return true; }
         }
     }
 }
