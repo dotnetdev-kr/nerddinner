@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using NerdDinner.Models;
 using NerdDinner.Helpers;
 using DDay.iCal.Components;
+using NerdDinner.Services;
 
 namespace NerdDinner.Controllers
 {
@@ -51,6 +52,26 @@ namespace NerdDinner.Controllers
                 return View("NotFound");
 
             return new iCalResult(dinner, "NerdDinner.ics");
+        }
+
+        public ActionResult Flair()
+        {
+            string SourceIP = string.IsNullOrEmpty(Request.ServerVariables["HTTP_X_FORWARDED_FOR"]) ?
+                Request.ServerVariables["REMOTE_ADDR"] :
+                Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            var location = GeolocationService.HostIpToPlaceName(SourceIP);
+            var dinners = dinnerRepository.
+                FindByLocation(location.Position.Lat, location.Position.Long).
+                OrderByDescending(p => p.EventDate).Take(3);
+
+            return View(
+                new FlairViewModel 
+                {
+                    Dinners = dinners.ToList(),
+                    LocationName = string.IsNullOrEmpty(location.City) ? "you" :  String.Format("{0}, {1}", location.City, location.RegionName)
+                }
+            );
         }
     }
 }

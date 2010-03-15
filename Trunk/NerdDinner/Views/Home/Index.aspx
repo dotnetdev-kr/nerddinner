@@ -47,7 +47,9 @@
 
             $.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false&callback=?',
             function (data) {
-                $get('Location').value = data.RegionName + ', ' + data.CountryName;
+                if (data.RegionName != '') {
+                    $get('Location').value = data.RegionName + ', ' + data.CountryName;
+                }
             });
         }
         else {
