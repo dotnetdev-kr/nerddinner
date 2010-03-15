@@ -41,7 +41,7 @@
         <p>
             <strong>Where:</strong>
             <span class="location adr">
-                <span class="entended-address"><%: Model.Address %></span>, 
+                <span class="extended-address"><%: Model.Address %></span>, 
                 <span class="country-name"><%: Model.Country %></span>
                 <abbr class="geo" title="<%: Model.Latitude %>;<%: Model.Longitude %>" style="display: none;">Geolocation for hCalendar</abbr>
             </span>
