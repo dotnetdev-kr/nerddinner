@@ -30,7 +30,7 @@
             <div id="nd-bummer">
                 Looks like there's no Nerd Dinners near
                 <%:Model.LocationName %>
-                in the near future. Why not <a href="http://www.nerddinner.com/Dinners/Create">host
+                in the near future. Why not <a target="_blank" href="http://www.nerddinner.com/Dinners/Create">host
                     one</a>?</div>
             <% }
                else
@@ -41,7 +41,7 @@
                 <% foreach (var item in Model.Dinners)
                    { %>
                 <li>
-                    <%: Html.ActionLink(String.Format("{0} with {1} on {2}", item.Title.Truncate(20), item.HostedBy, item.EventDate.ToShortDateString()),"Details", "Dinner", new { id = item.DinnerID }, null ) %></li>
+                    <%: Html.ActionLink(String.Format("{0} with {1} on {2}", item.Title.Truncate(20), item.HostedBy, item.EventDate.ToShortDateString()), "Details", "Dinner", new { id = item.DinnerID }, new { target = "_blank" })%></li>
                 <% } %>
             </ul>
             <% } %>
