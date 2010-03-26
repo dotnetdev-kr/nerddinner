@@ -92,7 +92,7 @@ namespace NerdDinner.Controllers {
                 return View("InvalidOwner");
 
             try {
-                UpdateModel(dinner);
+                UpdateModel(dinner, "Dinner");
 
                 dinnerRepository.Save();
 
