@@ -143,6 +143,7 @@
     <Content Include="App_Data\NerdDinner_log.ldf">
       <DependentUpon>NerdDinner.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Flair.css" />
     <Content Include="Content\images\google.gif" />
     <Content Include="Content\images\infocard_23x16.png" />
     <Content Include="Content\images\myopenid.png" />
@@ -192,6 +193,7 @@
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Services\OData.svc" />
     <Content Include="Views\Services\Flair.aspx" />
+    <Content Include="Views\Services\JavascriptFlair.aspx" />
     <Content Include="Views\Shared\LogOn.aspx" />
     <Content Include="Views\Shared\LogOnContent.ascx" />
     <Content Include="Views\Dinners\Create.aspx" />

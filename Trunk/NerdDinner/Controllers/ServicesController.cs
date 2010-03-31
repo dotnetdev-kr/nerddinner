@@ -7,6 +7,7 @@ using NerdDinner.Models;
 using NerdDinner.Helpers;
 using DDay.iCal.Components;
 using NerdDinner.Services;
+using System.ComponentModel;
 
 namespace NerdDinner.Controllers
 {
@@ -54,7 +55,7 @@ namespace NerdDinner.Controllers
             return new iCalResult(dinner, "NerdDinner.ics");
         }
 
-        public ActionResult Flair()
+        public ActionResult Flair([DefaultValue("html")]string format)
         {
             string SourceIP = string.IsNullOrEmpty(Request.ServerVariables["HTTP_X_FORWARDED_FOR"]) ?
                 Request.ServerVariables["REMOTE_ADDR"] :
@@ -65,7 +66,21 @@ namespace NerdDinner.Controllers
                 FindByLocation(location.Position.Lat, location.Position.Long).
                 OrderByDescending(p => p.EventDate).Take(3);
 
+            // Select the view we'll return. Using a switch because we'll add in JSON and other formats later.
+            // Will probably extract or refactor this.
+            string view;
+            switch (format.ToLower())
+            {
+                case "javascript":
+                    view = "JavascriptFlair";
+                    break;
+                default:
+                    view = "Flair";
+                    break;
+            }
+
             return View(
+                view,
                 new FlairViewModel 
                 {
                     Dinners = dinners.ToList(),
