@@ -72,7 +72,7 @@ namespace MvcRelyingParty.Controllers {
 		/// because some OpenID positive assertions messages otherwise look like
 		/// hack attempts and result in errors when validation is turned on.
 		/// </remarks>
-        [HttpGet(), HttpPost(), ValidateInput(false)]
+		[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post), ValidateInput(false)]
 		public ActionResult PopUpReturnTo() {
 			return RelyingParty.ProcessAjaxOpenIdResponse();
 		}
