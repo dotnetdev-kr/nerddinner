@@ -192,6 +192,7 @@
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Services\OData.svc" />
+    <Content Include="Views\Dinners\My.aspx" />
     <Content Include="Views\Services\Flair.aspx" />
     <Content Include="Views\Services\JavascriptFlair.aspx" />
     <Content Include="Views\Shared\LogOn.aspx" />

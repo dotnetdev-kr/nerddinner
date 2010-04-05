@@ -198,5 +198,23 @@ namespace NerdDinner.Controllers {
         {
             return View("Error");
         }
+
+        [Authorize]
+        public ActionResult My()
+        {
+
+            NerdIdentity nerd = (NerdIdentity)User.Identity;
+            var userDinners = from dinner in dinnerRepository.FindAllDinners()
+                              where
+                                (
+                                String.Equals((dinner.HostedById ?? dinner.HostedBy), nerd.Name)
+                                    ||
+                                dinner.RSVPs.Any(r => r.AttendeeNameId == nerd.Name || (r.AttendeeNameId == null && r.AttendeeName == nerd.Name)) 
+                                )
+                              orderby dinner.EventDate
+                              select dinner;
+
+            return View(userDinners);
+        }
     }
 }

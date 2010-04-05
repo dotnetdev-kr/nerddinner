@@ -67,7 +67,7 @@ namespace NerdDinner.Controllers
         // GET: /RSVP/RsvpBegin
         // POST: /RSVP/RsvpBegin
 
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post), ValidateInput(false)]
+        [HttpGet(), HttpPost(), ValidateInput(false)]
         public ActionResult RsvpFinish()
         {
             IAuthenticationResponse response = relyingParty.GetResponse();

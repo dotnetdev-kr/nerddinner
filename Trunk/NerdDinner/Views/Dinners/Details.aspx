@@ -75,7 +75,7 @@
         </p>
         
         <%if(Model.RSVPs.Count > 0) {%>
-                    <div id="whoscomingDiv">
+           <div id="whoscomingDiv">
             <ul class="attendees">
                 <%
                     var RSVPs = Model.RSVPs.Reverse();      

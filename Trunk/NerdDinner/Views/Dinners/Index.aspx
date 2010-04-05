@@ -21,9 +21,10 @@
             <li>     
                 <%: Html.ActionLink(dinner.Title, "Details", new { id=dinner.DinnerID }) %>
                 on 
-                <%: dinner.EventDate.ToString("yyyy-MMM-dd")%> 
-                @
-                <%: dinner.EventDate.ToString("HH:mm tt")%>
+                <strong><%: dinner.EventDate.ToString("yyyy-MMM-dd")%> 
+                <%: dinner.EventDate.ToString("HH:mm tt")%></strong>
+                at 
+                <%: dinner.Address + " " + dinner.Country %>
             </li>
         
         <% } %>

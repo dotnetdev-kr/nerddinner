@@ -43,6 +43,10 @@
                 <ul id="menu">
                     <li><%: Html.ActionLink("Find Dinner", "Index", "Home")%></li>
                     <li><%: Html.ActionLink("Host Dinner", "Create", "Dinners")%></li>
+                    <% if (Request.IsAuthenticated)
+                       { %>
+                       <li><%: Html.ActionLink("My Dinners", "My", "Dinners")%></li>
+                    <% } %>
                     <li class="last"><%: Html.ActionLink("About", "About", "Home")%></li>
                 </ul>
                 <a class="feed" href="/Services/OData.svc"><img alt="OData Feed" src="/Content/Img/icon-odatafeed-28x28.png" /></a>
