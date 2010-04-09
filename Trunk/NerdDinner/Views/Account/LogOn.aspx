@@ -15,6 +15,7 @@
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Log On</h2>
+    <%: Html.ValidationSummary("Login was unsuccessful. Please correct the errors and try again.") %>
     <style type="text/css">
         /* TODO: Move inline styles to Production.css */
         #login-oauth, #login-account { float: left; width: 330px; height: 210px; border: 1px dotted black; padding: 10px; }
@@ -38,19 +39,18 @@
     <div id="or">OR</div>
     <div id="login-account">
         <h3>using a NerdDinner account</h3>
-    <%: Html.ValidationSummary() %>
 
     <% using (Html.BeginForm()) { %>
         <div>
             <p>
                 <label for="username">Username:</label>
                 <%: Html.TextBox("username") %>
-                <%: Html.ValidationMessage("username") %>
+                <%: Html.ValidationMessage("username", "*") %>
             </p>
             <p>
                 <label for="password">Password:</label>
                 <%: Html.Password("password") %>
-                <%: Html.ValidationMessage("password") %>
+                <%: Html.ValidationMessage("password", "*")%>
             </p>
             <p>
                 <%: Html.CheckBox("rememberMe") %> <label class="inline" for="rememberMe">Remember me?</label>

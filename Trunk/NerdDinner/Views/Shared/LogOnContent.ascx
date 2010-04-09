@@ -2,8 +2,6 @@
 <%@ Import Namespace="DotNetOpenAuth.Mvc" %>
 <%@ Import Namespace="DotNetOpenAuth.OpenId.RelyingParty" %>
 
-<%= Html.ValidationSummary("Login was unsuccessful. Please correct the errors and try again.") %>
-
 <% using (Html.BeginForm("LogOnPostAssertion", "Auth", FormMethod.Post, new { target = "_top" })) { %>
 <%= Html.AntiForgeryToken() %>
 <%= Html.Hidden("ReturnUrl", Request.QueryString["ReturnUrl"], new { id = "ReturnUrl" }) %>
