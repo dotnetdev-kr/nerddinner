@@ -83,9 +83,10 @@ NerdDinner._callbackForLocation = function(layer, resultsArray, places, hasMore,
     }
 
     //If we've found exactly one place, that's our address.
+    //lat/long precision was getting lost here with toLocaleString, changed to toString
     if (NerdDinner._points.length === 1) {
-        $("#Dinner_Latitude").val(NerdDinner._points[0].Latitude.toLocaleString());
-        $("#Dinner_Longitude").val(NerdDinner._points[0].Longitude.toLocaleString());
+        $("#Dinner_Latitude").val(NerdDinner._points[0].Latitude.toString());
+        $("#Dinner_Longitude").val(NerdDinner._points[0].Longitude.toString());
     }
 }
 
@@ -168,5 +169,43 @@ NerdDinner._renderDinners = function (dinners) {
 
         return rsvpMessage;
     }
+}
 
+NerdDinner.dragShape = null;
+NerdDinner.dragPixel = null;
+
+NerdDinner.EnableMapMouseClickCallback = function () {
+    NerdDinner._map.AttachEvent("onmousedown", NerdDinner.onMouseDown);
+    NerdDinner._map.AttachEvent("onmouseup", NerdDinner.onMouseUp);
+    NerdDinner._map.AttachEvent("onmousemove", NerdDinner.onMouseMove);
+}
+
+NerdDinner.onMouseDown = function (e) {
+    if (e.elementID != null) {
+        NerdDinner.dragShape = NerdDinner._map.GetShapeByID(e.elementID);
+        return true;
+    }
+}
+
+NerdDinner.onMouseUp = function (e) {
+    if (NerdDinner.dragShape != null) {
+        var x = e.mapX;
+        var y = e.mapY;
+        NerdDinner.dragPixel = new VEPixel(x, y);
+        var LatLong = NerdDinner._map.PixelToLatLong(NerdDinner.dragPixel);
+        $("#Dinner_Latitude").val(LatLong.Latitude.toString());
+        $("#Dinner_Longitude").val(LatLong.Longitude.toString());
+        NerdDinner.dragShape = null;
+    }
+}
+
+NerdDinner.onMouseMove = function (e) {
+    if (NerdDinner.dragShape != null) {
+        var x = e.mapX;
+        var y = e.mapY;
+        NerdDinner.dragPixel = new VEPixel(x, y);
+        var LatLong = NerdDinner._map.PixelToLatLong(NerdDinner.dragPixel);
+        NerdDinner.dragShape.SetPoints(LatLong);
+        return true;
+    }
 }

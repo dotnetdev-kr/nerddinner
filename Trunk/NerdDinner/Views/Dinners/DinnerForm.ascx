@@ -48,6 +48,7 @@
         
         <div id="mapDiv">    
             <% Html.RenderPartial("Map", Model.Dinner); %>
+            (drag the pin in the map if it doesn't look right)
         </div> 
             
     </fieldset>
@@ -58,6 +59,8 @@
 <script type="text/javascript">
 //<![CDATA[
     $(document).ready(function () {
+        NerdDinner.EnableMapMouseClickCallback();
+
         $("#Dinner_Address").blur(function (evt) {
             //If it's time to look for an address, 
             // clear out the Lat and Lon
