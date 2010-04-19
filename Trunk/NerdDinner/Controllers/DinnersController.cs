@@ -123,24 +123,19 @@ namespace NerdDinner.Controllers {
         public ActionResult Create(Dinner dinner) {
 
             if (ModelState.IsValid) {
+                NerdIdentity nerd = (NerdIdentity)User.Identity;
+                dinner.HostedById = nerd.Name;
+                dinner.HostedBy = nerd.FriendlyName;
 
-                try {
-                    NerdIdentity nerd = (NerdIdentity)User.Identity;
-                    dinner.HostedById = nerd.Name;
-                    dinner.HostedBy = nerd.FriendlyName;
+                RSVP rsvp = new RSVP();
+                rsvp.AttendeeNameId = nerd.Name;
+                rsvp.AttendeeName = nerd.FriendlyName;
+                dinner.RSVPs.Add(rsvp);
 
-                    RSVP rsvp = new RSVP();
-                    rsvp.AttendeeNameId = nerd.Name;
-                    rsvp.AttendeeName = nerd.FriendlyName;
-                    dinner.RSVPs.Add(rsvp);
+                dinnerRepository.Add(dinner);
+                dinnerRepository.Save();
 
-                    dinnerRepository.Add(dinner);
-                    dinnerRepository.Save();
-
-                    return RedirectToAction("Details", new { id=dinner.DinnerID });
-                }
-                catch {
-                }
+                return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
 
             return View(new DinnerFormViewModel(dinner));
