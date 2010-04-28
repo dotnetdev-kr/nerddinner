@@ -22,9 +22,12 @@
 
 </div>
 
-<h2>Popular Dinners</h2>
 <div id="mapDivRight">
-    <div id="dinnerList"></div>
+    <div class='hslice' id='2'>
+        <h2 class='entry-title'>Popular Dinners</h2>
+        <div class="entry-content" id="dinnerList"></div>
+        <a rel='feedurl' href='/Dinners/WebSlicePopular' style='display:none;'></a>
+    </div>
 </div>
 
 <script type="text/javascript">

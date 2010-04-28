@@ -193,6 +193,7 @@
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Services\OData.svc" />
     <Content Include="Views\Dinners\My.aspx" />
+    <Content Include="Views\Dinners\WebSlice.aspx" />
     <Content Include="Views\Services\Flair.aspx" />
     <Content Include="Views\Services\JavascriptFlair.aspx" />
     <Content Include="Views\Shared\LogOn.aspx" />
@@ -314,7 +315,6 @@
       <LastGenOutput>NerdDinner.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Services\OpenSearch.ashx" />
   </ItemGroup>
@@ -333,7 +333,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3023</DevelopmentServerPort>
+          <DevelopmentServerPort>48202</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

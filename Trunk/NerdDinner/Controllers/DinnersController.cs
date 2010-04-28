@@ -211,5 +211,26 @@ namespace NerdDinner.Controllers {
 
             return View(userDinners);
         }
+
+        public ActionResult WebSlicePopular()
+        {
+            ViewData["Title"] = "Popular Nerd Dinners";
+            var model = from dinner in dinnerRepository.FindUpcomingDinners()
+                                        orderby dinner.RSVPs.Count descending
+                                        select dinner;
+            return View("WebSlice",model.Take(5));
+        }
+
+        public ActionResult WebSliceUpcoming()
+        {
+            ViewData["Title"] = "Upcoming Nerd Dinners";
+            DateTime d = DateTime.Now.AddMonths(2);
+            var model = from dinner in dinnerRepository.FindUpcomingDinners()
+                        where dinner.EventDate < d
+                        orderby dinner.EventDate descending
+                    select dinner;
+            return View("WebSlice", model.Take(5));
+        }
+
     }
 }
