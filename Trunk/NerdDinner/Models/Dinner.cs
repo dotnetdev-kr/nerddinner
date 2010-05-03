@@ -35,15 +35,19 @@ namespace NerdDinner.Models
 
         public string HostedById { get; set; }
 
+        [StringLength(256, ErrorMessage = "Hosted By name may not be longer than 20 characters")]
         public string HostedBy { get; set; }
 
         [Required(ErrorMessage = "Address is required")]
+        [StringLength(50, ErrorMessage = "Address may not be longer than 50 characters")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Country is required")]
+        [StringLength(30, ErrorMessage = "Country may not be longer than 30 characters")]
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "Phone# is required")]
+        [Required(ErrorMessage = "Contact phone is required")]
+        [StringLength(20, ErrorMessage = "Contact phone may not be longer than 20 characters")]
         public string ContactPhone { get; set; }
     }
 }
