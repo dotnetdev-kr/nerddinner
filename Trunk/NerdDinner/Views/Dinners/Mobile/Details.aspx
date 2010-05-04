@@ -21,7 +21,7 @@
             <%if(Model.RSVPs.Count > 0) {%>
             <ul id="attendees">
                 <%foreach (var RSVP in Model.RSVPs){%>
-                  <li ><%: RSVP.AttendeeName.Replace("@"," at ")) %></li>   
+                  <li ><%: RSVP.AttendeeName.Replace("@"," at ") %></li>   
                 <% } %>
             </ul>
             <%} %>
