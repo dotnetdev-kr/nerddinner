@@ -27,7 +27,7 @@
                 </ul>
                 <% } %>
                 <div id="nd-footer">
-                    More dinners and fun at <a href="http://nrddnr.com">http://nrddnr.com</a></div>
+                    More dinners and fun at <a target="_blank" href="http://nrddnr.com">http://nrddnr.com</a></div>
             </div>
         </div>
     </body>

@@ -40,7 +40,7 @@ namespace NerdDinner.Controllers {
 
             //Searching?
             if (!string.IsNullOrWhiteSpace(q))
-                dinners = new DinnerRepository().FindDinnersByText(q).OrderBy(d => d.EventDate);
+                dinners = dinnerRepository.FindDinnersByText(q).OrderBy(d => d.EventDate);
             else 
                 dinners = dinnerRepository.FindUpcomingDinners();
 
