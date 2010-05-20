@@ -2,7 +2,7 @@
      <%: Html.TextBox("", String.Format("{0:yyyy-MM-dd HH:mm}",Model)) %>
          <script type="text/javascript">
              $(function () {
-                 $('#Dinner_EventDate').datetime({
+                 $('#EventDate').datetime({
                      userLang: 'en',
                      americanMode: true
                  });

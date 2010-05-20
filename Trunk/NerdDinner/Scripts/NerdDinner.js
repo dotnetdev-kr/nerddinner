@@ -5,7 +5,7 @@ NerdDinner._map = null;
 NerdDinner._points = [];
 NerdDinner._shapes = [];
 
-NerdDinner.LoadMap = function(latitude, longitude, onMapLoaded) {
+NerdDinner.LoadMap = function (latitude, longitude, onMapLoaded) {
     NerdDinner._map = new VEMap(NerdDinner.MapDivId);
 
     var options = new VEMapOptions();
@@ -25,13 +25,13 @@ NerdDinner.LoadMap = function(latitude, longitude, onMapLoaded) {
     NerdDinner._map.LoadMap(center, null, null, null, null, null, null, options);
 }
 
-NerdDinner.ClearMap = function() {
+NerdDinner.ClearMap = function () {
     NerdDinner._map.Clear();
     NerdDinner._points = [];
     NerdDinner._shapes = [];
 }
 
-NerdDinner.LoadPin = function(LL, name, description) {
+NerdDinner.LoadPin = function (LL, name, description) {
     var shape = new VEShape(VEShapeType.Pushpin, LL);
 
     //Make a nice Pushpin shape with a title and description
@@ -46,7 +46,7 @@ NerdDinner.LoadPin = function(LL, name, description) {
     NerdDinner._shapes.push(shape);
 }
 
-NerdDinner.FindAddressOnMap = function(where) {
+NerdDinner.FindAddressOnMap = function (where) {
     var numberOfResults = 1;
     var setBestMapView = true;
     var showResults = true;
@@ -57,7 +57,7 @@ NerdDinner.FindAddressOnMap = function(where) {
                          setBestMapView, NerdDinner._callbackForLocation);
 }
 
-NerdDinner._callbackForLocation = function(layer, resultsArray, places, hasMore, VEErrorMessage) {
+NerdDinner._callbackForLocation = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
     NerdDinner.ClearMap();
 
     if (places == null) {
@@ -66,7 +66,7 @@ NerdDinner._callbackForLocation = function(layer, resultsArray, places, hasMore,
     }
 
     //Make a pushpin for each place we find
-    $.each(places, function(i, item) {
+    $.each(places, function (i, item) {
         var description = "";
         if (item.Description !== undefined) {
             description = item.Description;
@@ -85,22 +85,22 @@ NerdDinner._callbackForLocation = function(layer, resultsArray, places, hasMore,
     //If we've found exactly one place, that's our address.
     //lat/long precision was getting lost here with toLocaleString, changed to toString
     if (NerdDinner._points.length === 1) {
-        $("#Dinner_Latitude").val(NerdDinner._points[0].Latitude.toString());
-        $("#Dinner_Longitude").val(NerdDinner._points[0].Longitude.toString());
+        $("#Latitude").val(NerdDinner._points[0].Latitude.toString());
+        $("#Longitude").val(NerdDinner._points[0].Longitude.toString());
     }
 }
 
-NerdDinner.FindDinnersGivenLocation = function(where) {
+NerdDinner.FindDinnersGivenLocation = function (where) {
     NerdDinner._map.Find("", where, null, null, null, null, null, false,
                          null, null, NerdDinner._callbackUpdateMapDinners);
 }
 
 
-NerdDinner.FindMostPopularDinners = function(limit) {
+NerdDinner.FindMostPopularDinners = function (limit) {
     $.post("/Search/GetMostPopularDinners", { "limit": limit }, NerdDinner._renderDinners, "json");
 }
 
-NerdDinner._callbackUpdateMapDinners = function(layer, resultsArray, places, hasMore, VEErrorMessage) {
+NerdDinner._callbackUpdateMapDinners = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
     var center = NerdDinner._map.GetCenter();
 
     $.post("/Search/SearchByLocation",
@@ -193,8 +193,8 @@ NerdDinner.onMouseUp = function (e) {
         var y = e.mapY;
         NerdDinner.dragPixel = new VEPixel(x, y);
         var LatLong = NerdDinner._map.PixelToLatLong(NerdDinner.dragPixel);
-        $("#Dinner_Latitude").val(LatLong.Latitude.toString());
-        $("#Dinner_Longitude").val(LatLong.Longitude.toString());
+        $("#Latitude").val(LatLong.Latitude.toString());
+        $("#Longitude").val(LatLong.Longitude.toString());
         NerdDinner.dragShape = null;
     }
 }

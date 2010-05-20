@@ -1,13 +1,9 @@
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
-using DDay.iCal;
-using DDay.iCal.Components;
-using DDay.iCal.Serialization;
 
 namespace NerdDinner.Controllers {
 
@@ -77,7 +73,7 @@ namespace NerdDinner.Controllers {
             if (!dinner.IsHostedBy(User.Identity.Name))
                 return View("InvalidOwner");
 
-            return View(new DinnerFormViewModel(dinner));
+            return View(dinner);
         }
 
         //
@@ -99,7 +95,7 @@ namespace NerdDinner.Controllers {
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
             catch {
-                return View(new DinnerFormViewModel(dinner));
+                return View(dinner);
             }
         }
 

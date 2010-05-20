@@ -196,6 +196,8 @@
     <Content Include="Views\Dinners\WebSlice.aspx" />
     <Content Include="Views\Services\Flair.aspx" />
     <Content Include="Views\Services\JavascriptFlair.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\CountryDropDown.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\LocationDetail.ascx" />
     <Content Include="Views\Shared\LogOn.aspx" />
     <Content Include="Views\Shared\LogOnContent.ascx" />
     <Content Include="Views\Dinners\Create.aspx" />
