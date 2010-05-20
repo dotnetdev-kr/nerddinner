@@ -82,7 +82,7 @@
                     foreach (var RSVP in RSVPs){%>
                   <li class="attendee">
                     <span class="vcard">
-                        <span class="fn nickname"><%:RSVP.AttendeeName.StartsWith("@") ? RSVP.AttendeeName : RSVP.AttendeeName.Replace("@"," at ") %></span>
+                        <span class="fn nickname"><%:RSVP.AttendeeName.StartsWith("@") ? RSVP.AttendeeName : RSVP.AttendeeName.Replace("@"," at ").Truncate(30) %></span>
                     </span>
                   </li>
                 <% } %>
