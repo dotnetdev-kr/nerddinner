@@ -4,7 +4,7 @@
 document.write('<script>var link = document.createElement(\"link\");link.href = \"http://nerddinner.com/content/Flair.css\";link.rel = \"stylesheet\";link.type = \"text/css\";var head = document.getElementsByTagName(\"head\")[0];head.appendChild(link);</script>');
 document.write('<div id=\"nd-wrapper\"><h2 id=\"nd-header\">NerdDinner.com</h2><div id=\"nd-outer\">');
 <% if (Model.Dinners.Count == 0) { %>
-    document.write('<div id=\"nd-bummer\">Looks like there's no Nerd Dinners near <%:Model.LocationName %> in the near future. Why not <a target=\"_blank\" href=\"http://www.nerddinner.com/Dinners/Create\">host one</a>?</div>');
+    document.write('<div id=\"nd-bummer\">Looks like there\'s no Nerd Dinners near <%:Model.LocationName %> in the near future. Why not <a target=\"_blank\" href=\"http://www.nerddinner.com/Dinners/Create\">host one</a>?</div>');
 <% } else { %>
 document.write('<h3>  Dinners Near You</h3><ul>');
     <% foreach (var item in Model.Dinners) { %>
