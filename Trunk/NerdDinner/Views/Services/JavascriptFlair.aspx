@@ -8,8 +8,8 @@ document.write('<div id=\"nd-wrapper\"><h2 id=\"nd-header\">NerdDinner.com</h2><
 <% } else { %>
 document.write('<h3>  Dinners Near You</h3><ul>');
     <% foreach (var item in Model.Dinners) { %>
-document.write('<li><%: Html.ActionLink(String.Format("{0} with {1} on {2}", item.Title.Truncate(20), item.HostedBy, item.EventDate.ToShortDateString()), "Details", "Dinners", new { id = item.DinnerID }, new { target = "_blank" })%></li>');
+document.write('<li><a target=\"_blank\" href=\"http://nrddnr.com/<%: item.DinnerID %>\"><%: item.Title.Truncate(20) %> with <%: item.HostedBy %> on <%: item.EventDate.ToShortDateString() %></a></li>');
     <% } %>
 document.write('</ul>');
 <% } %>
-document.write('<div id=\"nd-footer\">  More dinners and fun at <a href=\"http://nrddnr.com\">http://nrddnr.com</a></div></div></div>');
+document.write('<div id=\"nd-footer\">  More dinners and fun at <a target=\"_blank\" href=\"http://nrddnr.com\">http://nrddnr.com</a></div></div></div>');
