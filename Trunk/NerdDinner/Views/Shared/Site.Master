@@ -11,7 +11,7 @@
 
     <script src="/Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>    
     <script src="/Scripts/date.format.js" type="text/javascript"></script>
-    <script src="/Scripts/nerddinner.js?v=5" type="text/javascript"></script>    
+    <script src="/Scripts/nerddinner.js?v=6" type="text/javascript"></script>    
 
     <script src="/Scripts/jquery_ui_datepicker.js" type="text/javascript"></script>
     <script src="/Scripts/timepicker_plug/timepicker.js" type="text/javascript"></script>
