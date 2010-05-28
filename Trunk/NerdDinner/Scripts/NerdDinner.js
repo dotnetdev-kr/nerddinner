@@ -196,8 +196,9 @@ NerdDinner.onMouseUp = function (e) {
         $("#Latitude").val(LatLong.Latitude.toString());
         $("#Longitude").val(LatLong.Longitude.toString());
         NerdDinner.dragShape = null;
-        
-        NerdDinner._map.FindLocations(LatLong, NerdDinner.getLocationResults);
+
+        //OPTIONAL: If you want, go find the address under this pin...        
+        //NerdDinner._map.FindLocations(LatLong, NerdDinner.getLocationResults);
     }
 }
 
@@ -214,11 +215,11 @@ NerdDinner.onMouseMove = function (e) {
 
 NerdDinner.getLocationResults = function (locations) {
     if (locations) {
-        var currentAddress = $("#Dinner_Address").val();
+        var currentAddress = $("#Address");
         if (locations[0].Name != currentAddress) {
-            var answer = confirm("Bing Maps returned the address '" + locations[0].Name + "' for the pin location. Click 'OK' to use this address for the event, or 'Cancel' to use the current address of '" + currentAddress + "'");
+            var answer = confirm("Bing Maps returned the address '" + locations[0].Name + "' for the pin location. Click 'OK' to use this address for the event, or 'Cancel' to use the current address of '" + currentAddress.val() + "'");
             if (answer) {
-                $("#Dinner_Address").val(locations[0].Name);
+                currentAddress.val(locations[0].Name);
             }
         }
     }

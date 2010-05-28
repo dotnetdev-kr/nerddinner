@@ -86,7 +86,7 @@ namespace NerdDinner.Models
         public IQueryable<Dinner> NearestDinners(double latitude, double longitude)
         {
             return from d in db.Dinners
-                   where DistanceBetween(latitude, longitude, d.Latitude, d.Longitude) < 100
+                   where DistanceBetween(latitude, longitude, d.Latitude, d.Longitude) < 1000
                    select d;
         }
     }

@@ -88,7 +88,7 @@ namespace NerdDinner.Controllers {
                 return View("InvalidOwner");
 
             try {
-                UpdateModel(dinner, "Dinner");
+                UpdateModel(dinner);
 
                 dinnerRepository.Save();
 
@@ -109,7 +109,7 @@ namespace NerdDinner.Controllers {
                EventDate = DateTime.Now.AddDays(7)
             };
 
-            return View(new DinnerFormViewModel(dinner));
+            return View(dinner);
         } 
 
         //
@@ -134,7 +134,7 @@ namespace NerdDinner.Controllers {
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
 
-            return View(new DinnerFormViewModel(dinner));
+            return View(dinner);
         }
 
         //

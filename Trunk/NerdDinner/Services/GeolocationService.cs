@@ -31,8 +31,9 @@ namespace NerdDinner.Services
                            {
                                Lat = (float)x.Element("lat"),
                                Long = (float)x.Element("lng")
-                       }).First();
-
+                       })
+                       .First();
+            //TODO: Bug here....check for First/Null
             return ll;
         }
 

@@ -97,6 +97,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DinnersController.cs" />
+    <Compile Include="Helpers\CountryList.cs" />
     <Compile Include="Models\FlairViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -113,7 +114,6 @@
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
     <Compile Include="Services\JSONPSupportBehavior.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
-    <Compile Include="Helpers\PhoneValidator.cs" />
     <Compile Include="Helpers\RSSResult.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\TwitterConsumer.cs" />
@@ -197,6 +197,7 @@
     <Content Include="Views\Services\Flair.aspx" />
     <Content Include="Views\Services\JavascriptFlair.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CountryDropDown.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Views\Shared\EditorTemplates\LocationDetail.ascx" />
     <Content Include="Views\Shared\LogOn.aspx" />
     <Content Include="Views\Shared\LogOnContent.ascx" />
@@ -212,7 +213,6 @@
     <Content Include="Views\Dinners\RSVPStatus.ascx" />
     <Content Include="Views\Dinners\Map.ascx" />
     <Content Include="Views\Home\PrivacyPolicy.aspx" />
-    <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -246,7 +246,6 @@
     <Compile Include="Helpers\HandleErrorWithELMAHAttribute.cs" />
     <Compile Include="Helpers\MobileCapableWebFormViewEngine.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
-    <Compile Include="Models\DinnerFormViewModel.cs" />
     <Content Include="Content\Img\bkg.jpg" />
     <Content Include="Content\Img\btn-go.png" />
     <Content Include="Content\Img\btn-login.png" />

@@ -66,8 +66,6 @@ namespace NerdDinner.Models
         [StringLength(50, ErrorMessage = "Address may not be longer than 50 characters")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Country is required")]
-        [StringLength(30, ErrorMessage = "Country may not be longer than 30 characters")]
         [UIHint("CountryDropDown")]
         public string Country { get; set; }
 
