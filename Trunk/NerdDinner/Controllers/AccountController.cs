@@ -69,7 +69,9 @@ namespace NerdDinner.Controllers {
             string encTicket = FormsAuthentication.Encrypt(authTicket);
             this.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
 
-            if (!String.IsNullOrEmpty(returnUrl)) {
+            // Make sure we only follow relative returnUrl parameters to protect against having an open redirector
+            Uri returnUri;
+            if (!String.IsNullOrEmpty(returnUrl) && Uri.TryCreate(returnUrl, UriKind.Relative, out returnUri)) {
                 return Redirect(returnUrl);
             }
             else {
