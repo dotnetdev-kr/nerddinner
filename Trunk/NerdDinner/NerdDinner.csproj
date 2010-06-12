@@ -194,6 +194,7 @@
     <Content Include="Services\OData.svc" />
     <Content Include="Views\Dinners\My.aspx" />
     <Content Include="Views\Dinners\WebSlice.aspx" />
+    <Content Include="Views\Home\Xrds.aspx" />
     <Content Include="Views\Services\Flair.aspx" />
     <Content Include="Views\Services\JavascriptFlair.aspx" />
     <Content Include="Views\Shared\EditorTemplates\CountryDropDown.ascx" />
