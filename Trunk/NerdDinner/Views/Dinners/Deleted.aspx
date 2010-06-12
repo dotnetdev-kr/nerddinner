@@ -13,7 +13,7 @@
     </div>
     
     <div>
-        <p><a href="/dinners">Click for Upcoming Dinners</a></p>
+        <p><a href="<%=Url.Content("~/dinners")%>">Click for Upcoming Dinners</a></p>
     </div>
 
 </asp:Content>

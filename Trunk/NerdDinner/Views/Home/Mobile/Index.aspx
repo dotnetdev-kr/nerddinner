@@ -5,7 +5,7 @@
     NerdDinner.com
 </asp:Content>
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h1><img alt="nerddinner" src="/Content/Img/Mobile/logo_medium.jpg" runat="server" /></h1>
+    <h1><img alt="nerddinner" src="<%=Url.Content("~/Content/Img/Mobile/logo_medium.jpg")%>" runat="server" /></h1>
     <h2>Find a Nerd Dinner near you!</h2>
     <% using (Html.BeginForm("SearchByPlaceNameOrZip", "Search", FormMethod.Post)) { %>
     <div id="searchBox">

@@ -6,5 +6,5 @@
 
 <asp:Content ID="errorContent" ContentPlaceHolderID="MainContent" runat="server">
    <h2>Confused?</h2>
-    <p>Are you lost? Try taking a look at the complete list of <a href="/Dinners">Upcoming Dinners</a>.</p>
+    <p>Are you lost? Try taking a look at the complete list of <a href="<%=Url.Content("~/Dinners")%>">Upcoming Dinners</a>.</p>
 </asp:Content>

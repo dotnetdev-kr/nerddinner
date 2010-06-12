@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Nerd Dinner</title>
-        <link href="/Content/Flair.css" rel="stylesheet" type="text/css" />
+        <link href="<%=Url.Content("~/Content/Flair.css")%>" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div id="nd-wrapper">

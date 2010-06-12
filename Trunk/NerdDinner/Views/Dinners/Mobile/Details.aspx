@@ -3,7 +3,7 @@
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server"><%: Model.Title %></asp:Content>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
-    <h1><a href="/" runat="server"><img alt="nerddinner" src="Content/Img/Mobile/logo_medium.jpg"/></a></h1>
+    <h1><a href="<%=Url.Content("~/")%>" runat="server"><img alt="nerddinner" src="Content/Img/Mobile/logo_medium.jpg"/></a></h1>
     <h2><%: Model.Title %></h2>
     <ul id="Details">
         <li><strong>When:</strong> <%: Model.EventDate.ToShortDateString() %> @ <%: Model.EventDate.ToShortTimeString() %></li>

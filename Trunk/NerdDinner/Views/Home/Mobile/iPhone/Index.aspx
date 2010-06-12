@@ -10,7 +10,7 @@
         <h1 id="pageTitle"></h1>
         <a id="backButton" class="button" href="#"></a>
     </div>
-    <form title="NerdDinner" class="panel" action="/Search/SearchByPlaceNameOrZip" method="POST" name="dinnerform" id="dinnerform" selected="true">
+    <form title="NerdDinner" class="panel" action="<%=Url.Content("~/Search/SearchByPlaceNameOrZip")%>" method="POST" name="dinnerform" id="dinnerform" selected="true">
         <a class="logo"></a>
         <h2>Find a Nerd Dinner near you!</h2>
         <fieldset>
