@@ -26,6 +26,7 @@
         #or { float: left; margin-top: 40px; margin-right: 20px; margin-left: 20px;  font-size: x-large; }
         #openid_identifier { font-size: large; padding-top: 5px; padding-bottom: 5px; }
         .OpenIdAjaxTextBox input[type='button'] { font-size: large; }
+        .OpenIdAjaxTextBox .yui-button span button { font-size: large; margin-top: 2px; }
         .OpenIdAjaxTextBox img { padding-top: 7px; }
         .classiclogon { font-size: large; padding-top: 2px; padding-bottom: 2px; }
     </style>
