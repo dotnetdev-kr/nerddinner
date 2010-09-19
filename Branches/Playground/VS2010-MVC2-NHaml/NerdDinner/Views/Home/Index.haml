@@ -1,0 +1,54 @@
+﻿^PageTitle = "NerdDinner";
+^ShowSearch = true;
+
+%script { src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript" }
+%script { src=Url.Content("~/Scripts/MSAjaxHistoryBundle.js") type="text/javascript" }
+
+%h2 Find a Dinner
+%div#mapDivLeft
+	%div#theMap { style="width: 580px; height: 400px;" }
+%div#mapDivRight
+	%div#2 { class="hslice" }
+		%h2 { class="entry-title" } Popular Dinners
+		%div#dinnerList.entry-content
+		%a { rel="feedurl" href="/Dinners/WebSlicePopular" style="display:none;" }
+	
+%script { type="text/javascript" }
+	//<![CDATA[
+	$(document).ready(function () {
+	NerdDinner.LoadMap();
+	Sys.Application.set_enableHistory(true);
+	Sys.Application.add_navigate(OnNavigation);
+	OnNavigation();
+	});
+	
+	function OnNavigation(sender, args) {
+	if (Sys.Application.get_stateString() === '') {
+	$get('Location').value = '';
+	NerdDinner.FindMostPopularDinners(8);
+
+	$.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false&callback=?',
+	function (data) {
+	if (data.RegionName != '') {
+	$get('Location').value = data.RegionName + ', ' + data.CountryName;
+	}
+	});
+	} else {
+	var where = Sys.Application._state.where;
+	$get('Location').value = where;
+	NerdDinner.FindDinnersGivenLocation(where);
+	}
+	}
+	$("#search").click(ValidateAndFindDinners);
+	$("#Location").keypress(function(evt) {
+	if (evt.which == 13) {
+	ValidateAndFindDinners();
+	}
+	});
+	function ValidateAndFindDinners() {
+	var where = $.trim($get('Location').value);        
+	if (where.length < 1) return;
+	Sys.Application.addHistoryPoint({ 'where': where });
+	NerdDinner.FindDinnersGivenLocation(where);
+	}
+	//]]>
