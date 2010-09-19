@@ -1,0 +1,7 @@
+﻿
+<content name="HeadArea">
+	<link rel="Stylesheet" type="text/css" href="~/Resource/OpenIdSelector" />
+	<link rel="Stylesheet" type="text/css" href="~/Resource/OpenIdAjaxTextBox" />
+</content>
+
+<LogOnContent />
