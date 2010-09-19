@@ -1,0 +1,11 @@
+﻿<viewdata model="NerdDinner.Models.Dinner" />
+
+<content name="TitleContent">
+    Host a Nerd Dinner
+</content>
+
+
+<h2>Host a Dinner</h2>
+
+# Html.RenderPartial("DinnerForm"); 
+
