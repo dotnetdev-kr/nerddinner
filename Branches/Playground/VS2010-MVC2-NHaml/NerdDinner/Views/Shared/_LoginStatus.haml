@@ -1,0 +1,7 @@
+﻿-	if	(HttpContext.Current.Request.IsAuthenticated) {
+	= "Welcome " + ((NerdIdentity)HttpContext.Current.User.Identity).FriendlyName + "! [" |
+	!=Html.ActionLink("Log Off", "LogOff", "Account") + " ]"
+-	} else {
+	= "[ " |
+	!=Html.ActionLink("Log On", "LogOn", new { controller = "Account", returnUrl = HttpContext.Current.Request.RawUrl })  + " ]"
+-	}

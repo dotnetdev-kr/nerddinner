@@ -1,0 +1,27 @@
+﻿!!!
+%html
+	%head
+		%title Nerd Dinner
+		%link { href=Url.Content("~/Content/Flair.css") rel="stylesheet" type="text/css" } /
+	%body
+		%div#nd-wrapper
+			%h2#nd-header	NerdDinner.com
+			%div#nd-outer
+				- if (Model.Dinners.Count == 0) {
+					%div#nd-bummer
+						Looks like there's no Nerd Dinners near
+						=Model.LocationName
+						in the near future. Why not 
+						%a { target="_blank" href="http://www.nerddinner.com/Dinners/Create" } host one
+						?
+				- } else { 
+					%h3 Dinners Near You
+					%ul
+						- foreach (var item in Model.Dinners)
+							%li
+								!=Html.ActionLink(String.Format("{0} with {1} on {2}", item.Title.Truncate(20), item.HostedBy, item.EventDate.ToShortDateString()), "Details", "Dinners", new { id = item.DinnerID }, new { target = "_blank" })
+
+				- }
+			%div#nd-footer 
+				More dinners and fun at 
+				%a { target="_blank" href="http://nrddnr.com" } http://nrddnr.com
