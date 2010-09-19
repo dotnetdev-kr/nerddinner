@@ -1,0 +1,10 @@
+^PageTitle = "Delete Confirmation: " + Model.Title;
+
+%h2 Delete Confirmation
+%div
+	%p Please confirm you want to cancel the dinner titled:
+		%i =Model.Title |
+		?
+
+- using (Html.BeginForm())
+	%input { name="confirmButton" type="submit" value="Delete" } /

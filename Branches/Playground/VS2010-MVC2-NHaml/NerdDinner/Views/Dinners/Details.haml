@@ -1,0 +1,80 @@
+^PageTitle = Model.Title;
+- string twitterUrl = "http://twitter.com/home/?source=nerddinner&status=Nerd+Dinner%3A+" + Model.Title.Truncate(40) + "+on+" + Model.EventDate.ToString("MMM dd") + "+-+RSVP%3A+http%3A%2F%2Fnrddnr.com/" + Model.DinnerID;
+- string facebookUrl = "http://www.facebook.com/share.php?u=http%3A%2F%2Fnrddnr.com/" + Model.DinnerID;
+- string googleUrl = "http://www.google.com/reader/link?url=http%3A%2F%2Fnrddnr.com/" + Model.DinnerID + "&title=Nerd+Dinner%3A+" + Model.Title + "+on+" + Model.EventDate.ToString("MMM dd, yyyy") + "&snippet=" + Model.Description + "+%3Cbr+%2F%3E%0D%0A%3Cbr+%2F%3E%3Cbr+%2F%3E%3Cstrong%3EWhere%3F%3C%2Fstrong%3E%3Cbr+%2F%3E" + Model.Address + "%3C%2Fstrong%3E%3Cbr+%2F%3E%3Cbr+%2F%3E%0D%0A%09%09%09%3Cstrong%3EWhen%3F%3C%2Fstrong%3E%3Cbr+%2F%3E%3Cstrong%3E" + Model.EventDate.ToString("MMM dd, yyyy") + "%3C%2Fstrong%3E%3Cbr+%2F%3E%3Ca+href%3D%22http%3A%2F%2Fnrddnr.com/" + Model.DinnerID + "%22++title%3D%22RSVP+here%21%22+%3ERSVP+here%21%3C%2Fa%3E&srcURL=http%3A%2F%2Fnrddnr.com/" + Model.DinnerID + "&srcTitle=Twtvite";
+- string iCalUrl = Url.Action("iCal","Services", new { id=Model.DinnerID }, null);
+- string hCalUrl = Url.Content("~/content/img/microformat_hcalendar.png");
+
+%div { id="dinnerDiv" class="vevent" }
+	%h2.summary =Model.Title
+	%div#share
+		%strong Share:
+		%a { href=twitterUrl title="Tweet this" target="_blank" }
+			%img { src=Url.Content("~/Content/Img/icon-twitter.png") alt="Twitter" border="0" } /
+		%a { href=facebookUrl title="Add to Facebook" target="_blank" }
+			%img { src=Url.Content("~/Content/Img/icon-facebook.png") alt="Facebook" border="0" } /
+		%a { href=googleUrl  title="Add to Google Buzz" target="_blank" }
+			%img {src=Url.Content("~/Content/Img/icon-google.png") alt="Google Buzz" border="0" } /
+		%input { name="share_link" type="text" value="http://nrddnr.com/#{Model.DinnerID}" class="widget" onclick="this.select()" size="15" } /
+	%p !=Html.ActionLink("Add event to your calendar:", "iCal", "Services", new { id = Model.DinnerID }, null)
+		%a { href=iCalUrl } 
+			%img { src=Url.Content("~/Content/Img/icon-icalfeed-16x16.png") } /
+	%p
+		%strong When:
+		%abbr { class="dtstart" title='#{Model.EventDate.ToString("s")}' }
+			=Model.EventDate.ToString("MMM dd, yyyy")
+			%strong @
+			=Model.EventDate.ToShortTimeString()
+	%p
+		%strong Where:
+		%span { class="location adr" }
+			%span.extended-address =Model.Address 
+			,
+			%span.country-name =Model.Country
+			%abbr { class="geo" title='#{Model.Latitude};#{Model.Longitude}' style="display: none;" } 
+				Geolocation for hCalendar
+	%p
+		%strong Description:
+		%span.description =Model.Description
+		%span { style="display: none;" }
+			!=Html.ActionLink("URL for hCalendar", "iCal", "Services", new { id = Model.DinnerID }, new { @class = "url" })
+	%p
+		%strong Organizer:
+		%span.organizer
+			%span.vcard
+				%span { class="fn nickname" } =Model.HostedBy
+				%span.tel =Model.ContactPhone	
+	_ RSVPStatus
+	%p#whoscoming
+		%strong Who's Coming:
+	- if (Model.RSVPs.Count == 0)
+	No one has registered.
+	- if(Model.RSVPs.Count > 0)
+	%div#whoscomingDiv
+		%ul.attendees
+			- foreach (var RSVP in Model.RSVPs.Reverse()) {
+			%li.attendee
+				%span.vcard
+					%span { class="fn nickname" }
+						!=RSVP.AttendeeName.StartsWith("@") ? RSVP.AttendeeName : RSVP.AttendeeName.Replace("@"," at ").Truncate(30)
+			- }
+	_ EditAndDeleteLinks
+%div#mapDiv
+	_ Map
+	%p
+		%img { src=hCalUrl  alt="hCalendar"} /
+%div#disqus_thread
+%script { type="text/javascript" }
+	var disqus_url = '#{"http://www.nerddinner.com/" + Model.DinnerID.ToString()}';
+	var disqus_developer = 1;
+	(function () {
+	var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	dsq.src = 'http://nerddinner.disqus.com/embed.js';
+	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+%noscript 
+	Please enable JavaScript to view the 
+	%a { href="http://disqus.com/?ref_noscript=nerddinner" } comments powered by Disqus.
+%a { href="http://disqus.com" class="dsq-brlink" } blog comments powered by 
+	%span.logo-disqus 
+		Disqus
