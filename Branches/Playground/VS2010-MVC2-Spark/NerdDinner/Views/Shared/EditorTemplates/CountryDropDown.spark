@@ -1,0 +1,3 @@
+﻿<viewdata model="System.String" />
+
+!{ Html.DropDownList("", new SelectList(NerdDinner.Helpers.CountryList.Countries, Model)) }
