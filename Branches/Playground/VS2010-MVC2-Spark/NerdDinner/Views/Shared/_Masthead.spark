@@ -3,6 +3,5 @@
 			<div class="search-text">Enter your location  or <strong>${ Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners") }</strong>.</div>
 				${ Html.TextBox("Location") }
 				<input id="search" type="submit" value="Search" />
-			</div>
 		</div>
 	</div>

@@ -42,7 +42,7 @@
     <Reference Include="DDay.iCal">
       <HintPath>lib\DDay.iCal.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth, Version=3.4.4.10162, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+    <Reference Include="DotNetOpenAuth, Version=3.4.6.10259, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\DotNetOpenAuth.dll</HintPath>
     </Reference>
@@ -53,10 +53,12 @@
     <Reference Include="OpenSearchToolkit">
       <HintPath>lib\OpenSearchToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Spark">
+    <Reference Include="Spark, Version=1.1.0.0, Culture=neutral, PublicKeyToken=7f8549eed921a12c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Spark.dll</HintPath>
     </Reference>
-    <Reference Include="Spark.Web.Mvc">
+    <Reference Include="Spark.Web.Mvc, Version=1.1.0.0, Culture=neutral, PublicKeyToken=7f8549eed921a12c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Spark.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -120,6 +122,7 @@
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
+    <Compile Include="Services\EmbeddedResourceUrlService.cs" />
     <Compile Include="Services\JSONPSupportBehavior.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\RSSResult.cs" />
@@ -201,6 +204,7 @@
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Services\OData.svc" />
     <None Include="Views\Account\ChangePasswordSuccess.spark" />
+    <None Include="Views\Account\LogOn.spark" />
     <None Include="Views\Dinners\Details.spark" />
     <None Include="Views\Dinners\InvalidOwner.spark">
       <SubType>Designer</SubType>
@@ -212,7 +216,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Views\Dinners\Shared\_EditAndDeleteLinks.spark" />
-    <Content Include="Views\Shared\Site.Master" />
     <None Include="Views\Account\ChangePassword.spark" />
     <None Include="Views\Account\Register.spark" />
     <None Include="Views\Dinners\Create.spark" />
@@ -235,12 +238,10 @@
     <None Include="Views\Shared\EditorTemplates\CountryDropDown.spark" />
     <None Include="Views\Shared\EditorTemplates\DateTime.spark" />
     <None Include="Views\Shared\EditorTemplates\LocationDetail.spark" />
-    <None Include="Views\Shared\LogOn.spark" />
     <None Include="Views\Shared\_global.spark" />
     <None Include="Views\Shared\_LogOnContent.spark">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Shared\LogOnContent.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -248,7 +249,6 @@
     <Content Include="Scripts\MicrosoftAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Views\Account\LogOn.aspx" />
     <None Include="Views\Shared\Error.spark" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
@@ -376,7 +376,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>48202</DevelopmentServerPort>
+          <DevelopmentServerPort>28231</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
