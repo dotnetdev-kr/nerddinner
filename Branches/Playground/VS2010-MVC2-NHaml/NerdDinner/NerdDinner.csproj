@@ -42,8 +42,7 @@
     <Reference Include="DDay.iCal">
       <HintPath>lib\DDay.iCal.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth, Version=3.4.4.10162, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DotNetOpenAuth">
       <HintPath>lib\DotNetOpenAuth.dll</HintPath>
     </Reference>
     <Reference Include="Elmah, Version=1.0.10617.0, Culture=neutral, processorArchitecture=MSIL">
@@ -121,6 +120,7 @@
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
+    <Compile Include="Services\EmbeddedResourceUrlService.cs" />
     <Compile Include="Services\JSONPSupportBehavior.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\RSSResult.cs" />
@@ -201,6 +201,7 @@
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Services\OData.svc" />
+    <None Include="Views\Account\LogOn.haml" />
     <None Include="Views\Dinners\My.haml" />
     <None Include="Views\Dinners\WebSlice.haml" />
     <None Include="Views\Account\ChangePassword.haml" />
@@ -212,7 +213,6 @@
     <None Include="Views\Services\JavascriptFlair.haml" />
     <Content Include="Views\Shared\EditorTemplates\CountryDropDown.ascx" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
-    <Content Include="Views\Shared\LogOnContent.ascx" />
     <None Include="Views\Dinners\Create.haml" />
     <None Include="Views\Dinners\Delete.haml" />
     <None Include="Views\Dinners\Deleted.haml" />
@@ -228,6 +228,7 @@
     <None Include="Views\Shared\_LocationDetails.haml" />
     <None Include="Views\Shared\empty.haml" />
     <None Include="Views\Shared\_HeadArea.haml" />
+    <None Include="Views\Shared\_LogOnContent.haml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -235,10 +236,8 @@
     <Content Include="Scripts\MicrosoftAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Views\Account\LogOn.aspx" />
     <None Include="Views\Home\About.haml" />
     <None Include="Views\Shared\Error.haml" />
-    <Content Include="Views\Shared\Site.Master" />
     <Content Include="Views\Web.config" />
     <None Include="Views\Shared\_LoginStatus.haml" />
     <None Include="Views\Shared\_Masthead.haml" />

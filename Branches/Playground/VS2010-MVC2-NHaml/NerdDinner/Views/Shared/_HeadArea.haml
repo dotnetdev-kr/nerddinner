@@ -1,5 +1,8 @@
 ﻿^	bool ShowHeadArea = false;
-	
-- if (ShowHeadArea == true)
-	%link { rel="Stylesheet" type="text/css" href="/Resource/OpenIdSelector" } /
-	%link { rel="Stylesheet" type="text/css" href="/Resource/OpenIdAjaxTextBox" } /
+^	bool IncludeJQueryCookie = false;
+
+- if (ShowHeadArea == true) 
+	%link { rel="Stylesheet" type="text/css" href=#{ Url.Action("OpenIdSelector", "Resource")} } /
+	%link { rel="Stylesheet" type="text/css" href=#{ Url.Action("OpenIdAjaxTextBox", "Resource")} } /
+	- if (IncludeJQueryCookie == true) 
+		%script { src=#{ Url.Content("~/Scripts/jquery.cookie.js") } type="text/javascript" } 

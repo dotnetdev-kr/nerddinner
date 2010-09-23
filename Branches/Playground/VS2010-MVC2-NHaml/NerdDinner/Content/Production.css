@@ -36,11 +36,11 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
 /* Add class clearfix to parent container for dealing with child floats */
 
 .clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
 }
 
 .clearfix {display: inline-block;}
@@ -66,10 +66,10 @@ html {background: #f7f4e6 url('img/bkg.jpg') repeat-x top left;}
 body {}
 
 #theMap {
-    position: relative; 
-    width: 580px; 
-    height: 450px;
-    border: solid 1px #bbd1ec;
+	position: relative; 
+	width: 580px; 
+	height: 450px;
+	border: solid 1px #bbd1ec;
 }
 
 p {line-height: 150%; margin: 7px 0px 7px 0px;}
@@ -115,15 +115,15 @@ a.feed { position: relative; top: 23px; text-decoration: none; }
 
 #mapDivLeft 
 {
-    float: left;
-    width: 600px;
+	float: left;
+	width: 600px;
 }
 
 #mapDivRight 
 {
-    float: left;
-    padding: 0px;
-    width: 200px;
+	float: left;
+	padding: 0px;
+	width: 200px;
 }
 
 #logged-in {position: absolute; right:65px; top:56px; font-size: 138.5%;}
@@ -134,39 +134,39 @@ a.feed { position: relative; top: 23px; text-decoration: none; }
 /* Errors */
 .validation-summary-errors
 {
-    background-color: #ffffcc;
-    padding: 15px 20px 15px 20px;
-    border: solid 1px #cc0000;
-    font-weight: bold;
-    margin: 20px 0px 20px 0px;
+	background-color: #ffffcc;
+	padding: 15px 20px 15px 20px;
+	border: solid 1px #cc0000;
+	font-weight: bold;
+	margin: 20px 0px 20px 0px;
 }
 
 .validation-summary-errors li 
 {
-    display: block;
-    background: url('/content/img/exclamation.png') no-repeat 0px 50%;
-    padding: 5px 0px 5px 25px; 
+	display: block;
+	background: url('/content/img/exclamation.png') no-repeat 0px 50%;
+	padding: 5px 0px 5px 25px; 
 }
 
 
 .field-validation-error,
 span.input-validation-error
 {
-    color: #cc0000;
+	color: #cc0000;
 }
 
 input.input-validation-error,
 textarea.input-validation-error,
 select.input-validation-error
 {
-    border: 1px solid #cc0000;
-    background-color: #ffffcc;
+	border: 1px solid #cc0000;
+	background-color: #ffffcc;
 }
 
 	
 .error
 {
-    
+	
 }
 
 /* Map */
@@ -201,10 +201,10 @@ select.input-validation-error
 
 #dinnerDiv 
 {
-    float:right;
-    width: 235px;
-    padding: 10px 0px 0px 20px;
-    
+	float:right;
+	width: 235px;
+	padding: 10px 0px 0px 20px;
+	
 }
 
 #whoscomingDiv
@@ -216,8 +216,8 @@ select.input-validation-error
 
 #mapDiv 
 {
-    float: left;
-    width: 522px;
+	float: left;
+	width: 522px;
 }
 
 
@@ -226,65 +226,65 @@ select.input-validation-error
 ----------------------------------------------------------*/
 .clear
 {
-    clear: both;
+	clear: both;
 }
 
 
 
 #menucontainer
 {
-    margin-top: 40px;
+	margin-top: 40px;
 }
 
 #headerTitle
 {
-    display: block;
-    float: left;
-    text-align: left;
+	display: block;
+	float: left;
+	text-align: left;
 }
 
 #logindisplay
 {
-    font-size: 1.1em;
-    display: block;
-    text-align: right;
-    margin: 10px;
-    color: #660000;
-    position: relative;
-    top: 35px;
-    right: 20px;
+	font-size: 1.1em;
+	display: block;
+	text-align: right;
+	margin: 10px;
+	color: #660000;
+	position: relative;
+	top: 35px;
+	right: 20px;
 }
 
 #logindisplay a:link
 {
-    color: #660000;
-    text-decoration: underline;
+	color: #660000;
+	text-decoration: underline;
 }
 
 #logindisplay a:visited
 {
-    color: #660000;
-    text-decoration: underline;
+	color: #660000;
+	text-decoration: underline;
 }
 
 #share a 
 {
-    text-decoration: none; 
+	text-decoration: none; 
 }
 
 #share input  
 {
-    width: 120px; 
-    font-size: 90%; 
-    padding: 1px 2px 0px 2px;
-    line-height: 100%; 
-    vertical-align: top; 
-    margin-right: 0; 
+	width: 120px; 
+	font-size: 90%; 
+	padding: 1px 2px 0px 2px;
+	line-height: 100%; 
+	vertical-align: top; 
+	margin-right: 0; 
 }
 
 input:focus, textarea:focus
 {
-    background-color: #FFFFE0;
+	background-color: #FFFFE0;
 }
 
 .multi-line
@@ -295,10 +295,10 @@ input:focus, textarea:focus
 
 #footer 
 {
-    font-size: 0.93em;
-    line-height: 1.6em;
-    text-align: center;
-    padding: 10px 0px 30px 0px;
+	font-size: 0.93em;
+	line-height: 1.6em;
+	text-align: center;
+	padding: 10px 0px 30px 0px;
 }
 
 #footer a {text-decoration: none; font-weight: normal; }
@@ -319,8 +319,20 @@ strong {
 	border: 0;
 }
 .pagination {
-    padding-top: 10px;
-    font-weight: bold;
+	padding-top: 10px;
+	font-weight: bold;
 }
 
 #disqus_thread { clear: both; padding-top: 15px; }
+
+ #login-oauth, #login-account { float: left; width: 330px; height: 210px; border: 1px dotted black; padding: 10px; }
+#login-oauth-container { margin-top: 30px; }
+#login-oauth h3, #login-account h3 { font-size: 22px; font-weight: bold; }
+#oauth-buttons { margin-top: 60px; }
+#oauth-buttons a { display: block; height: 32px; width: 111px; border: 1px solid #aaa; float: left; margin-right: 5px; }
+#or { float: left; margin-top: 40px; margin-right: 20px; margin-left: 20px;  font-size: x-large; }
+#openid_identifier { font-size: large; padding-top: 5px; padding-bottom: 5px; }
+.OpenIdAjaxTextBox input[type='button'] { font-size: large; }
+.OpenIdAjaxTextBox .yui-button span button { font-size: large; margin-top: 2px; }
+.OpenIdAjaxTextBox img { padding-top: 7px; }
+.classiclogon { font-size: large; padding-top: 2px; padding-bottom: 2px; }
