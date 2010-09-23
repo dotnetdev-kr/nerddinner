@@ -108,6 +108,7 @@
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
+    <Compile Include="Services\EmbeddedResourceUrlService.cs" />
     <Compile Include="Services\JSONPSupportBehavior.cs" />
     <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\RSSResult.cs" />
