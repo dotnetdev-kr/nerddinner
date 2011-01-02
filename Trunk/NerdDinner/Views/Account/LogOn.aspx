@@ -69,6 +69,6 @@
     <% var options = new OpenIdSelector();
        options.TextBox.LogOnText = "Log On"; %>
 
-    <%= Html.OpenIdSelectorScripts(this.Page, options, null)%>
+    <%= Html.OpenIdSelectorScripts(options, null)%>
 
 </asp:Content>
