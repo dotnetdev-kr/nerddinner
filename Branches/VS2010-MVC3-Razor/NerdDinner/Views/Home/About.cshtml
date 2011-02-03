@@ -1,9 +1,20 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 
 @{
-    View.Title = "About";
-    LayoutPage = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+@section HeadArea {
+	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdSelector", "Resource")" />
+	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdAjaxTextBox", "Resource")" />
+}
+
+@section Masthead {
+    @Html.Partial("_Masthead")
+}
+
 
 <h2>What is NerdDinner.com?</h2>
 <div id="about">

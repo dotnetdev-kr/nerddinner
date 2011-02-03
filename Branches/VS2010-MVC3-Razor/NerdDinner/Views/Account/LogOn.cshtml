@@ -3,8 +3,8 @@
 @using DotNetOpenAuth.OpenId.RelyingParty;
 
 @{
-	View.Title = "Log On";
-	LayoutPage = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Log On";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section HeadArea {
@@ -13,6 +13,12 @@
 	
 	<script src="@Url.Content("~/Scripts/jquery.cookie.js")" type="text/javascript"></script>
 }
+
+
+@section Masthead {
+    @Html.Partial("_Masthead")
+}
+
 
 <h2>Log On</h2>
 @Html.ValidationSummary("Login was unsuccessful. Please correct the errors and try again.")

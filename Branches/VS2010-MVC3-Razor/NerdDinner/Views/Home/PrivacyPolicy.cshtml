@@ -1,8 +1,13 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 
 @{
-	View.Title = "PrivacyPolicy";
-	LayoutPage = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "PrivacyPolicy";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeadArea {
+	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdSelector", "Resource")" />
+	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdAjaxTextBox", "Resource")" />
 }
 
 @section Masthead {

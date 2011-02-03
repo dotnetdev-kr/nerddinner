@@ -1,13 +1,23 @@
 ﻿@inherits System.Web.Mvc.WebViewPage
 
 @{
-    View.Title = "Register";
-    LayoutPage = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/MicrosoftMvcValidation.js")" type="text/javascript"></script>
+@section HeadArea {
+	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdSelector", "Resource")" />
+	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdAjaxTextBox", "Resource")" />
+    <script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/MicrosoftMvcValidation.js")" type="text/javascript"></script>
+
+}
+
+@section Masthead {
+    @Html.Partial("_Masthead")
+}
+
 
 <h2>Create a New Account</h2>
 <p>
