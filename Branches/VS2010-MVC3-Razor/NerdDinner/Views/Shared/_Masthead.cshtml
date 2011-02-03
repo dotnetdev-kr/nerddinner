@@ -1,0 +1,12 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+
+<div id="hm-masthead">
+	@if (true) { 
+	    <div id="searchBox">
+			<div class="search-text">Enter your location  or <strong>@Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners")</strong>.</div>
+			@Html.TextBox("Location")
+			<input id="search" type="submit" value="Search" />
+		</div>
+	}
+</div>
+
