@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Security.Principal;
-using System.Diagnostics;
+using NerdDinner.Helpers;
 
 namespace NerdDinner
 {
@@ -30,7 +28,6 @@ namespace NerdDinner
                         new { controller = "Dinners", action = "Details" },
                         new { Id = @"\d+" }
                     );
-
 
             routes.MapRoute(
                     "UpcomingDinners",
@@ -61,8 +58,10 @@ namespace NerdDinner
         {
             RegisterRoutes(RouteTable.Routes);
 
-            //ViewEngines.Engines.Clear();
-            //ViewEngines.Engines.Add(new MobileCapableWebFormViewEngine());
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.AddIPhone<WebFormViewEngine>();
+            ViewEngines.Engines.AddGenericMobile<WebFormViewEngine>();
+            ViewEngines.Engines.Add(new RazorViewEngine());
         }
 
         void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
