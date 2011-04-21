@@ -88,7 +88,7 @@ namespace NerdDinner.Controllers {
 
         public ActionResult Register() {
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
             return View();
         }
@@ -96,7 +96,7 @@ namespace NerdDinner.Controllers {
         [HttpPost]
         public ActionResult Register(string userName, string email, string password, string confirmPassword) {
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
             if (ValidateRegistration(userName, email, password, confirmPassword)) {
                 // Attempt to register the user
@@ -118,7 +118,7 @@ namespace NerdDinner.Controllers {
         [Authorize]
         public ActionResult ChangePassword() {
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
             return View();
         }
@@ -129,7 +129,7 @@ namespace NerdDinner.Controllers {
             Justification = "Exceptions result in password not being changed.")]
         public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword) {
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
             if (!ValidateChangePassword(currentPassword, newPassword, confirmPassword)) {
                 return View();
