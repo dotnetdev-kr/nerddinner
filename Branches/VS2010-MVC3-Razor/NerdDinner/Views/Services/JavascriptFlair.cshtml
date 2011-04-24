@@ -1,4 +1,4 @@
-﻿@inherits System.Web.Mvc.WebViewPage<FlairViewModel>
+﻿@model FlairViewModel
 @using NerdDinner.Helpers;
 @using NerdDinner.Models;
 
@@ -10,7 +10,7 @@ var line2 = "document.write('<div id=\"nd-wrapper\"><h2 id=\"nd-header\">NerdDin
 string middleLines = "";
 
 if (Model.Dinners.Count == 0) {
-    middleLines += "document.write('<div id=\"nd-bummer\">Looks like there&#39;s no Nerd Dinners near ";
+	middleLines += "document.write('<div id=\"nd-bummer\">Looks like there&#39;s no Nerd Dinners near ";
 	middleLines += Model.LocationName +  "in the near future. Why not <a target=\"_blank\" href=\"http://www.nerddinner.com/Dinners/Create\">host one</a>?</div>');";
 } else {
 

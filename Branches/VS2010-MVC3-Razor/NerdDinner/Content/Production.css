@@ -53,7 +53,7 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
 
 /* Forms */
 legend {padding: 7px 10px 7px 10px; margin: 0px 0px 0px 0px; border: 0px; background-color: #FFFFFF;}
-input[type="text"], input[type="password"] {margin-right: 12px; padding: 5px; color: #666666; font-size: 100%; width: 215px;}
+input[type="text"], input[type="datetime"], input[type="password"] {margin-right: 12px; padding: 5px; color: #666666; font-size: 100%; width: 215px;}
 input[type="image"] {margin: 7px 0px 0px 0px;}
 input[type="checkbox"] { float: left; margin: 0px 10px 0px 0px; }
 form fieldset {padding: 10px; margin: 0px; border: 0px; border: dotted 1px #ccc;} */

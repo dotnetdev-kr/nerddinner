@@ -1,21 +1,6 @@
-﻿@inherits System.Web.Mvc.WebViewPage
-
-@{
-    ViewBag.Title = "Nerd Dinner Not Found";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+	ViewBag.Title = "Nerd Dinner Not Found";
 }
-
-
-@section HeadArea {
-	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdSelector", "Resource")" />
-	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdAjaxTextBox", "Resource")" />
-}
-
-
-@section Masthead {
-    @Html.Partial("_Masthead")
-}
-
 
  <h2>Lost?</h2>
 

@@ -11,17 +11,17 @@
     <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/jquery-1.5.2.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/date.format.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/NerdDinner.js?v=6")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/timepicker_plug/timepicker.js")" type="text/javascript"></script>
     <script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
     <script src="http://cdn.uservoice.com/javascripts/widgets/tab.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/timepicker_plug/css/style.css")"/>
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/smothness/jquery_ui_datepicker.css")"/>
     <link rel="alternate" type="application/rss+xml" title="NerdDinner.com - Upcoming Dinners" href="@Url.Content("~/Services/RSS")" />
     <link rel="odata.service" title="NerdDinner.com OData Service" href="@Url.Content("~/Services/OData.svc")" />
     <link rel="odata.feed" title="NerdDinner.com OData Service - Dinners" href="@Url.Content("~/Services/OData.svc/Dinners")" />
-    @RenderSection("HeadArea", required: true)
+    @RenderSection("HeadArea", required: false)
 </head>
 <body>
     <div class="page">
@@ -52,7 +52,7 @@
                     <img alt="iCal Calendar Feed for Nerd Dinners" src="@Url.Content("~/Content/Img/icon-icalfeed-28x28.png")" /></a>
             </div>
         </div>
-        @RenderSection("Masthead", required: true)
+        @RenderSection("Masthead", required: false)
         <div id="main" class="clearfix">
             @RenderBody()
         </div>
@@ -83,13 +83,4 @@
             });
         </script>
 </body>
-<script type="text/javascript">
-    $(function () {
-        if (!Modernizr.inputtypes.date) {
-            $.getScript("/Scripts/jquery-ui-1.8.11.min.js", function () {
-                $("input[type='datetime']").datepicker();
-            });
-        }
-    });
-</script>
 </html>

@@ -1,33 +1,20 @@
-﻿@inherits System.Web.Mvc.WebViewPage<NerdDinner.Models.Dinner>
+﻿@model NerdDinner.Models.Dinner
 
 @{
-    ViewBag.Title = "Delete Confirmation: " + Model.Title;
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
-@section HeadArea {
-	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdSelector", "Resource")" />
-	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdAjaxTextBox", "Resource")" />
-}
-
-
-
-@section Masthead {
-    @Html.Partial("_Masthead")
+	ViewBag.Title = "Delete Confirmation: " + Model.Title;
 }
 
 <h2>
-    Delete Confirmation
+	Delete Confirmation
 </h2>
 
 <div>
-    <p>Please confirm you want to cancel the dinner titled: 
-    <i> @Model.Title ? </i> </p>
+	<p>Please confirm you want to cancel the dinner titled: 
+	<i> @Model.Title ? </i> </p>
 </div>
-    
+	
 @using (Html.BeginForm()) { 
 
-    <input name="confirmButton" type="submit" value="Delete" />        
+	<input name="confirmButton" type="submit" value="Delete" />        
 
 }

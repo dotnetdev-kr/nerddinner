@@ -1,15 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Home Page";
 }
 
 @section Masthead {
-    @Html.Partial("_Masthead")
-}
-
-@section HeadArea {
-	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdSelector", "Resource")" />
-	<link rel="Stylesheet" type="text/css" href="@Url.Action("OpenIdAjaxTextBox", "Resource")" />
+	@Html.Partial("_Masthead")
 }
 
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2" type="text/javascript"></script>
@@ -29,39 +23,38 @@
 	</div>
 </div>
 
-
 <script type="text/javascript">
 //<![CDATA[
-    $(document).ready(function () {
+	$(document).ready(function () {
 
-        NerdDinner.LoadMap();
+		NerdDinner.LoadMap();
 
-        Sys.Application.set_enableHistory(true);
+		Sys.Application.set_enableHistory(true);
 
-        Sys.Application.add_navigate(OnNavigation);
+		Sys.Application.add_navigate(OnNavigation);
 
-        OnNavigation();
-    });
+		OnNavigation();
+	});
 
-    function OnNavigation(sender, args) {
-        if (Sys.Application.get_stateString() === '') {
-            $get('Location').value = '';
-            NerdDinner.FindMostPopularDinners(8);
+	function OnNavigation(sender, args) {
+		if (Sys.Application.get_stateString() === '') {
+			$get('Location').value = '';
+			NerdDinner.FindMostPopularDinners(8);
 
-            $.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false&callback=?',
+			$.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false&callback=?',
 			function (data) {
-			    if (data.RegionName != '') {
-			        $get('Location').value = data.RegionName + ', ' + data.CountryName;
-			    }
+				if (data.RegionName != '') {
+					$get('Location').value = data.RegionName + ', ' + data.CountryName;
+				}
 			});
-        }
-        else {
-            var where = Sys.Application._state.where;
+		}
+		else {
+			var where = Sys.Application._state.where;
 
-            $get('Location').value = where;
-            NerdDinner.FindDinnersGivenLocation(where);
-        }
-    }
+			$get('Location').value = where;
+			NerdDinner.FindDinnersGivenLocation(where);
+		}
+	}
 </script>
 
 
