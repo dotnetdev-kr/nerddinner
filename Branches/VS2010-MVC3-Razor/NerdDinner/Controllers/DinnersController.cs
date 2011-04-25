@@ -70,6 +70,9 @@ namespace NerdDinner.Controllers {
 
             Dinner dinner = dinnerRepository.GetDinner(id);
 
+            if (dinner == null)
+                return View("NotFound");
+
             if (!dinner.IsHostedBy(User.Identity.Name))
                 return View("InvalidOwner");
 
