@@ -295,6 +295,8 @@
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\MSAjaxHistoryBundle.js" />
     <Content Include="Scripts\NerdDinner.js" />
+    <Content Include="Scripts\timepicker_plug\css\TimePickerAddOn.css" />
+    <Content Include="Scripts\timepicker_plug\TimePickerAddOn.js" />
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
     <Content Include="Services\OData.svc" />
