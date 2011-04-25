@@ -58,7 +58,7 @@ namespace DataServicesJSONP
 
                 XmlDictionaryReader reader = reply.GetReaderAtBodyContents();
                 reader.ReadStartElement();
-                string content = JSONPSupportInspector.encoding.GetString(Convert.FromBase64String(reader.Value));
+                string content = JSONPSupportInspector.encoding.GetString(reader.ReadContentAsBase64());
 
                 content = callback + "(" + content + ")";
 
