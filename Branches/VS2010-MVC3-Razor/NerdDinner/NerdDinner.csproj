@@ -146,7 +146,6 @@
     <Content Include="App_Data\NerdDinner_log.ldf">
       <DependentUpon>NerdDinner.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\web_browsers_patch.xml" />
     <Content Include="Content\Flair.css" />
     <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\google.gif" />
@@ -320,7 +319,9 @@
     <Content Include="Views\Home\Mobile\iPhone\Index.aspx" />
     <Content Include="Views\Shared\Mobile\iPhone\Results.aspx" />
     <Content Include="Views\Shared\Mobile\Results.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -390,9 +391,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Week.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -426,8 +424,6 @@
     <Content Include="Views\Shared\EditorTemplates\Color.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\51Degrees.mobi.config" />
-    <None Include="App_Data\wurfl.xml.gz" />
     <Content Include="Views\Shared\Mobile\_MobileLayout.cshtml" />
     <Content Include="Views\Home\Mobile\Index.cshtml" />
     <Content Include="Views\Shared\Mobile\Results.cshtml" />
