@@ -65,7 +65,7 @@ namespace NerdDinner.Models
         [HiddenInput(DisplayValue = false)]
         public string HostedById { get; set; }
 
-        [StringLength(256, ErrorMessage = "Hosted By name may not be longer than 20 characters")]
+        [StringLength(20, ErrorMessage = "Hosted By name may not be longer than 20 characters")]
         [Display(Name="Host's Name")]
         public string HostedBy { get; set; }
 
