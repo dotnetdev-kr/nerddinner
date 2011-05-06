@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId;
@@ -49,6 +50,29 @@ namespace NerdDinner.Controllers
             }
 
             return Content("Thanks - we'll see you there!");
+        }
+
+        //
+        // AJAX: /RSVP/Cancel/1
+
+        [Authorize, HttpPost]
+        public ActionResult Cancel(int id)
+        {
+
+            Dinner dinner = dinnerRepository.GetDinner(id);
+
+            RSVP rsvp = dinner.RSVPs
+                .Where(r => User.Identity.Name == (r.AttendeeNameId ?? r.AttendeeName))
+                .SingleOrDefault();
+
+            if (rsvp != null)
+            {
+
+                dinnerRepository.DeleteRsvp(rsvp);
+                dinnerRepository.Save();
+            }
+
+            return Content("Sorry you can't make it!");
         }
 
         //

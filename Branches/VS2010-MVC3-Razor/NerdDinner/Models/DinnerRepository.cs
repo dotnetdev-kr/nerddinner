@@ -67,6 +67,11 @@ namespace NerdDinner.Models
             db.Dinners.DeleteObject(dinner);
         }
 
+        public void DeleteRsvp(RSVP rsvp)
+        {
+            db.RSVPs.DeleteObject(rsvp);
+        }
+
         //
         // Persistence 
 

@@ -49,6 +49,15 @@ namespace NerdDinner.Tests.Fakes {
             dinnerList.Remove(dinner);
         }
 
+        public void DeleteRsvp(RSVP rsvp)
+        {
+            dinnerList
+                .Where(d => d.DinnerID == rsvp.DinnerID)
+                .Single()
+                .RSVPs
+                .Remove(rsvp);
+        }
+
         public void Save() {
             foreach (Dinner dinner in dinnerList) {
                 //TODO: Remove this

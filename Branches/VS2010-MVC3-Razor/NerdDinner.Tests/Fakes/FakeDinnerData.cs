@@ -32,6 +32,8 @@ namespace NerdDinner.Tests.Fakes
                 };
 
                 RSVP rsvp = new RSVP();
+                rsvp.RsvpID = i;
+                rsvp.DinnerID = sampleDinner.DinnerID;
                 rsvp.AttendeeName = "SomeUser";
                 sampleDinner.RSVPs.Add(rsvp);
 
