@@ -53,17 +53,25 @@ namespace NerdDinner.Models
         [StringLength(50, ErrorMessage = "Title may not be longer than 50 characters")]
         public string Title { get; set; }
 
+        [Required(ErrorMessage = "Event Date is required")]
+        [Display(Name = "Event Date")]
+        public DateTime? EventDate { get; set; }
+
         [Required(ErrorMessage = "Description is required")]
         [StringLength(265, ErrorMessage = "Description may not be longer than 256 characters")]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         public string HostedById { get; set; }
 
         [StringLength(256, ErrorMessage = "Hosted By name may not be longer than 20 characters")]
+        [Display(Name = "Host's Name")]
         public string HostedBy { get; set; }
 
         [Required(ErrorMessage = "Address is required")]
         [StringLength(50, ErrorMessage = "Address may not be longer than 50 characters")]
+        [Display(Name = "Address, City, State, ZIP")]
         public string Address { get; set; }
 
         [UIHint("CountryDropDown")]
@@ -71,6 +79,7 @@ namespace NerdDinner.Models
 
         [Required(ErrorMessage = "Contact phone is required")]
         [StringLength(20, ErrorMessage = "Contact phone may not be longer than 20 characters")]
+        [Display(Name = "Contact Info")]
         public string ContactPhone { get; set; }
 
         [HiddenInput(DisplayValue = false)]
