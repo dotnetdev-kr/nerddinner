@@ -14,6 +14,7 @@ namespace NerdDinner.Models {
 
         void Add(Dinner dinner);
         void Delete(Dinner dinner);
+		void DeleteRsvp(RSVP rsvp);
         
         void Save();
     }
