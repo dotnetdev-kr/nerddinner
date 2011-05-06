@@ -58,7 +58,7 @@ namespace NerdDinner.Models
         public DateTime? EventDate { get; set; }
 
         [Required(ErrorMessage = "Description is required")]
-        [StringLength(265, ErrorMessage = "Description may not be longer than 256 characters")]
+        [StringLength(256, ErrorMessage = "Description may not be longer than 256 characters")]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
