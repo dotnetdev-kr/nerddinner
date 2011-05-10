@@ -48,10 +48,13 @@
             $get('Location').value = '';
             NerdDinner.FindMostPopularDinners(8);
 
-            $.getJSON('http://ipinfodb.com/ip_query.php?&output=json&timezone=false&callback=?',
+            var apiKey = '<%= System.Configuration.ConfigurationManager.AppSettings["ipInfoDbKey"] %>';
+            var requestUrl = "http://api.ipinfodb.com/v3/ip-city/?format=json&callback=?&key=" + apiKey;
+            //var requestUrl = "http://ipinfodb.com/ip_query.php?&output=json&timezone=false&callback=?";
+            $.getJSON(requestUrl,
             function (data) {
-                if (data.RegionName != '') {
-                    $get('Location').value = data.RegionName + ', ' + data.CountryName;
+                if (data.regionName != '') {
+                    $get('Location').value = data.regionName + ', ' + data.countryName;
                 }
             });
         }

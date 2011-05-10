@@ -1,8 +1,8 @@
 <%@ Language="C#" Inherits="System.Web.Mvc.ViewUserControl<NerdDinner.Models.Dinner>" %>
 
-<script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
-<script src="/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
-<script src="/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
+<script src="<%=Url.Content("~/Scripts/MicrosoftAjax.js")%>" type="text/javascript"></script>
+<script src="<%=Url.Content("~/Scripts/MicrosoftMvcAjax.js")%>" type="text/javascript"></script>
+<script src="<%=Url.Content("~/Scripts/MicrosoftMvcValidation.js")%>" type="text/javascript"></script>
 
 <% Html.EnableClientValidation(); %>
 <%: Html.ValidationSummary("Please correct the errors and try again.") %>
