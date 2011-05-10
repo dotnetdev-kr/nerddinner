@@ -377,7 +377,7 @@
     <Content Include="Views\Home\Xrds.cshtml" />
     <Content Include="Views\Services\Flair.cshtml" />
     <Content Include="Views\Services\JavascriptFlair.cshtml" />
-    <Content Include="Views\Shared\Confused.cshtml" />
+    <Content Include="Views\Shared\Lost.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CountryDropDown.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocationDetail.cshtml" />

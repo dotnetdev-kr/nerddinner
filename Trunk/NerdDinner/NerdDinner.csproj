@@ -18,6 +18,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -303,7 +304,7 @@
     <Content Include="Views\Dinners\Mobile\Details.aspx" />
     <Content Include="Views\Dinners\Mobile\iPhone\Details.aspx" />
     <Content Include="Views\Home\Mobile\Index.aspx" />
-    <Content Include="Views\Shared\Confused.aspx" />
+    <Content Include="Views\Shared\Lost.aspx" />
     <Content Include="Views\Shared\Masthead.ascx" />
     <Content Include="Views\Shared\Mobile\iPhone\Results.aspx" />
     <Content Include="Views\Home\Mobile\iPhone\Index.aspx" />

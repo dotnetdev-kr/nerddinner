@@ -183,7 +183,7 @@ namespace NerdDinner.Controllers {
 			throw new HttpException(404, "Action not found");
 		}
 
-		public ActionResult Confused()
+		public ActionResult Lost()
 		{
 			return View();
 		}
