@@ -7,6 +7,7 @@ using System.Web.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdDinner;
 using NerdDinner.Controllers;
+using NerdDinner.Models;
 
 namespace NerdDinner.Tests.Controllers {
 
@@ -156,7 +157,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            RedirectToRouteResult result = (RedirectToRouteResult)controller.LogOn("someUser", "goodPass", true, null);
+            RedirectToRouteResult result = (RedirectToRouteResult)controller.LogOn(new LogOnModel { UserName = "someUser", Password = "goodPass", RememberMe = true }, null);
 
             // Assert
             Assert.AreEqual("Home", result.RouteValues["controller"]);
@@ -169,7 +170,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            RedirectResult result = (RedirectResult)controller.LogOn("someUser", "goodPass", false, "someUrl");
+            RedirectResult result = (RedirectResult)controller.LogOn(new LogOnModel { UserName = "someUser", Password = "goodPass", RememberMe = false }, null);
 
             // Assert
             Assert.AreEqual("someUrl", result.Url);
@@ -181,7 +182,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.LogOn("username", "", true, null);
+            ViewResult result = (ViewResult)controller.LogOn(new LogOnModel { UserName = "someUser", Password = "", RememberMe = true }, null);
 
             // Assert
             Assert.AreEqual(true, result.ViewData["rememberMe"]);
@@ -194,7 +195,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.LogOn("", "somePass", false, null);
+            ViewResult result = (ViewResult)controller.LogOn(new LogOnModel { UserName = "", Password = "somePass", RememberMe = false }, null);
 
             // Assert
             Assert.AreEqual(false, result.ViewData["rememberMe"]);
@@ -207,7 +208,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.LogOn("someUser", "badPass", true, null);
+            ViewResult result = (ViewResult)controller.LogOn(new LogOnModel { UserName = "someUser", Password = "badPass", RememberMe = true }, null);
 
             // Assert
             Assert.AreEqual(true, result.ViewData["rememberMe"]);
@@ -245,7 +246,8 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            RedirectToRouteResult result = (RedirectToRouteResult)controller.Register("someUser", "email", "goodPass", "goodPass");
+            RedirectToRouteResult result = (RedirectToRouteResult)controller.Register(new RegisterModel { UserName = "someUser", Email = "email", Password = "goodPass", ConfirmPassword = "goodPass" });
+
 
             // Assert
             Assert.AreEqual("Home", result.RouteValues["controller"]);
@@ -258,7 +260,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "", "password", "password");
+            ViewResult result = (ViewResult)controller.Register(new RegisterModel { UserName = "someUser", Email = "", Password = "goodPass", ConfirmPassword = "goodPass" });
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -271,7 +273,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "email", "password", "password2");
+            ViewResult result = (ViewResult)controller.Register(new RegisterModel { UserName = "someUser", Email = "email", Password = "goodPass", ConfirmPassword = "goodPass2" });
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -284,7 +286,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "email", null, null);
+            ViewResult result = (ViewResult)controller.Register(new RegisterModel { UserName = "someUser", Email = "email", Password = null, ConfirmPassword = null });
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -297,7 +299,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("username", "email", "12345", "12345");
+            ViewResult result = (ViewResult)controller.Register(new RegisterModel { UserName = "someUser", Email = "email", Password = "12345", ConfirmPassword = "12345" });
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -310,7 +312,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("someUser", "DuplicateUserName" /* error */, "badPass", "badPass");
+            ViewResult result = (ViewResult)controller.Register(new RegisterModel { UserName = "someUser", Email = "DuplicateUserName", Password = "badPass", ConfirmPassword = "badPass" });
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);
@@ -323,7 +325,7 @@ namespace NerdDinner.Tests.Controllers {
             AccountController controller = GetAccountController();
 
             // Act
-            ViewResult result = (ViewResult)controller.Register("", "email", "password", "password");
+            ViewResult result = (ViewResult)controller.Register(new RegisterModel { UserName = "", Email = "email", Password = "badPass", ConfirmPassword = "badPass" });
 
             // Assert
             Assert.AreEqual(6, result.ViewData["PasswordLength"]);

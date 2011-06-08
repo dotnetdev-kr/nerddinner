@@ -115,6 +115,7 @@
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\TwitterConsumer.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
+    <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Dinner.cs" />
     <Compile Include="Models\DinnerRepository.cs" />
     <Compile Include="Models\FlairViewModel.cs" />
@@ -386,7 +387,6 @@
     <Content Include="Views\Shared\Mobile\iPhone\Site.Master" />
     <Content Include="Views\Shared\Mobile\Site.Master" />
     <Content Include="Views\Shared\_LoginStatus.cshtml" />
-    <Content Include="Views\Shared\_LogOnContent.cshtml" />
     <Content Include="Views\Shared\_Masthead.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -436,6 +436,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Dinners\DinnerPagination.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\_LogonNative.cshtml" />
+    <Content Include="Views\Account\_LogonOpenId.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

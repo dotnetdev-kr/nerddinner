@@ -324,3 +324,67 @@ strong {
 }
 
 #disqus_thread { clear: both; padding-top: 15px; }
+
+#login-oauth, #login-account
+{
+    float: left;
+    width: 330px;
+    height: 210px;
+    border: 1px dotted black;
+    padding: 10px;
+}
+#login-oauth-container
+{
+    margin-top: 30px;
+}
+#login-oauth h3, #login-account h3
+{
+    font-size: 22px;
+    font-weight: bold;
+}
+#oauth-buttons
+{
+    margin-top: 60px;
+}
+#oauth-buttons a
+{
+    display: block;
+    height: 32px;
+    width: 111px;
+    border: 1px solid #aaa;
+    float: left;
+    margin-right: 5px;
+}
+#or
+{
+    float: left;
+    margin-top: 40px;
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: x-large;
+}
+#openid_identifier
+{
+    font-size: large;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.OpenIdAjaxTextBox input[type='button']
+{
+    font-size: large;
+}
+.OpenIdAjaxTextBox .yui-button span button
+{
+    font-size: large;
+    margin-top: 2px;
+}
+.OpenIdAjaxTextBox img
+{
+    padding-top: 7px;
+}
+.classiclogon
+{
+    font-size: large;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
