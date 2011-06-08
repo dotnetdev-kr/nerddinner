@@ -1,4 +1,4 @@
-﻿@model NerdDinner.Helpers.PaginatedList<NerdDinner.Models.Dinner>
+﻿@model PagedList.PagedList<NerdDinner.Models.Dinner>
 
 @{
 	ViewBag.Title = "Upcoming Nerd Dinners";
@@ -22,21 +22,4 @@
 	</ul>
 </div>
 
-<div class="pagination">
-
-	@if (Model.HasPreviousPage) { 
-		
-		@Html.RouteLink("<<< Previous Page", 
-							"UpcomingDinners", 
-							new { page=(Model.PageIndex-1) })   
-	}
-		
-	@if (Model.HasNextPage) {
-		
-		@Html.RouteLink("Next Page >>>", 
-							"UpcomingDinners", 
-							new { page = (Model.PageIndex + 1) })
-		
-	}
-
-</div>
+@Html.Partial("DinnerPagination")

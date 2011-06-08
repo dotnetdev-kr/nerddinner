@@ -51,6 +51,9 @@
     <Reference Include="OpenSearchToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenSearchToolkit.1.1\lib\OpenSearchToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.2.1.0\lib\40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.Services" />
@@ -108,7 +111,6 @@
     <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
     <Compile Include="Helpers\MobileCapableWebFormViewEngine.cs" />
-    <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Helpers\RSSResult.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\TwitterConsumer.cs" />
@@ -431,6 +433,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Dinners\DinnerPagination.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

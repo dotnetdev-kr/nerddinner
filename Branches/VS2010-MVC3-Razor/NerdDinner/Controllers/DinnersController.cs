@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
+using PagedList;
 
 namespace NerdDinner.Controllers {
 
@@ -11,6 +12,8 @@ namespace NerdDinner.Controllers {
     public class DinnersController : Controller {
 
         IDinnerRepository dinnerRepository;
+
+        private const int PageSize = 25;
 
         //
         // Dependency Injection enabled constructors
@@ -30,8 +33,6 @@ namespace NerdDinner.Controllers {
 
         public ActionResult Index(string q, int? page) {
 
-            const int pageSize = 25;
-
             IQueryable<Dinner> dinners = null;
 
             //Searching?
@@ -40,9 +41,8 @@ namespace NerdDinner.Controllers {
             else 
                 dinners = dinnerRepository.FindUpcomingDinners();
 
-            var paginatedDinners = new PaginatedList<Dinner>(dinners, page ?? 0, pageSize);
-
-            return View(paginatedDinners);
+            int pageIndex = (page ?? 1) - 1;
+            return View(dinners.ToPagedList(pageIndex, PageSize));
         }
 
         //
