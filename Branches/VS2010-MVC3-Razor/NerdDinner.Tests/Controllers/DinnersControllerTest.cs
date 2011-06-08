@@ -405,7 +405,7 @@ namespace NerdDinner.Tests.Controllers {
             ActionResult result = (ActionResult)controller.Create(dinner);
 
             // Assert
-            Assert.AreEqual(102, repository.FindAllDinners().Count());
+            Assert.AreEqual(102, repository.All.Count());
             Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
         }
 

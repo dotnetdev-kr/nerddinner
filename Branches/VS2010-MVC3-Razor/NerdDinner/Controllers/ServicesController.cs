@@ -47,7 +47,7 @@ namespace NerdDinner.Controllers
         
         public ActionResult iCal(int id)
         {
-            Dinner dinner = dinnerRepository.GetDinner(id);
+            Dinner dinner = dinnerRepository.Find(id);
 
             if (dinner == null)
                 return View("NotFound");

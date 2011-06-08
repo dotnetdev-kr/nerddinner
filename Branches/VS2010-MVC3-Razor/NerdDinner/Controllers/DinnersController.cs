@@ -53,7 +53,7 @@ namespace NerdDinner.Controllers {
                 return new FileNotFoundResult { Message = "No Dinner found due to invalid dinner id" };
             }
 
-            Dinner dinner = dinnerRepository.GetDinner(id.Value);
+            Dinner dinner = dinnerRepository.Find(id.Value);
 
             if (dinner == null) {
                 return new FileNotFoundResult { Message = "No Dinner found for that id" };
@@ -68,7 +68,7 @@ namespace NerdDinner.Controllers {
         [Authorize]
         public ActionResult Edit(int id) {
 
-            Dinner dinner = dinnerRepository.GetDinner(id);
+            Dinner dinner = dinnerRepository.Find(id);
 
             if (dinner == null)
                 return View("NotFound");
@@ -85,7 +85,7 @@ namespace NerdDinner.Controllers {
         [HttpPost, Authorize]
         public ActionResult Edit(int id, FormCollection collection) {
 
-            Dinner dinner = dinnerRepository.GetDinner(id);
+            Dinner dinner = dinnerRepository.Find(id);
 
             if (!dinner.IsHostedBy(User.Identity.Name))
                 return View("InvalidOwner");
@@ -131,7 +131,7 @@ namespace NerdDinner.Controllers {
                 rsvp.AttendeeName = nerd.FriendlyName;
                 dinner.RSVPs.Add(rsvp);
 
-                dinnerRepository.Add(dinner);
+                dinnerRepository.InsertOrUpdate(dinner);
                 dinnerRepository.Save();
 
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
@@ -146,7 +146,7 @@ namespace NerdDinner.Controllers {
         [Authorize]
         public ActionResult Delete(int id) {
 
-            Dinner dinner = dinnerRepository.GetDinner(id);
+            Dinner dinner = dinnerRepository.Find(id);
 
             if (dinner == null)
                 return View("NotFound");
@@ -163,7 +163,7 @@ namespace NerdDinner.Controllers {
         [HttpPost, Authorize]
         public ActionResult Delete(int id, string confirmButton) {
 
-            Dinner dinner = dinnerRepository.GetDinner(id);
+            Dinner dinner = dinnerRepository.Find(id);
 
             if (dinner == null)
                 return View("NotFound");
@@ -171,7 +171,7 @@ namespace NerdDinner.Controllers {
             if (!dinner.IsHostedBy(User.Identity.Name))
                 return View("InvalidOwner");
 
-            dinnerRepository.Delete(dinner);
+            dinnerRepository.Delete(dinner.DinnerID);
             dinnerRepository.Save();
 
             return View("Deleted");
@@ -198,7 +198,7 @@ namespace NerdDinner.Controllers {
         {
 
             NerdIdentity nerd = (NerdIdentity)User.Identity;
-            var userDinners = from dinner in dinnerRepository.FindAllDinners()
+            var userDinners = from dinner in dinnerRepository.All
                               where
                                 (
                                 String.Equals((dinner.HostedById ?? dinner.HostedBy), nerd.Name)

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Objects.DataClasses;
 using System.Data;
+using System.Data.Entity;
+using System.Data.Objects.DataClasses;
+using System.Linq;
+using System.Linq.Expressions;
+
 
 namespace NerdDinner.Models
 {
 
-    public class DinnerRepository : NerdDinner.Models.IDinnerRepository
+    public class DinnerRepository : IDinnerRepository
     {
 
         NerdDinnerEntities db = new NerdDinnerEntities();
@@ -18,19 +20,19 @@ namespace NerdDinner.Models
 
         public IQueryable<Dinner> FindDinnersByText(string q)
         {
-            return db.Dinners.Where(d => d.Title.Contains(q)
+            return All.Where(d => d.Title.Contains(q)
                             || d.Description.Contains(q)
                             || d.HostedBy.Contains(q));
         }
 
-        public IQueryable<Dinner> FindAllDinners()
+        public IQueryable<Dinner> All
         {
-            return db.Dinners;
+            get { return db.Dinners; }
         }
 
         public IQueryable<Dinner> FindUpcomingDinners()
         {
-            return from dinner in FindAllDinners()
+            return from dinner in All
                    where dinner.EventDate >= DateTime.Now
                    orderby dinner.EventDate
                    select dinner;
@@ -47,7 +49,17 @@ namespace NerdDinner.Models
             return dinners;
         }
 
-        public Dinner GetDinner(int id)
+        public IQueryable<Dinner> AllIncluding(params Expression<Func<Dinner, object>>[] includeProperties)
+        {
+            IQueryable<Dinner> query = All;
+            foreach (var includeProperty in includeProperties)
+            {
+                // query = query.Include(includeProperty);
+            }
+            return query;
+        }
+
+        public Dinner Find(int id)
         {
             return db.Dinners.SingleOrDefault(d => d.DinnerID == id);
         }
@@ -55,13 +67,14 @@ namespace NerdDinner.Models
         //
         // Insert/Delete Methods
 
-        public void Add(Dinner dinner)
+        public void InsertOrUpdate(Dinner dinner)
         {
             db.Dinners.AddObject(dinner);
         }
 
-        public void Delete(Dinner dinner)
+        public void Delete(int id)
         {
+            var dinner = Find(id);
             foreach (RSVP rsvp in dinner.RSVPs.ToList())
                 db.RSVPs.DeleteObject(rsvp);
             db.Dinners.DeleteObject(dinner);

@@ -120,6 +120,7 @@
     <Compile Include="Models\DinnerRepository.cs" />
     <Compile Include="Models\FlairViewModel.cs" />
     <Compile Include="Models\IDinnerRepository.cs" />
+    <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\NerdDinner.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
