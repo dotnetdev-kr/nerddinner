@@ -1,6 +1,5 @@
-﻿@inherits System.Web.Mvc.WebViewPage
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html>
 <head>
     <title>@ViewBag.Title</title>
     <meta content="Nerd, Dinner, Geek, Luncheon, Dweeb, Breakfast, Technology, Bar, Beer, Wonk"
@@ -35,7 +34,7 @@
 </head>
 <body>
     <div class="page">
-        <div id="header">
+        <header>
             <div id="title">
                 <h1>
                     <a href="@Url.Content("~/")" title="Nerd Dinner" class="logo"></a>
@@ -44,7 +43,7 @@
             <div id="logindisplay">
                 @Html.Partial("_LoginStatus")
             </div>
-            <div id="menucontainer">
+            <nav>
                 <ul id="menu">
                     <li>@Html.ActionLink("Find Dinner", "Index", "Home")</li>
                     <li>@Html.ActionLink("Host Dinner", "Create", "Dinners")</li>
@@ -60,13 +59,13 @@
                     <img alt="RSS Feed" src="@Url.Content("~/Content/Img/icon-feed-28x28.png")" /></a>
                 <a class="feed" href="@Url.Action("iCalFeed", "Services", null, "webcal") ">
                     <img alt="iCal Calendar Feed for Nerd Dinners" src="@Url.Content("~/Content/Img/icon-icalfeed-28x28.png")" /></a>
-            </div>
-        </div>
+            </nav>
+        </header>
         @RenderSection("Masthead", required: false)
         <div id="main" class="clearfix">
             @RenderBody()
         </div>
-        <div id="footer">
+        <footer>
             Code by <a href="http://www.hanselman.com">Hanselman</a>, <a href="http://weblogs.asp.net/scottgu">
                 Guthrie</a>, <a href="http://weblogs.asp.net/jgalloway">Galloway</a>, <a href="http://blog.wekeroad.com">
                     Conery</a> and <a href="http://blog.nerdbank.net/">Arnott</a>. JavaScript
@@ -74,11 +73,8 @@
                 Haack</a> and friends. Style by <a href="http://michaeldorian.com/">Michael Dorian Bach</a>.<br />
             Source Code at <a href="http://nerddinner.codeplex.com">http://nerddinner.codeplex.com</a>.
             Free Sample Book Chapter and code walkthrough at <a href="http://tinyurl.com/aspnetmvc">
-                http://tinyurl.com/aspnetmvc</a>.</div>
-
-
-
-
+                http://tinyurl.com/aspnetmvc</a>.
+        </footer>
         <script type="text/javascript">
             var pageTracker = _gat._getTracker("UA-6399325-1");
             pageTracker._initData();

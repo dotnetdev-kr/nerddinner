@@ -83,25 +83,25 @@ h4 {}
 
 .page {width: 863px; margin: 0px auto 0px auto;}
 
-#header {position: relative; height: 140px; background: transparent url('Img/header-bkg.jpg') no-repeat bottom left; margin: 0px 0px 0px 0px;}
+header {position: relative; height: 140px; background: transparent url('Img/header-bkg.jpg') no-repeat bottom left; margin: 0px 0px 0px 0px;}
 /* 
 #header #title h1 {display:none;}
 #header #title a {position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('Img/logo.png') no-repeat bottom left;}
 */
-#header #title h1 a {display:block; position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('Img/logo.png') no-repeat bottom left; text-indent: -5000;}
+header #title h1 a {display:block; position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('Img/logo.png') no-repeat bottom left; text-indent: -5000;}
 
-#menucontainer {position: absolute; right:25px; bottom: 0px; }
-#menucontainer li {position:relative; left:0px; bottom:0px; float: left; margin:0px 0px 0px 4px; background: transparent url('img/menu-left.png') no-repeat bottom left;}
-#menucontainer li a {display:block; text-decoration: none; height:28px; padding:30px 20px 0px 20px; font-size: 108%; color:#FFFFFF; background: transparent url('img/menu-right.png') no-repeat bottom right;}
-#menucontainer li a:hover {color:#003300;}
+nav {position: absolute; right:25px; bottom: 0px; }
+nav li {position:relative; left:0px; bottom:0px; float: left; margin:0px 0px 0px 4px; background: transparent url('img/menu-left.png') no-repeat bottom left;}
+nav li a {display:block; text-decoration: none; height:28px; padding:30px 20px 0px 20px; font-size: 108%; color:#FFFFFF; background: transparent url('img/menu-right.png') no-repeat bottom right;}
+nav li a:hover {color:#003300;}
 
-#menucontainer li.selected {float: left; margin:0px 0px 0px 4px; background: transparent url('img/menu-left-selected.png') no-repeat bottom left;}
-#menucontainer li.selected a {display:block; height:33px; padding:25px 20px 0px 20px; font-size: 123.1%; color:#000000; background: transparent url('img/menu-right-selected.png') no-repeat bottom right;}
-#menucontainer li.selected a:hover {color:#003300;}
+nav li.selected {float: left; margin:0px 0px 0px 4px; background: transparent url('img/menu-left-selected.png') no-repeat bottom left;}
+nav li.selected a {display:block; height:33px; padding:25px 20px 0px 20px; font-size: 123.1%; color:#000000; background: transparent url('img/menu-right-selected.png') no-repeat bottom right;}
+nav li.selected a:hover {color:#003300;}
 
-#menucontainer li.selected {}
-#menucontainer li.selected a {}
-#menucontainer li.selected a:hover {}
+nav li.selected {}
+nav li.selected a {}
+nav li.selected a:hover {}
 
 #menu { float: left; }
 #menu li.last { margin-right: 10px; }
@@ -293,7 +293,7 @@ input:focus, textarea:focus
 	height: 7em;
 }
 
-#footer 
+footer 
 {
     font-size: 0.93em;
     line-height: 1.6em;
@@ -301,7 +301,7 @@ input:focus, textarea:focus
     padding: 10px 0px 30px 0px;
 }
 
-#footer a {text-decoration: none; font-weight: normal; }
+footer a {text-decoration: none; font-weight: normal; }
 
 strong {
   font-weight: bold;

@@ -28,7 +28,7 @@
         @Ajax.ActionLink("Cancel your RSVP",
                              "Cancel", "RSVP",
                              new { id = Model.DinnerID },
-                             new AjaxOptions { HUpdateTargetId = "rsvpmsg", OnSuccess = "AnimateRSVPMessage" })    
+                             new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "rsvpmsg", OnSuccess = "AnimateRSVPMessage" })    
 	
         }
         else
