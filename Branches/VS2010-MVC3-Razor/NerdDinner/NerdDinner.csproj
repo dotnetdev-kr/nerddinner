@@ -299,6 +299,8 @@
     <Content Include="lib\DDay.iCal.dll" />
     <Content Include="Logs\readme.txt" />
     <Content Include="Scripts\date.format.js" />
+    <Content Include="Scripts\geo-polyfill.js" />
+    <Content Include="Scripts\geo.js" />
     <Content Include="Scripts\jquery-1.5.2-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.2.js" />
     <Content Include="Scripts\jquery-1.5.2.min.js" />
@@ -315,6 +317,8 @@
     <Content Include="Scripts\timepicker_plug\TimePickerAddOn.js" />
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
+    <Content Include="Scripts\yepnope.1.0.1-min.js" />
+    <Content Include="Scripts\yepnope.js" />
     <Content Include="Services\OData.svc" />
     <Content Include="Views\Dinners\Mobile\Details.aspx" />
     <Content Include="Views\Dinners\Mobile\iPhone\Details.aspx" />
