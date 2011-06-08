@@ -16,7 +16,7 @@ namespace NerdDinner
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = System.ServiceModel.ConcurrencyMode.Single)]
     [JSONPSupportBehavior]
-    public class ODataServices : DataService<NerdDinnerEntities>
+    public class ODataServices : DataService<NerdDinners>
     {
         IDinnerRepository dinnerRepository;
         //
@@ -53,13 +53,16 @@ namespace NerdDinner
             base.OnStartProcessingRequest(args);
 
             HttpContext context = HttpContext.Current;
-            HttpCachePolicy c = context.Response.Cache;
-            c.SetCacheability(HttpCacheability.ServerAndPrivate);
-            c.SetExpires(context.Timestamp.AddSeconds(30));
-            c.VaryByHeaders["Accept"] = true;
-            c.VaryByHeaders["Accept-Charset"] = true;
-            c.VaryByHeaders["Accept-Encoding"] = true;
-            c.VaryByParams["*"] = true;
+            if (null != context)
+            {
+                HttpCachePolicy c = context.Response.Cache;
+                c.SetCacheability(HttpCacheability.ServerAndPrivate);
+                c.SetExpires(context.Timestamp.AddSeconds(30));
+                c.VaryByHeaders["Accept"] = true;
+                c.VaryByHeaders["Accept-Charset"] = true;
+                c.VaryByHeaders["Accept-Encoding"] = true;
+                c.VaryByParams["*"] = true;
+            }
         }
 
         [WebGet]

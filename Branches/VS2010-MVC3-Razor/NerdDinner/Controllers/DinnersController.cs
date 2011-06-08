@@ -126,13 +126,17 @@ namespace NerdDinner.Controllers {
                 dinner.HostedById = nerd.Name;
                 dinner.HostedBy = nerd.FriendlyName;
 
+                dinnerRepository.InsertOrUpdate(dinner);
+                dinnerRepository.Save();
+
                 RSVP rsvp = new RSVP();
                 rsvp.AttendeeNameId = nerd.Name;
                 rsvp.AttendeeName = nerd.FriendlyName;
-                dinner.RSVPs.Add(rsvp);
+                rsvp.DinnerID = dinner.DinnerID;
 
-                dinnerRepository.InsertOrUpdate(dinner);
-                dinnerRepository.Save();
+                NerdDinners nerdDinners = new NerdDinners();
+                nerdDinners.RSVPs.Add(rsvp);
+                nerdDinners.SaveChanges();
 
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
@@ -171,7 +175,7 @@ namespace NerdDinner.Controllers {
             if (!dinner.IsHostedBy(User.Identity.Name))
                 return View("InvalidOwner");
 
-            dinnerRepository.Delete(dinner.DinnerID);
+            dinnerRepository.Delete(id);
             dinnerRepository.Save();
 
             return View("Deleted");

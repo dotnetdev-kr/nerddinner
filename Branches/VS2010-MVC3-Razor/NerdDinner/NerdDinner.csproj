@@ -45,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="FiftyOne.Foundation">
       <HintPath>..\packages\51Degrees.mobi.1.0.2.2\lib\NET40\FiftyOne.Foundation.dll</HintPath>
     </Reference>
@@ -121,12 +124,9 @@
     <Compile Include="Models\FlairViewModel.cs" />
     <Compile Include="Models\IDinnerRepository.cs" />
     <Compile Include="Models\IRepository.cs" />
-    <Compile Include="Models\NerdDinner.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NerdDinner.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Models\NerdDinners.cs" />
     <Compile Include="Models\NerdIdentity.cs" />
+    <Compile Include="Models\RSVP.cs" />
     <Compile Include="Models\RuleViolation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmbeddedResourceUrlService.cs" />
@@ -356,10 +356,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConnectionStrings.config" />
-    <EntityDeploy Include="Models\NerdDinner.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NerdDinner.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <Content Include="Services\OpenSearch.ashx" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />

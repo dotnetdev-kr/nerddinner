@@ -1,14 +1,57 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace NerdDinner.Models
 {
-    [Bind(Include = "Title,Description,EventDate,Address,Country,ContactPhone,Latitude,Longitude")]
-    [MetadataType(typeof(Dinner_Validation))]
-    public partial class Dinner
+    public class Dinner
     {
+        [HiddenInput(DisplayValue = false)]
+        public int DinnerID { get; set; }
+
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(50, ErrorMessage = "Title may not be longer than 50 characters")]
+        public string Title { get; set; }
+
+        [Required(ErrorMessage = "Event Date is required")]
+        [Display(Name = "Event Date")]
+        public DateTime EventDate { get; set; }
+
+        [Required(ErrorMessage = "Description is required")]
+        [StringLength(256, ErrorMessage = "Description may not be longer than 256 characters")]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
+
+        [StringLength(20, ErrorMessage = "Hosted By name may not be longer than 20 characters")]
+        [Display(Name = "Host's Name")]
+        public string HostedBy { get; set; }
+
+        [Required(ErrorMessage = "Contact phone is required")]
+        [StringLength(20, ErrorMessage = "Contact phone may not be longer than 20 characters")]
+        [Display(Name = "Contact Info")]
+        public string ContactPhone { get; set; }
+
+        [Required(ErrorMessage = "Address is required")]
+        [StringLength(50, ErrorMessage = "Address may not be longer than 50 characters")]
+        [Display(Name = "Address, City, State, ZIP")]
+        public string Address { get; set; }
+
+        [UIHint("CountryDropDown")]
+        public string Country { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public double Latitude { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public double Longitude { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public string HostedById { get; set; }
+
+        public virtual ICollection<RSVP> RSVPs { get; set; }
+
         public bool IsHostedBy(string userName)
         {
             return String.Equals(HostedById ?? HostedBy, userName, StringComparison.Ordinal);
@@ -20,6 +63,7 @@ namespace NerdDinner.Models
         }
 
         [UIHint("LocationDetail")]
+        [NotMapped]
         public LocationDetail Location
         {
             get
@@ -42,50 +86,5 @@ namespace NerdDinner.Models
         public double Longitude;
         public string Title;
         public string Address;
-    }
-
-    public class Dinner_Validation
-    {
-        [HiddenInput(DisplayValue = false)]
-        public int DinnerID { get; set; }
-
-        [Required(ErrorMessage = "Title is required")]
-        [StringLength(50, ErrorMessage = "Title may not be longer than 50 characters")]
-        public string Title { get; set; }
-
-        [Required(ErrorMessage = "Event Date is required")]
-        [Display(Name = "Event Date")]
-        public DateTime? EventDate { get; set; }
-
-        [Required(ErrorMessage = "Description is required")]
-        [StringLength(256, ErrorMessage = "Description may not be longer than 256 characters")]
-        [DataType(DataType.MultilineText)]
-        public string Description { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public string HostedById { get; set; }
-
-        [StringLength(20, ErrorMessage = "Hosted By name may not be longer than 20 characters")]
-        [Display(Name="Host's Name")]
-        public string HostedBy { get; set; }
-
-        [Required(ErrorMessage = "Address is required")]
-        [StringLength(50, ErrorMessage = "Address may not be longer than 50 characters")]
-        [Display(Name = "Address, City, State, ZIP")]
-        public string Address { get; set; }
-
-        [UIHint("CountryDropDown")]
-        public string Country { get; set; }
-
-        [Required(ErrorMessage = "Contact phone is required")]
-        [StringLength(20, ErrorMessage = "Contact phone may not be longer than 20 characters")]
-        [Display(Name = "Contact Info")]
-        public string ContactPhone { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public double Latitude { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
-        public double Longitude { get; set; }
     }
 }
