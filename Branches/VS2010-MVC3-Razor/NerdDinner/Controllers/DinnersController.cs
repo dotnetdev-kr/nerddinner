@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -126,17 +127,15 @@ namespace NerdDinner.Controllers {
                 dinner.HostedById = nerd.Name;
                 dinner.HostedBy = nerd.FriendlyName;
 
-                dinnerRepository.InsertOrUpdate(dinner);
-                dinnerRepository.Save();
-
                 RSVP rsvp = new RSVP();
                 rsvp.AttendeeNameId = nerd.Name;
                 rsvp.AttendeeName = nerd.FriendlyName;
-                rsvp.DinnerID = dinner.DinnerID;
 
-                NerdDinners nerdDinners = new NerdDinners();
-                nerdDinners.RSVPs.Add(rsvp);
-                nerdDinners.SaveChanges();
+                dinner.RSVPs = new List<RSVP>();
+                dinner.RSVPs.Add(rsvp);
+
+                dinnerRepository.InsertOrUpdate(dinner);
+                dinnerRepository.Save();
 
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
