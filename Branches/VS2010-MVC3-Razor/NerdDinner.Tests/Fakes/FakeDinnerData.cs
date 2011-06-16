@@ -14,7 +14,7 @@ namespace NerdDinner.Tests.Fakes
 
             List<Dinner> dinners = new List<Dinner>();
 
-            for (int i = 0; i < 101; i++)
+            for (int i = 1; i <= 101; i++)
             {
 
                 Dinner sampleDinner = new Dinner()
@@ -28,7 +28,8 @@ namespace NerdDinner.Tests.Fakes
                     Description = "Some description",
                     EventDate = DateTime.Now.AddDays(i),
                     Latitude = 99,
-                    Longitude = -99
+                    Longitude = -99,
+                    RSVPs = new List<RSVP>()
                 };
 
                 RSVP rsvp = new RSVP();

@@ -18,8 +18,7 @@ namespace NerdDinner.Tests.Fakes
         }
 
         public void DeleteRsvp(RSVP rsvp)
-        {
-            throw new NotImplementedException();
+        {            
         }
 
         public IQueryable<Dinner> FindByLocation(float latitude, float longitude)

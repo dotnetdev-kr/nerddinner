@@ -141,7 +141,7 @@ namespace NerdDinner.Tests.Controllers {
             var controller = CreateDinnersControllerAs("robcon");
 
             // Act
-            var result = controller.Index(string.Empty, 0);
+            var result = controller.Index(string.Empty, 1);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
@@ -153,10 +153,10 @@ namespace NerdDinner.Tests.Controllers {
             var controller = CreateDinnersControllerAs("robcon");
 
             // Act
-            ViewResult result = (ViewResult)controller.Index(null, 0);
+            ViewResult result = (ViewResult)controller.Index(null, 1);
 
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(IList<Dinner>), "Index does not have an IList<Dinner> as a ViewModel");
+            Assert.IsInstanceOfType(result.ViewData.Model, typeof(PagedList<Dinner>), "Index does not have an IList<Dinner> as a ViewModel");
         }
 
 
@@ -168,7 +168,7 @@ namespace NerdDinner.Tests.Controllers {
 
             // Act
             //Get first page
-            ViewResult result = (ViewResult)controller.Index(null, 0);
+            ViewResult result = (ViewResult)controller.Index(null, 1);
             
             // Assert
             Assert.IsInstanceOfType(result.ViewData.Model, typeof(PagedList<Dinner>));
@@ -183,7 +183,7 @@ namespace NerdDinner.Tests.Controllers {
 
             // Act
             // Get first page
-            ViewResult result = (ViewResult)controller.Index(null, 0);
+            ViewResult result = (ViewResult)controller.Index(null, 1);
             PagedList<Dinner> list = result.ViewData.Model as PagedList<Dinner>;
 
             // Assert
@@ -194,7 +194,6 @@ namespace NerdDinner.Tests.Controllers {
         [TestMethod]
         public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_5_Pages_Given_Null()
         {
-
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -214,7 +213,7 @@ namespace NerdDinner.Tests.Controllers {
 			// Arrange 
 			var testData = FakeDinnerData.CreateTestDinners();
 			var dinner = FakeDinnerData.CreateDinner();
-			dinner.EventDate = DateTime.Now.AddHours(-1);
+			dinner.EventDate = DateTime.Now.AddHours(1);
 			dinner.Title = "Dinner which just started";
 			testData.Add(dinner);
 			var repository = new FakeDinnerRepository(testData);
