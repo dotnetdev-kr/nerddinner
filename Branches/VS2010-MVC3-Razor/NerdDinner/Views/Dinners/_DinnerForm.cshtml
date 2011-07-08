@@ -34,8 +34,10 @@
                     return;
                 NerdDinner.FindAddressOnMap(address);
             });
-            var LL = new VELatLong(@Model.Location.Latitude, @Model.Location.Latitude);
-            NerdDinner.LoadPin(LL, "Event", description);
+            var LL = new VELatLong(@Model.Location.Latitude, @Model.Location.Longitude);
+            if(LL.Latitude > 0 && LL.Longitude > 0){
+                NerdDinner.LoadPin(LL, "Event", description);
+            }
         });
 //]]>
     </script>
