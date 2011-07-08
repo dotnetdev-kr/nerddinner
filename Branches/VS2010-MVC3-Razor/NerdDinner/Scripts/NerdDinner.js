@@ -34,8 +34,17 @@ NerdDinner.ClearMap = function () {
     NerdDinner._shapes = [];
 }
 
-NerdDinner.LoadPin = function (LL, name, description) {
+NerdDinner.LoadPin = function (LL, name, description, draggable) {
+    if (LL.Latitude == 0 || LL.Longitude == 0) {
+        return;
+    }
+
     var shape = new VEShape(VEShapeType.Pushpin, LL);
+
+    if (draggable == true) {
+        shape.Draggable = true;
+        shape.onenddrag = NerdDinner.onEndDrag;
+    }
 
     //Make a nice Pushpin shape with a title and description
     shape.SetTitle("<span class=\"pinTitle\"> " + escape(name) + "</span>");
@@ -77,7 +86,7 @@ NerdDinner._callbackForLocation = function (layer, resultsArray, places, hasMore
         var LL = new VELatLong(item.LatLong.Latitude,
                         item.LatLong.Longitude);
 
-        NerdDinner.LoadPin(LL, item.Name, description);
+        NerdDinner.LoadPin(LL, item.Name, description, true);
     });
 
     //Make sure all pushpins are visible
@@ -123,7 +132,7 @@ NerdDinner._renderDinners = function (dinners) {
         var LL = new VELatLong(dinner.Latitude, dinner.Longitude, 0, null);
 
         // Add Pin to Map
-        NerdDinner.LoadPin(LL, _getDinnerLinkHTML(dinner), _getDinnerDescriptionHTML(dinner));
+        NerdDinner.LoadPin(LL, _getDinnerLinkHTML(dinner), _getDinnerDescriptionHTML(dinner), false);
 
         //Add a dinner to the <ul> dinnerList on the right
         $('#dinnerList').append($('<li/>')
@@ -174,46 +183,9 @@ NerdDinner._renderDinners = function (dinners) {
     }
 }
 
-NerdDinner.dragShape = null;
-NerdDinner.dragPixel = null;
-
-NerdDinner.EnableMapMouseClickCallback = function () {
-    NerdDinner._map.AttachEvent("onmousedown", NerdDinner.onMouseDown);
-    NerdDinner._map.AttachEvent("onmouseup", NerdDinner.onMouseUp);
-    NerdDinner._map.AttachEvent("onmousemove", NerdDinner.onMouseMove);
-}
-
-NerdDinner.onMouseDown = function (e) {
-    if (e.elementID != null) {
-        NerdDinner.dragShape = NerdDinner._map.GetShapeByID(e.elementID);
-        return true;
-    }
-}
-
-NerdDinner.onMouseUp = function (e) {
-    if (NerdDinner.dragShape != null) {
-        var x = e.mapX;
-        var y = e.mapY;
-        NerdDinner.dragPixel = new VEPixel(x, y);
-        var LatLong = NerdDinner._map.PixelToLatLong(NerdDinner.dragPixel);
-        $("#Latitude").val(LatLong.Latitude.toString());
-        $("#Longitude").val(LatLong.Longitude.toString());
-        NerdDinner.dragShape = null;
-
-        //OPTIONAL: If you want, go find the address under this pin...        
-        //NerdDinner._map.FindLocations(LatLong, NerdDinner.getLocationResults);
-    }
-}
-
-NerdDinner.onMouseMove = function (e) {
-    if (NerdDinner.dragShape != null) {
-        var x = e.mapX;
-        var y = e.mapY;
-        NerdDinner.dragPixel = new VEPixel(x, y);
-        var LatLong = NerdDinner._map.PixelToLatLong(NerdDinner.dragPixel);
-        NerdDinner.dragShape.SetPoints(LatLong);
-        return true;
-    }
+NerdDinner.onEndDrag = function (e) {
+    $("#Latitude").val(e.LatLong.Latitude.toString());
+    $("#Longitude").val(e.LatLong.Longitude.toString());
 }
 
 NerdDinner.getLocationResults = function (locations) {
