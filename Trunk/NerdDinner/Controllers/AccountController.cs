@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.UI;
 using NerdDinner.Helpers;
+using NerdDinner.Models;
 
 namespace NerdDinner.Controllers {
 
@@ -47,27 +48,35 @@ namespace NerdDinner.Controllers {
         [HttpPost]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Needs to take same parameter type as Controller.Redirect()")]
-        public ActionResult LogOn(string userName, string password, bool rememberMe, string returnUrl) {
+        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ValidateLogOn(model.UserName, model.Password))
+                {
+                    // Make sure we have the username with the right capitalization
+                    // since we do case sensitive checks for OpenID Claimed Identifiers later.
+                    string userName = MembershipService.GetCanonicalUsername(model.UserName);
 
-            if (!ValidateLogOn(userName, password)) {
-                ViewData["rememberMe"] = rememberMe;
-                return View();
+                    FormsAuth.SignIn(userName, model.RememberMe);
+
+                    // Make sure we only follow relative returnUrl parameters to protect against having an open redirector
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                }
             }
-
-            // Make sure we have the username with the right capitalization
-            // since we do case sensitive checks for OpenID Claimed Identifiers later.
-            userName = this.MembershipService.GetCanonicalUsername(userName);
-
-			FormsAuth.SignIn(userName, rememberMe);
-
-            // Make sure we only follow relative returnUrl parameters to protect against having an open redirector
-            Uri returnUri;
-            if (!String.IsNullOrEmpty(returnUrl) && Uri.TryCreate(returnUrl, UriKind.Relative, out returnUri)) {
-                return Redirect(returnUrl);
-            }
-            else {
-                return RedirectToAction("Index", "Home");
-            }
+            return View(model);
         }
 
         public ActionResult LogOff() {
@@ -79,37 +88,41 @@ namespace NerdDinner.Controllers {
 
         public ActionResult Register() {
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(string userName, string email, string password, string confirmPassword) {
+        public ActionResult Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+                if (ValidateRegistration(model.UserName, model.Email, model.Password, model.ConfirmPassword))
+                {
+                    // Attempt to register the user
+                    MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
 
-            if (ValidateRegistration(userName, email, password, confirmPassword)) {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password, email);
-
-                if (createStatus == MembershipCreateStatus.Success) {
-                    FormsAuth.SignIn(userName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else {
-                    ModelState.AddModelError("_FORM", ErrorCodeToString(createStatus));
+                    if (createStatus == MembershipCreateStatus.Success)
+                    {
+                        FormsAuth.SignIn(model.UserName, false /* createPersistentCookie */);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    }
                 }
             }
-
-            // If we got this far, something failed, redisplay form
-            return View();
+            return View(model);
         }
 
         [Authorize]
         public ActionResult ChangePassword() {
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
             return View();
         }
@@ -120,7 +133,7 @@ namespace NerdDinner.Controllers {
             Justification = "Exceptions result in password not being changed.")]
         public ActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword) {
 
-            ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
+            ViewBag.PasswordLength = MembershipService.MinPasswordLength;
 
             if (!ValidateChangePassword(currentPassword, newPassword, confirmPassword)) {
                 return View();
@@ -257,15 +270,15 @@ namespace NerdDinner.Controllers {
     public class FormsAuthenticationService : IFormsAuthentication {
         public void SignIn(string userName, bool createPersistentCookie) {
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-				1, //version
-				userName, // user name
-				DateTime.Now,             //creation
-				DateTime.Now.AddMinutes(30), //Expiration
-				createPersistentCookie, //Persistent
-				userName); //since Classic logins don't have a "Friendly Name".  OpenID logins are handled in the AuthController.
+                1, //version
+                userName, // user name
+                DateTime.Now,             //creation
+                DateTime.Now.AddMinutes(30), //Expiration
+                createPersistentCookie, //Persistent
+                userName); //since Classic logins don't have a "Friendly Name".  OpenID logins are handled in the AuthController.
 
-			string encTicket = FormsAuthentication.Encrypt(authTicket);
-			HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+            string encTicket = FormsAuthentication.Encrypt(authTicket);
+            HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
         }
         public void SignOut() {
             FormsAuthentication.SignOut();

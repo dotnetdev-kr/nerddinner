@@ -1,21 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace NerdDinner.Models {
 
-    public interface IDinnerRepository {
-
-        IQueryable<Dinner> FindAllDinners();
+    public interface IDinnerRepository : IRepository<Dinner>
+    {
         IQueryable<Dinner> FindByLocation(float latitude, float longitude);
         IQueryable<Dinner> FindUpcomingDinners();
         IQueryable<Dinner> FindDinnersByText(string q);
-
-        Dinner GetDinner(int id);
-
-        void Add(Dinner dinner);
-        void Delete(Dinner dinner);
-		void DeleteRsvp(RSVP rsvp);
-        
-        void Save();
+        void DeleteRsvp(RSVP rsvp);
     }
 }

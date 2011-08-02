@@ -13,11 +13,12 @@ namespace NerdDinner.Controllers {
         public ActionResult Index() {
             // Enables RP Discovery, which avoids warnings from OpenID providers like Yahoo during login.
             // Some Providers ask for a specific accept-type, which we can optimize for here.
-            if (Request.AcceptTypes != null && Array.IndexOf(Request.AcceptTypes, XrdsType) >= 0) {
+            if (Request != null && Request.AcceptTypes != null && Array.IndexOf(Request.AcceptTypes, XrdsType) >= 0) {
                 return View("Xrds");
             }
             // Other Providers don't say they're performing RP discovery, so always include an HTTP header to help them.
-            Response.AppendHeader("X-XRDS-Location", Url.Action("Xrds"));
+            if (Response != null)
+                Response.AppendHeader("X-XRDS-Location", Url.Action("Xrds"));
 
             return View();
         }

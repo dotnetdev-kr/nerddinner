@@ -10,6 +10,7 @@ using NerdDinner.Models;
 using NerdDinner.Tests.Fakes;
 using System.Web.Routing;
 using System.Web.Security;
+using PagedList;
 
 namespace NerdDinner.Tests.Controllers {
  
@@ -140,7 +141,7 @@ namespace NerdDinner.Tests.Controllers {
             var controller = CreateDinnersControllerAs("robcon");
 
             // Act
-            var result = controller.Index(string.Empty, 0);
+            var result = controller.Index(string.Empty, 1);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
@@ -152,10 +153,10 @@ namespace NerdDinner.Tests.Controllers {
             var controller = CreateDinnersControllerAs("robcon");
 
             // Act
-            ViewResult result = (ViewResult)controller.Index(null, 0);
+            ViewResult result = (ViewResult)controller.Index(null, 1);
 
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(IList<Dinner>), "Index does not have an IList<Dinner> as a ViewModel");
+            Assert.IsInstanceOfType(result.ViewData.Model, typeof(PagedList<Dinner>), "Index does not have an IList<Dinner> as a ViewModel");
         }
 
 
@@ -167,10 +168,10 @@ namespace NerdDinner.Tests.Controllers {
 
             // Act
             //Get first page
-            ViewResult result = (ViewResult)controller.Index(null, 0);
+            ViewResult result = (ViewResult)controller.Index(null, 1);
             
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(PaginatedList<Dinner>));
+            Assert.IsInstanceOfType(result.ViewData.Model, typeof(PagedList<Dinner>));
         }
 
 
@@ -182,29 +183,28 @@ namespace NerdDinner.Tests.Controllers {
 
             // Act
             // Get first page
-            ViewResult result = (ViewResult)controller.Index(null, 0);
-            PaginatedList<Dinner> list = result.ViewData.Model as PaginatedList<Dinner>;
+            ViewResult result = (ViewResult)controller.Index(null, 1);
+            PagedList<Dinner> list = result.ViewData.Model as PagedList<Dinner>;
 
             // Assert
-            Assert.AreEqual(101, list.TotalCount);
-            Assert.AreEqual(5, list.TotalPages);
+            Assert.AreEqual(101, list.TotalItemCount);
+            Assert.AreEqual(5, list.PageCount);
         }
 
         [TestMethod]
         public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_5_Pages_Given_Null()
         {
-
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
             // Act
             // Get first page
             ViewResult result = (ViewResult)controller.Index(null, null);
-            PaginatedList<Dinner> list = result.ViewData.Model as PaginatedList<Dinner>;
+            PagedList<Dinner> list = result.ViewData.Model as PagedList<Dinner>;
 
             // Assert
-            Assert.AreEqual(101, list.TotalCount);
-            Assert.AreEqual(5, list.TotalPages);
+            Assert.AreEqual(101, list.TotalItemCount);
+            Assert.AreEqual(5, list.PageCount);
         }
 
 		[TestMethod]
@@ -213,7 +213,7 @@ namespace NerdDinner.Tests.Controllers {
 			// Arrange 
 			var testData = FakeDinnerData.CreateTestDinners();
 			var dinner = FakeDinnerData.CreateDinner();
-			dinner.EventDate = DateTime.Now.AddHours(-1);
+			dinner.EventDate = DateTime.Now.AddHours(1);
 			dinner.Title = "Dinner which just started";
 			testData.Add(dinner);
 			var repository = new FakeDinnerRepository(testData);
@@ -223,7 +223,7 @@ namespace NerdDinner.Tests.Controllers {
 			// Act
 			// Get first page
 			ViewResult result = (ViewResult)controller.Index(null, null);
-			PaginatedList<Dinner> list = result.ViewData.Model as PaginatedList<Dinner>;
+            PagedList<Dinner> list = result.ViewData.Model as PagedList<Dinner>;
 
 			// Assert
 			Assert.AreEqual("Dinner which just started", list.First().Title);
@@ -246,7 +246,7 @@ namespace NerdDinner.Tests.Controllers {
             // Act
             // Get first page
             ViewResult result = (ViewResult)controller.Index("etti", null);
-            PaginatedList<Dinner> list = result.ViewData.Model as PaginatedList<Dinner>;
+            PagedList<Dinner> list = result.ViewData.Model as PagedList<Dinner>;
 
             // Assert
             Assert.AreEqual(searchterm, list.First().Title);
@@ -404,7 +404,7 @@ namespace NerdDinner.Tests.Controllers {
             ActionResult result = (ActionResult)controller.Create(dinner);
 
             // Assert
-            Assert.AreEqual(102, repository.FindAllDinners().Count());
+            Assert.AreEqual(102, repository.All.Count());
             Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
         }
 

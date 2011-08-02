@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
 using NerdDinner.Services;
+using PagedList;
 
 namespace NerdDinner.Controllers
 {
@@ -46,6 +47,7 @@ namespace NerdDinner.Controllers
         [HttpPost]
         public ActionResult SearchByLocation(float latitude, float longitude)
         {
+ 
             var dinners = dinnerRepository.FindByLocation(latitude, longitude);
 
             var jsonDinners = from dinner in dinners.AsEnumerable()
@@ -64,7 +66,7 @@ namespace NerdDinner.Controllers
                             FindByLocation(location.Lat, location.Long).
                             OrderByDescending(p => p.EventDate);
 
-            return View("Results", new PaginatedList<Dinner>(dinners, 0, 20));
+            return View("Results", dinners.ToPagedList(1, 20));
         }
 
      

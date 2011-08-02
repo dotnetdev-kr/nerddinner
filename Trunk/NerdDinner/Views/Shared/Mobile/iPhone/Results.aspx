@@ -1,4 +1,4 @@
-<%@ Page Inherits="System.Web.Mvc.ViewPage<NerdDinner.Helpers.PaginatedList<NerdDinner.Models.Dinner>>" Language="C#"  %>
+<%@ Page Inherits="System.Web.Mvc.ViewPage<PagedList.PagedList<NerdDinner.Models.Dinner>>" Language="C#"  %>
 <ul title="Results">
       <% foreach (var dinner in Model) { %>
 					<li><a href="<%:Url.RouteUrl("PrettyDetails", new { Id = dinner.DinnerID } ) %>">

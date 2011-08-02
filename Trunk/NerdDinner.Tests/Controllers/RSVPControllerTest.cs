@@ -49,17 +49,17 @@ namespace NerdDinner.Tests.Controllers {
             Assert.IsInstanceOfType(result, typeof(ContentResult));
         }
 
-		[TestMethod]
-		public void CancelAction_Should_Return_Content()
-		{
-			// Arrange
-			var controller = CreateRSVPControllerAs("SomeUser");
+        [TestMethod]
+        public void CancelAction_Should_Return_Content()
+        {
+            // Arrange
+            var controller = CreateRSVPControllerAs("SomeUser");
 
-			// Act
-			var result = controller.Cancel(1);
+            // Act
+            var result = controller.Cancel(1);
 
-			// Assert
-			Assert.IsInstanceOfType(result, typeof(ContentResult));
-		}
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ContentResult));
+        }
     }
 }
