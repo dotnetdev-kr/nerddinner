@@ -38,24 +38,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\DDay.iCal.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth, Version=3.4.6.10357, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetOpenAuth.3.4.6.10357\lib\DotNetOpenAuth.dll</HintPath>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\packages\DotNetOpenAuth.3.4.7.11121\lib\DotNetOpenAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Elmah, Version=1.1.11517.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.4.1.10715.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="FiftyOne.Foundation">
-      <HintPath>..\packages\51Degrees.mobi.1.0.2.2\lib\NET40\FiftyOne.Foundation.dll</HintPath>
+      <HintPath>..\packages\51Degrees.mobi.1.2.0.5\lib\NET40\FiftyOne.Foundation.dll</HintPath>
     </Reference>
     <Reference Include="OpenSearchToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenSearchToolkit.1.1\lib\OpenSearchToolkit.dll</HintPath>
     </Reference>
     <Reference Include="PagedList">
-      <HintPath>..\packages\PagedList.1.2.1.0\lib\40\PagedList.dll</HintPath>
+      <HintPath>..\packages\PagedList.1.6\lib\net40\PagedList.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
