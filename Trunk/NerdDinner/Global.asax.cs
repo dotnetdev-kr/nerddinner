@@ -59,10 +59,7 @@ namespace NerdDinner
             RegisterRoutes(RouteTable.Routes);
 
             ViewEngines.Engines.Clear();
-            //ViewEngines.Engines.AddIPhone<WebFormViewEngine>();
-            //ViewEngines.Engines.AddGenericMobile<WebFormViewEngine>();
-            ViewEngines.Engines.AddGenericMobile<RazorViewEngine>();
-            ViewEngines.Engines.Add(new RazorViewEngine());
+            ViewEngines.Engines.Add(new MobileCapableRazorViewEngine());
         }
 
         void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)

@@ -97,22 +97,18 @@
     <Compile Include="Controllers\RSVPController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CalendarHelpers.cs" />
     <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\CountryList.cs" />
-    <Compile Include="Helpers\CustomMobileViewEngine.cs" />
     <Compile Include="Helpers\FileNotFoundResult.cs" />
     <Compile Include="Helpers\HandleErrorWithELMAHAttribute.cs" />
     <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
     <Compile Include="Helpers\MobileCapableWebFormViewEngine.cs" />
+    <Compile Include="Helpers\MobileCapableRazorViewEngine.cs" />
     <Compile Include="Helpers\RSSResult.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\TwitterConsumer.cs" />
@@ -276,7 +272,6 @@
     <Content Include="Content\theme\ui.slider.css" />
     <Content Include="Content\theme\ui.tabs.css" />
     <Content Include="Content\theme\ui.theme.css" />
-    <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -440,6 +435,18 @@
   <ItemGroup>
     <Content Include="Views\Account\_LogonNative.cshtml" />
     <Content Include="Views\Account\_LogonOpenId.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.Mobile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Dinners\Details.Mobile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Results.Mobile.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
