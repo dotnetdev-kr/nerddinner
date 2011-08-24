@@ -11,8 +11,8 @@ namespace NerdDinner.Helpers
                                                   string masterName, bool useCache)
         {
             string overrideViewName = controllerContext.HttpContext.Request.Browser.IsMobileDevice
-                                     ? viewName + ".Mobile"
-                                     : viewName;
+                                          ? viewName + ".Mobile"
+                                          : viewName;
             ViewEngineResult result = NewFindView(controllerContext, overrideViewName, masterName, useCache);
 
             // If we're looking for a Mobile view and couldn't find it try again without modifying the viewname
@@ -26,13 +26,21 @@ namespace NerdDinner.Helpers
         private ViewEngineResult NewFindView(ControllerContext controllerContext, string viewName, string masterName,
                                              bool useCache)
         {
-            //Get the name of the controller from the path
+            // Get the name of the controller from the path
             string controller = controllerContext.RouteData.Values["controller"].ToString();
+            string area = "";
+            try
+            {
+                area = controllerContext.RouteData.DataTokens["area"].ToString();
+            }
+            catch
+            {
+            }
 
-            //Create the key for caching purposes           
-            string keyPath = Path.Combine(controller, viewName);
+            // Create the key for caching purposes           
+            string keyPath = Path.Combine(area, controller, viewName);
 
-            //Try the cache           
+            // Try the cache           
             if (useCache)
             {
                 //If using the cache, check to see if the location is cached.               
@@ -43,13 +51,17 @@ namespace NerdDinner.Helpers
                 }
             }
 
-            //Remember the attempted paths, if not found display the attempted paths in the error message.           
+            // Remember the attempted paths, if not found display the attempted paths in the error message.           
             var attempts = new List<string>();
 
-            //for each of the paths defined, format the string and see if that path exists. When found, cache it.           
-            foreach (string rootPath in ViewLocationFormats)
+            string[] locationFormats = string.IsNullOrEmpty(area) ? ViewLocationFormats : AreaViewLocationFormats;
+
+            // for each of the paths defined, format the string and see if that path exists. When found, cache it.           
+            foreach (string rootPath in locationFormats)
             {
-                string currentPath = string.Format(rootPath, viewName, controller);
+                string currentPath = string.IsNullOrEmpty(area)
+                                         ? string.Format(rootPath, viewName, controller)
+                                         : string.Format(rootPath, viewName, controller, area);
 
                 if (FileExists(controllerContext, currentPath))
                 {
@@ -58,11 +70,11 @@ namespace NerdDinner.Helpers
                     return new ViewEngineResult(CreateView(controllerContext, currentPath, masterName), this);
                 }
 
-                //If not found, add to the list of attempts.               
+                // If not found, add to the list of attempts.               
                 attempts.Add(currentPath);
             }
 
-            //if not found by now, simply return the attempted paths.           
+            // if not found by now, simply return the attempted paths.           
             return new ViewEngineResult(attempts.Distinct().ToList());
         }
     }
