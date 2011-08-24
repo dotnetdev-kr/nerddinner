@@ -144,13 +144,7 @@
     <Content Include="apple-touch-icon.png" />
     <Content Include="App_Data\web_browsers_patch.xml" />
     <Content Include="Content\Flair.css" />
-    <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\google.gif" />
-    <Content Include="Content\images\icon-search-black.png" />
-    <Content Include="Content\images\icons-18-black.png" />
-    <Content Include="Content\images\icons-18-white.png" />
-    <Content Include="Content\images\icons-36-black.png" />
-    <Content Include="Content\images\icons-36-white.png" />
     <Content Include="Content\images\infocard_23x16.png" />
     <Content Include="Content\images\myopenid.png" />
     <Content Include="Content\images\openid.gif" />
@@ -306,7 +300,6 @@
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\MSAjaxHistoryBundle.js" />
     <Content Include="Scripts\NerdDinner.js" />
-    <Content Include="Scripts\timepicker_plug\css\TimePickerAddOn.css" />
     <Content Include="Scripts\timepicker_plug\TimePickerAddOn.js" />
     <Content Include="Scripts\timepicker_plug\css\style.css" />
     <Content Include="Scripts\timepicker_plug\timepicker.js" />
@@ -321,6 +314,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -339,6 +333,25 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.Data.xml" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.Data.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Administration.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.Razor.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.Razor.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.Helpers.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.Helpers.dll" />
+    <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />
+    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
+    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConnectionStrings.config" />
