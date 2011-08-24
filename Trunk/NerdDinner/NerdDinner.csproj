@@ -373,7 +373,6 @@
     <Content Include="Views\Home\Xrds.cshtml" />
     <Content Include="Views\Services\Flair.cshtml" />
     <Content Include="Views\Services\JavascriptFlair.cshtml" />
-    <Content Include="Views\Shared\Lost.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CountryDropDown.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocationDetail.cshtml" />
@@ -453,6 +452,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\wurfl.xml.gz" />
+    <Content Include="Views\Shared\Lost.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
