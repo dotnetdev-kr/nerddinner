@@ -313,12 +313,6 @@
     <Content Include="Scripts\yepnope.1.0.1-min.js" />
     <Content Include="Scripts\yepnope.js" />
     <Content Include="Services\OData.svc" />
-    <Content Include="Views\Dinners\Mobile\Details.aspx" />
-    <Content Include="Views\Dinners\Mobile\iPhone\Details.aspx" />
-    <Content Include="Views\Home\Mobile\Index.aspx" />
-    <Content Include="Views\Home\Mobile\iPhone\Index.aspx" />
-    <Content Include="Views\Shared\Mobile\iPhone\Results.aspx" />
-    <Content Include="Views\Shared\Mobile\Results.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -376,8 +370,6 @@
     <Content Include="Views\Shared\EditorTemplates\CountryDropDown.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocationDetail.cshtml" />
-    <Content Include="Views\Shared\Mobile\iPhone\Site.Master" />
-    <Content Include="Views\Shared\Mobile\Site.Master" />
     <Content Include="Views\Shared\_LoginStatus.cshtml" />
     <Content Include="Views\Shared\_Masthead.cshtml" />
   </ItemGroup>
@@ -418,12 +410,6 @@
     <Content Include="Views\Shared\EditorTemplates\Color.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Mobile\_MobileLayout.cshtml" />
-    <Content Include="Views\Home\Mobile\Index.cshtml" />
-    <Content Include="Views\Shared\Mobile\Results.cshtml" />
-    <Content Include="Views\Dinners\Mobile\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -451,7 +437,7 @@
     <Content Include="App_Data\51Degrees.mobi.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\wurfl.xml.gz" />
+    <Content Include="App_Data\wurfl.xml.gz" />
     <Content Include="Views\Shared\Lost.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
