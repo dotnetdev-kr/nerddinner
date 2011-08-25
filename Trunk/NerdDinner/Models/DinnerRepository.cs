@@ -19,17 +19,12 @@ namespace NerdDinner.Models
             List<Dinner> resultList = new List<Dinner>();
 
             var results = db.Database.SqlQuery<Dinner>("SELECT * FROM Dinners WHERE EventDate >= {0} AND dbo.DistanceBetween({1}, {2}, Latitude, Longitude) < 1000", DateTime.Now, latitude, longitude);
-            foreach (Dinner result in results)
-            {
-                resultList.Add(db.Dinners.Where(d => d.DinnerID == result.DinnerID).FirstOrDefault());
-            }
-
-            return resultList.AsQueryable<Dinner>();
+            return results.AsQueryable<Dinner>();
         }
 
         public IQueryable<Dinner> FindUpcomingDinners()
         {
-            return from dinner in All
+            return from dinner in All.Include(d=>d.RSVPs)
                    where dinner.EventDate >= DateTime.Now
                    orderby dinner.EventDate
                    select dinner;
@@ -37,7 +32,7 @@ namespace NerdDinner.Models
 
         public IQueryable<Dinner> FindDinnersByText(string q)
         {
-            return All.Where(d => d.Title.Contains(q)
+            return All.Include(d => d.RSVPs).Where(d => d.Title.Contains(q)
                             || d.Description.Contains(q)
                             || d.HostedBy.Contains(q));
         }
@@ -59,7 +54,7 @@ namespace NerdDinner.Models
 
         public Dinner Find(int id)
         {
-            return db.Dinners.SingleOrDefault(d => d.DinnerID == id);
+            return db.Dinners.Include(r => r.RSVPs).SingleOrDefault(d => d.DinnerID == id);
         }
 
         //

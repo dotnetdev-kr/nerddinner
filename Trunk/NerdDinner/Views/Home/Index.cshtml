@@ -1,5 +1,5 @@
 ﻿@{
-	ViewBag.Title = "Home Page";
+	ViewBag.Title = "Nerd Dinner";
 }
 
 @section Masthead {
@@ -36,6 +36,7 @@
 
     function onMapLoaded() {
         NerdDinner.LoadMap();
+
         Sys.Application.set_enableHistory(true);
         Sys.Application.add_navigate(OnNavigation);
 
