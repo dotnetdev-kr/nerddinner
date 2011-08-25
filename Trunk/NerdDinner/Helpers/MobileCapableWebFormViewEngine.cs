@@ -1,57 +1,80 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
-namespace NerdDinner
+namespace System.Web.Mvc
 {
-	public class MobileCapableWebFormViewEngine : WebFormViewEngine
-	{
-		public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
-		{
-			ViewEngineResult result = null;
-			var request = controllerContext.HttpContext.Request;
+    public class MobileCapableWebFormViewEngine : WebFormViewEngine
+    {
+        public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName,
+                                                  string masterName, bool useCache)
+        {
+            string overrideViewName = controllerContext.HttpContext.Request.Browser.IsMobileDevice
+                                          ? viewName + ".Mobile"
+                                          : viewName;
+            ViewEngineResult result = NewFindView(controllerContext, overrideViewName, masterName, useCache);
 
-			//This could be replaced with a switch statement as other advanced / device specific views are created
-			if (UserAgentIs(controllerContext, "iPhone"))	{
-				result = base.FindView(controllerContext, "Mobile/iPhone/" + viewName, masterName, useCache);
-			}
+            // If we're looking for a Mobile view and couldn't find it try again without modifying the viewname
+            if (overrideViewName.Contains(".Mobile") && (result == null || result.View == null))
+            {
+                result = NewFindView(controllerContext, viewName, masterName, useCache);
+            }
+            return result;
+        }
 
-			// Avoid unnecessary checks if this device isn't suspected to be a mobile device
-			if (request.Browser.IsMobileDevice)
-			{
-				//TODO: We are not doing any thing WinMobile SPECIAL yet!
+        private ViewEngineResult NewFindView(ControllerContext controllerContext, string viewName, string masterName,
+                                             bool useCache)
+        {
+            // Get the name of the controller from the path
+            string controller = controllerContext.RouteData.Values["controller"].ToString();
+            string area = "";
+            try
+            {
+                area = controllerContext.RouteData.DataTokens["area"].ToString();
+            }
+            catch
+            {
+            }
 
-				//if (UserAgentIs(controllerContext, "MSIEMobile 6"))	{
-				//  result = base.FindView(controllerContext, "Mobile/MobileIE6/" + viewName, masterName, useCache);
-				//}
-				//else if (UserAgentIs(controllerContext, "PocketIE") && request.Browser.MajorVersion >= 4)
-				//{
-				//  result = base.FindView(controllerContext, "Mobile/PocketIE/" + viewName, masterName, useCache);
-				//}
+            // Create the key for caching purposes           
+            string keyPath = Path.Combine(area, controller, viewName);
 
-				//Fall back to default mobile view if no other mobile view has already been set
-				if ((result == null || result.View == null) &&
-								request.Browser.IsMobileDevice)
-				{
-					result = base.FindView(controllerContext, "Mobile/" + viewName, masterName, useCache);
-				}
-			}
+            // Try the cache           
+            if (useCache)
+            {
+                //If using the cache, check to see if the location is cached.               
+                string cacheLocation = ViewLocationCache.GetViewLocation(controllerContext.HttpContext, keyPath);
+                if (!string.IsNullOrWhiteSpace(cacheLocation))
+                {
+                    return new ViewEngineResult(CreateView(controllerContext, cacheLocation, masterName), this);
+                }
+            }
 
-			//Fall back to desktop view if no other view has been selected
-			if (result == null || result.View == null)
-			{
-				result = base.FindView(controllerContext, viewName, masterName, useCache);
-			}
+            // Remember the attempted paths, if not found display the attempted paths in the error message.           
+            var attempts = new List<string>();
 
-			return result;
-		}
+            string[] locationFormats = string.IsNullOrEmpty(area) ? ViewLocationFormats : AreaViewLocationFormats;
 
-		public bool UserAgentIs(ControllerContext controllerContext, string userAgentToTest)
-		{
-			return (controllerContext.HttpContext.Request.UserAgent.IndexOf(userAgentToTest,
-							StringComparison.OrdinalIgnoreCase) > 0);
-		}
-	}
+            // for each of the paths defined, format the string and see if that path exists. When found, cache it.           
+            foreach (string rootPath in locationFormats)
+            {
+                string currentPath = string.IsNullOrEmpty(area)
+                                         ? string.Format(rootPath, viewName, controller)
+                                         : string.Format(rootPath, viewName, controller, area);
+
+                if (FileExists(controllerContext, currentPath))
+                {
+                    ViewLocationCache.InsertViewLocation(controllerContext.HttpContext, keyPath, currentPath);
+
+                    return new ViewEngineResult(CreateView(controllerContext, currentPath, masterName), this);
+                }
+
+                // If not found, add to the list of attempts.               
+                attempts.Add(currentPath);
+            }
+
+            // if not found by now, simply return the attempted paths.           
+            return new ViewEngineResult(attempts.Distinct().ToList());
+        }
+    }
 }

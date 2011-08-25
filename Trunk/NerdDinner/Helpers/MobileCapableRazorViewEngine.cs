@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web.Mvc;
 
-namespace NerdDinner.Helpers
+namespace System.Web.Mvc
 {
     public class MobileCapableRazorViewEngine : RazorViewEngine
     {

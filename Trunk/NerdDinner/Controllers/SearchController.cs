@@ -57,10 +57,10 @@ namespace NerdDinner.Controllers
         }
 
         [HttpPost]
-        public ActionResult SearchByPlaceNameOrZip(string placeOrZip)
+        public ActionResult SearchByPlaceNameOrZip(string Location)
         {
-            if (String.IsNullOrEmpty(placeOrZip)) return null; ;
-            LatLong location = GeolocationService.PlaceOrZipToLatLong(placeOrZip);
+            if (String.IsNullOrEmpty(Location)) return null; ;
+            LatLong location = GeolocationService.PlaceOrZipToLatLong(Location);
 
             var dinners = dinnerRepository.
                             FindByLocation(location.Lat, location.Long).

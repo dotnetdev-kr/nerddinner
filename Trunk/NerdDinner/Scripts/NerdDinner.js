@@ -206,7 +206,7 @@ NerdDinner.getCurrentLocationByIpAddress = function () {
     $.getJSON(requestUrl,
         function (data) {
             if (data.RegionName != '') {
-                $get('Location').value = data.regionName + ', ' + data.countryName;
+                $('#Location').val(data.regionName + ', ' + data.countryName);
             }
         });
 }
@@ -215,7 +215,7 @@ NerdDinner.getCurrentLocationByLatLong = function (latitude, longitude) {
     NerdDinner._map.FindLocations(new VELatLong(latitude, longitude), function (locations) {
         if (locations) {
             for (var i = 0; i < locations.length; i++) {
-                $get('Location').value += locations[i].Name;
+                $('#Location').val(locations[i].Name);
                 break;
             }
         }
