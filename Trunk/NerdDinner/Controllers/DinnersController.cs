@@ -42,7 +42,7 @@ namespace NerdDinner.Controllers {
             else 
                 dinners = dinnerRepository.FindUpcomingDinners();
 
-            int pageIndex = (page ?? 1) - 1;
+            int pageIndex = page ?? 1;
             return View(dinners.ToPagedList(pageIndex, PageSize));
         }
 
