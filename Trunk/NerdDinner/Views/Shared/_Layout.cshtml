@@ -57,11 +57,11 @@
                     <li class="last">@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
                 <a class="feed" href="@Url.Content("~/Services/OData.svc")">
-                    <img alt="OData Feed" src="@Url.Content("~/Content/Img/icon-odatafeed-28x28.png")" /></a>
+                    <img alt="OData Feed" title="OData Feed" src="@Url.Content("~/Content/Img/icon-odatafeed-28x28.png")" /></a>
                 <a class="feed" href="@Url.Content("~/Services/RSS")">
-                    <img alt="RSS Feed" src="@Url.Content("~/Content/Img/icon-feed-28x28.png")" /></a>
+                    <img alt="RSS Feed" title="RSS Feed" src="@Url.Content("~/Content/Img/icon-feed-28x28.png")" /></a>
                 <a class="feed" href="@Url.Action("iCalFeed", "Services", null, "webcal") ">
-                    <img alt="iCal Calendar Feed for Nerd Dinners" src="@Url.Content("~/Content/Img/icon-icalfeed-28x28.png")" /></a>
+                    <img alt="iCal Calendar Feed for Nerd Dinners" title="iCal Calendar Feed for Nerd Dinners" src="@Url.Content("~/Content/Img/icon-icalfeed-28x28.png")" /></a>
             </nav>
         </header>
         @RenderSection("Masthead", required: false)
