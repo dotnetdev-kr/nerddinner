@@ -31,6 +31,13 @@ namespace NerdDinner
             dinnerRepository = repository;
         }
 
+        protected override NerdDinners CreateDataSource()
+        {
+            var nd = base.CreateDataSource();
+            nd.Configuration.ProxyCreationEnabled = false;
+            return nd;
+        }
+
         // This method is called only once to initialize service-wide policies.
         public static void InitializeService(DataServiceConfiguration config)
         {

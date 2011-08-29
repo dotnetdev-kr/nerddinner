@@ -6,7 +6,7 @@ namespace NerdDinner.Models
     {
         public NerdDinners()
         {
-            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Dinner> Dinners { get; set; }

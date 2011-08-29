@@ -24,7 +24,7 @@ namespace NerdDinner.Models
 
         public IQueryable<Dinner> FindUpcomingDinners()
         {
-            return from dinner in All.Include(d=>d.RSVPs)
+            return from dinner in All
                    where dinner.EventDate >= DateTime.Now
                    orderby dinner.EventDate
                    select dinner;
@@ -32,14 +32,15 @@ namespace NerdDinner.Models
 
         public IQueryable<Dinner> FindDinnersByText(string q)
         {
-            return All.Include(d => d.RSVPs).Where(d => d.Title.Contains(q)
+            return All
+                .Where(d => d.Title.Contains(q)
                             || d.Description.Contains(q)
                             || d.HostedBy.Contains(q));
         }
 
         public IQueryable<Dinner> All
         {
-            get { return db.Dinners; }
+            get { return db.Dinners.Include(r => r.RSVPs); }
         }
 
         public IQueryable<Dinner> AllIncluding(params Expression<Func<Dinner, object>>[] includeProperties)
@@ -54,7 +55,8 @@ namespace NerdDinner.Models
 
         public Dinner Find(int id)
         {
-            return db.Dinners.Include(r => r.RSVPs).SingleOrDefault(d => d.DinnerID == id);
+            return All
+                .SingleOrDefault(d => d.DinnerID == id);
         }
 
         //
