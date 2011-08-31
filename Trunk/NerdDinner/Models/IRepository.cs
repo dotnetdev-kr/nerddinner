@@ -8,7 +8,7 @@ namespace NerdDinner.Models
     {
         IQueryable<T> All { get; }
         IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
-        Dinner Find(int id);
+        T Find(int id);
         void InsertOrUpdate(T dinner);
         void Delete(int id);
         void Save();
