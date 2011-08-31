@@ -40,6 +40,9 @@
     <link rel="odata.service" title="NerdDinner.com OData Service" href="@Url.Content("~/Services/OData.svc")" />
     <link rel="odata.feed" title="NerdDinner.com OData Service - Dinners" href="@Url.Content("~/Services/OData.svc/Dinners")" />
     @RenderSection("HeadArea", required: false)
+
+    @MvcMiniProfiler.MiniProfiler.RenderIncludes()
+
 </head>
 <body>
     <div class="page">
