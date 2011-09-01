@@ -1,11 +1,8 @@
-﻿using System;
-using System.Security.Principal;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NerdDinner;
 using NerdDinner.Controllers;
 using NerdDinner.Models;
 using NerdDinner.Tests.Mocks;

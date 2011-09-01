@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,8 +7,6 @@ using NerdDinner.Controllers;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
 using NerdDinner.Tests.Fakes;
-using System.Web.Routing;
-using System.Web.Security;
 using PagedList;
 
 namespace NerdDinner.Tests.Controllers {

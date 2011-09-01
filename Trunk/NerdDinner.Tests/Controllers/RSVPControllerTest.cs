@@ -1,18 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdDinner.Controllers;
 using System.Web.Mvc;
-using NerdDinner.Models;
 using NerdDinner.Tests.Fakes;
 using Moq;
-using NerdDinner.Helpers;
-using System.Web.Routing;
 
-namespace NerdDinner.Tests.Controllers {
- 
+namespace NerdDinner.Tests.Controllers
+{
     [TestClass]
     public class RSVPControllerTest {
 
