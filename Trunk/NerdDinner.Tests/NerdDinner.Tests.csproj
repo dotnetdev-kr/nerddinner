@@ -139,7 +139,6 @@
   <ItemGroup>
     <Content Include="App.config" />
     <Content Include="lib\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
-    <Content Include="lib\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml" />
     <Content Include="lib\Moq.dll" />
   </ItemGroup>
   <ItemGroup>
