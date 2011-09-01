@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NerdDinner.Controllers;
 using NerdDinner.Helpers;
 using NerdDinner.Models;
 using NerdDinner.Tests.Fakes;
 using PagedList;
+using NUnit.Framework;
 
 namespace NerdDinner.Tests.Controllers {
  
-    [TestClass]
+    [TestFixture]
     public class DinnersControllerTest {
 		private const int NumberOfCountries = 256;
 
@@ -35,7 +35,7 @@ namespace NerdDinner.Tests.Controllers {
         }
 
 
-        [TestMethod]
+        [Test]
         public void DetailsAction_Should_Return_View_For_Dinner() {
 
             // Arrange
@@ -45,10 +45,10 @@ namespace NerdDinner.Tests.Controllers {
             var result = controller.Details(1);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
-        [TestMethod]
+        [Test]
         public void DetailsAction_Should_Return_NotFoundView_For_BogusDinner() {
 
             // Arrange
@@ -58,11 +58,11 @@ namespace NerdDinner.Tests.Controllers {
 			var result = controller.Details(999) as ActionResult;
 
             // Assert
-			Assert.IsInstanceOfType(result, typeof(FileNotFoundResult));
+			Assert.IsInstanceOf<FileNotFoundResult>(result);
 			Assert.AreEqual("No Dinner found for that id", ((FileNotFoundResult)result).Message);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Should_Return_View_For_ValidDinner() {
 
             // Arrange
@@ -72,10 +72,10 @@ namespace NerdDinner.Tests.Controllers {
             var result = controller.Edit(1) as ViewResult;
 
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(Dinner));
+            Assert.IsInstanceOf<Dinner>(result.ViewData.Model);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Should_Return_View_For_InValidOwner() {
 
             // Arrange
@@ -88,7 +88,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual(result.ViewName, "InvalidOwner");
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Should_Redirect_When_Update_Successful() {
 
             // Arrange
@@ -110,7 +110,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual(id, result.RouteValues["id"]);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Should_Redisplay_With_Errors_When_Update_Fails() {
 
             // Arrange
@@ -131,7 +131,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.IsTrue(result.ViewData.ModelState.Sum(p => p.Value.Errors.Count) > 0, "Expected Errors");
         }
 
-        [TestMethod]
+        [Test]
         public void IndexAction_Should_Return_View() {
 
             // Arrange
@@ -141,10 +141,10 @@ namespace NerdDinner.Tests.Controllers {
             var result = controller.Index(string.Empty, 1);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
-        [TestMethod]
+        [Test]
         public void IndexAction_Returns_TypedView_Of_List_Dinner() {
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
@@ -153,11 +153,11 @@ namespace NerdDinner.Tests.Controllers {
             ViewResult result = (ViewResult)controller.Index(null, 1);
 
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(PagedList<Dinner>), "Index does not have an IList<Dinner> as a ViewModel");
+            Assert.IsInstanceOf<PagedList<Dinner>>(result.ViewData.Model, "Index does not have an IList<Dinner> as a ViewModel");
         }
 
 
-        [TestMethod]
+        [Test]
         public void IndexAction_Should_Return_PagedList() {
             
             // Arrange
@@ -168,11 +168,11 @@ namespace NerdDinner.Tests.Controllers {
             ViewResult result = (ViewResult)controller.Index(null, 1);
             
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(PagedList<Dinner>));
+            Assert.IsInstanceOf<PagedList<Dinner>>(result.ViewData.Model);
         }
 
 
-        [TestMethod]
+        [Test]
         public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_10_Pages() {
 
             // Arrange
@@ -188,7 +188,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual(5, list.PageCount);
         }
 
-        [TestMethod]
+        [Test]
         public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_5_Pages_Given_Null()
         {
             // Arrange
@@ -204,7 +204,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual(5, list.PageCount);
         }
 
-		[TestMethod]
+		[Test]
 		public void IndexAction_With_Dinner_Just_Started_Should_Show_Dinner()
 		{
 			// Arrange 
@@ -226,7 +226,7 @@ namespace NerdDinner.Tests.Controllers {
 			Assert.AreEqual("Dinner which just started", list.First().Title);
 		}
 
-        [TestMethod]
+        [Test]
         public void IndexAction_With_Search_Term_Should_Filter()
         {
             // Arrange 
@@ -249,7 +249,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual(searchterm, list.First().Title);
         }
 
-		[TestMethod]
+		[Test]
         public void DetailsAction_Should_Return_ViewResult() {
 
             // Arrange
@@ -260,11 +260,11 @@ namespace NerdDinner.Tests.Controllers {
 
             // Assert
             Assert.IsNotNull(result, "There is no Details action");
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
         
-        //[TestMethod]
+        //[Test]
         //public void DownloadCalendarAction_Should_Return_ContentResult() {
             
         //    // Arrange
@@ -281,10 +281,10 @@ namespace NerdDinner.Tests.Controllers {
 
         //    // Assert
         //    Assert.IsNotNull(result, "There is no DownloadCalendar action");
-        //    Assert.IsInstanceOfType(result, typeof(ContentResult));
+        //    Assert.IsInstanceOf<>(result, typeof(ContentResult));
         //}
 
-        [TestMethod]
+        [Test]
         public void DetailsAction_Should_Return_FileNotFoundResult_For_NullDinnerId() {
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
@@ -296,7 +296,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void DetailsAction_Should_Return_FileNotFoundResult_For_Dinner_999() {
 
             // Arrange
@@ -310,7 +310,7 @@ namespace NerdDinner.Tests.Controllers {
         }
 
 
-        [TestMethod]
+        [Test]
         public void DetailsAction_Should_Have_ViewModel_Is_Dinner() {
 
             // Arrange
@@ -320,11 +320,11 @@ namespace NerdDinner.Tests.Controllers {
             ViewResult result = (ViewResult)controller.Details(1);
 
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(Dinner));
+            Assert.IsInstanceOf<Dinner>(result.ViewData.Model);
 
         }
 
-        [TestMethod]
+        [Test]
         public void DetailsAction_Should_Return_Dinner_HostedBy_SomeUser() {
 
             // Arrange
@@ -342,7 +342,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.IsTrue(model.IsHostedBy("SomeUser"));
         }
 
-        [TestMethod]
+        [Test]
         public void CreateAction_Should_Return_ViewResult() {
 
             // Arrange
@@ -352,10 +352,10 @@ namespace NerdDinner.Tests.Controllers {
             var result = controller.Create();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateAction_Should_Return_Dinner() {
             
             // Arrange
@@ -365,10 +365,10 @@ namespace NerdDinner.Tests.Controllers {
             ViewResult result = (ViewResult)controller.Create();
 
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(Dinner));
+            Assert.IsInstanceOf<Dinner>(result.ViewData.Model);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateAction_Should_Return_Dinner_With_New_Dinner_7_Days_In_Future() {
             
             // Arrange
@@ -382,7 +382,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.IsTrue(model.EventDate > DateTime.Today.AddDays(6) && model.EventDate < DateTime.Today.AddDays(8));
         }
 
-        [TestMethod]
+        [Test]
         public void CreateAction_With_New_Dinner_Should_Return_View_And_Repo_Should_Contain_New_Dinner()
         {
             // Arrange 
@@ -402,10 +402,10 @@ namespace NerdDinner.Tests.Controllers {
 
             // Assert
             Assert.AreEqual(102, repository.All.Count());
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Should_Return_ViewResult() {
             
             // Arrange
@@ -415,10 +415,10 @@ namespace NerdDinner.Tests.Controllers {
             var result = controller.Edit(1);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Returns_InvalidOwner_View_When_Not_SomeUser() {
             
             // Arrange
@@ -431,7 +431,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual("InvalidOwner", result.ViewName);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Uses_DinnerFormViewModel() {
 
             // Arrange
@@ -441,10 +441,10 @@ namespace NerdDinner.Tests.Controllers {
             ViewResult result = controller.Edit(1) as ViewResult;
 
             // Assert
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(Dinner));
+            Assert.IsInstanceOf<Dinner>(result.ViewData.Model);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Retrieves_Dinner_1_From_Repo() {
 
             // Arrange
@@ -458,7 +458,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual(1, model.DinnerID);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Saves_Changes_To_Dinner_1()
         {
             // Arrange
@@ -478,7 +478,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual("New, Updated Description", dinner.Description);
         }
 
-        [TestMethod]
+        [Test]
         public void EditAction_Fails_With_Wrong_Owner() {
             
             // Arrange
@@ -495,7 +495,7 @@ namespace NerdDinner.Tests.Controllers {
         }
 
 		//Unit test is invalid until phone number verification is turned back on
-		//[TestMethod]
+		//[Test]
 		//public void DinnersController_Edit_Post_Should_Fail_Given_Bad_US_Phone_Number() {
             
 		//    // Arrange
@@ -508,7 +508,7 @@ namespace NerdDinner.Tests.Controllers {
 		//    var result = controller.Edit(1, form);
 
 		//    // Assert
-		//    Assert.IsInstanceOfType(result, typeof(ViewResult));
+		//    Assert.IsInstanceOf<>(result, typeof(ViewResult));
 		//    var viewResult = (ViewResult)result;
 		//    Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
 		//    Assert.AreEqual(1, viewResult.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
@@ -517,7 +517,7 @@ namespace NerdDinner.Tests.Controllers {
 		//}
 
 
-        [TestMethod]
+        [Test]
         public void DeleteAction_Should_Return_View()
         {
             // Arrange
@@ -527,10 +527,10 @@ namespace NerdDinner.Tests.Controllers {
             var result = controller.Delete(1);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
-        [TestMethod]
+        [Test]
         public void DeleteAction_Should_Return_NotFound_For_999()
         {
 
@@ -544,7 +544,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual("NotFound", result.ViewName);
         }
 
-        [TestMethod]
+        [Test]
         public void DeleteAction_Should_Return_InvalidOwner_For_Robcon()
         {
 
@@ -558,7 +558,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual("InvalidOwner", result.ViewName);
         }
 
-        [TestMethod]
+        [Test]
         public void DeleteAction_Should_Delete_Dinner_1_And_Returns_Deleted_View() {
 
             // Arrange
@@ -572,7 +572,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreNotEqual("InvalidOwner", result.ViewName);
         }
 
-        [TestMethod]
+        [Test]
         public void DeleteAction_With_Confirm_Should_Delete_Dinner_1_And_Returns_Deleted_View()
         {
 
@@ -588,7 +588,7 @@ namespace NerdDinner.Tests.Controllers {
         }
 
         
-        [TestMethod]
+        [Test]
         public void DeleteAction_Should_Fail_With_NotFound_Given_Invalid_Dinner()
         {
 
@@ -602,7 +602,7 @@ namespace NerdDinner.Tests.Controllers {
             Assert.AreEqual("NotFound", result.ViewName);
         }
 
-        [TestMethod]
+        [Test]
         public void DeleteAction_Should_Fail_With_InvalidOwner_Given_Wrong_User()
         {
 

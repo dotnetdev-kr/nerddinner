@@ -1,14 +1,14 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdDinner.Controllers;
 using NerdDinner.Tests.Mocks;
+using NUnit.Framework;
 
 namespace NerdDinner.Tests.Controllers {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest {
-        [TestMethod]
+        [Test]
         public void Index() {
 			// Arrange
 			HttpContextBase httpContext = MvcMockHelpers.FakeHttpContext();
@@ -25,7 +25,7 @@ namespace NerdDinner.Tests.Controllers {
 			Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void About() {
             // Arrange
             HomeController controller = new HomeController();
