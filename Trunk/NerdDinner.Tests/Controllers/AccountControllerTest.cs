@@ -162,7 +162,6 @@ namespace NerdDinner.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        [Ignore]
         [Test]
         public void LoginPostRedirectsHomeIfLoginSuccessfulButNoReturnUrlGiven()
         {
@@ -176,7 +175,6 @@ namespace NerdDinner.Tests.Controllers
             Assert.AreEqual("Home", result.RouteValues["controller"]);
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
-        [Ignore]
         [Test]
         public void LoginPostRedirectsToReturnUrlIfLoginSuccessfulAndReturnUrlGiven()
         {
