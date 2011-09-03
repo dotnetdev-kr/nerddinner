@@ -6,7 +6,7 @@ using NerdDinner.Controllers;
 using NerdDinner.Models;
 using NerdDinner.Tests.Mocks;
 using NUnit.Framework;
-
+//Tests
 namespace NerdDinner.Tests.Controllers
 {
 
