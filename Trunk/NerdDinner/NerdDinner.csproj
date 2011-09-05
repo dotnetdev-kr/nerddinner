@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\MiniProfiler.cs" />
+    <Compile Include="App_Start\MobileViewEnginesBootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DinnersController.cs" />
@@ -130,7 +131,6 @@
     <Compile Include="Helpers\HandleErrorWithELMAHAttribute.cs" />
     <Compile Include="Helpers\iCalResult.cs" />
     <Compile Include="Helpers\InMemoryTokenManager.cs" />
-    <Compile Include="Helpers\MobileCapableWebFormViewEngine.cs" />
     <Compile Include="Helpers\MobileCapableRazorViewEngine.cs" />
     <Compile Include="Helpers\RSSResult.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />

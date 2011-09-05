@@ -56,9 +56,6 @@ namespace NerdDinner
         void Application_Start()
         {
             RegisterRoutes(RouteTable.Routes);
-
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new MobileCapableRazorViewEngine());
         }
 
         void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)

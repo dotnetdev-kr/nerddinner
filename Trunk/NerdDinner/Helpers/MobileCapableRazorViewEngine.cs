@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web.Mvc;
 
-namespace System.Web.Mvc
+namespace Microsoft.Web.Mvc
 {
     public class MobileCapableRazorViewEngine : RazorViewEngine
     {
