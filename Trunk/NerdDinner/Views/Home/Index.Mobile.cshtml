@@ -21,6 +21,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         NerdDinner.ipInfoDbKey = '@System.Configuration.ConfigurationManager.AppSettings["ipInfoDbKey"]';
+        NerdDinner.BingMapsKey = '@System.Configuration.ConfigurationManager.AppSettings["BingMapsKey"]';
         yepnope({
             test: Modernizr.geolocation,
             yep: '@Url.Content("~/Scripts/geo.js")',
@@ -29,5 +30,7 @@
                 getCurrentLocation();
             }
         });
+
+        $('#search').click(function () { if ($('#Location').val().length == 0) { alert('Please provide a location to search near'); return false;  } });
     });
 </script>

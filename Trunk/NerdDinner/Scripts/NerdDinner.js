@@ -5,6 +5,7 @@ NerdDinner._map = null;
 NerdDinner._points = [];
 NerdDinner._shapes = [];
 NerdDinner.ipInfoDbKey = '';
+NerdDinner.BingMapsKey = '';
 
 NerdDinner.LoadMap = function (latitude, longitude, onMapLoaded) {
     NerdDinner._map = new VEMap(NerdDinner.MapDivId);
@@ -212,12 +213,11 @@ NerdDinner.getCurrentLocationByIpAddress = function () {
 }
 
 NerdDinner.getCurrentLocationByLatLong = function (latitude, longitude) {
-    NerdDinner._map.FindLocations(new VELatLong(latitude, longitude), function (locations) {
-        if (locations) {
-            for (var i = 0; i < locations.length; i++) {
-                $('#Location').val(locations[i].Name);
-                break;
+    var requestUrl = 'http://dev.virtualearth.net/REST/v1/Locations/' + latitude + ',' + longitude + '?key=' + NerdDinner.BingMapsKey + '&jsonp=?';
+    $.getJSON(requestUrl,
+        function (result) {
+            if (result.resourceSets[0].estimatedTotal > 0) {
+                $('#Location').val(result.resourceSets[0].resources[0].address.formattedAddress)
             }
-        }
-    });
+        });
 }

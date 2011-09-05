@@ -61,12 +61,15 @@ namespace NerdDinner.Controllers
         {
             if (String.IsNullOrEmpty(Location)) return null; ;
             LatLong location = GeolocationService.PlaceOrZipToLatLong(Location);
+            if (location != null)
+            {
+                var dinners = dinnerRepository.
+                                FindByLocation(location.Lat, location.Long).
+                                OrderByDescending(p => p.EventDate);
 
-            var dinners = dinnerRepository.
-                            FindByLocation(location.Lat, location.Long).
-                            OrderByDescending(p => p.EventDate);
-
-            return View("Results", dinners.ToPagedList(1, 20));
+                return View("Results", dinners.ToPagedList(1, 20));
+            }
+            return View("Results", null);
         }
 
      

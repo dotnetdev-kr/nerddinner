@@ -40,6 +40,7 @@
         Sys.Application.add_navigate(OnNavigation);
 
         NerdDinner.ipInfoDbKey = '@System.Configuration.ConfigurationManager.AppSettings["ipInfoDbKey"]';
+        NerdDinner.BingMapsKey = '@System.Configuration.ConfigurationManager.AppSettings["BingMapsKey"]';
         yepnope({
             test: Modernizr.geolocation,
             yep: '@Url.Content("~/Scripts/geo.js")',

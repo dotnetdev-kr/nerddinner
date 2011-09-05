@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Runtime.Caching;
-using NerdDinner.Helpers;
 using System.Xml.Linq;
+using NerdDinner.Helpers;
 
 namespace NerdDinner.Services
 {
     public class GeolocationService
     {
-
         public static LatLong PlaceOrZipToLatLong(string placeOrZip)
         {
             ObjectCache cache = MemoryCache.Default;
@@ -26,15 +23,18 @@ namespace NerdDinner.Services
                     new CacheItemPolicy() { SlidingExpiration = TimeSpan.FromDays(1) });
             }
 
-            var ll = (from x in result.Descendants("code")
-                           select new LatLong
-                           {
-                               Lat = (float)x.Element("lat"),
-                               Long = (float)x.Element("lng")
-                       })
-                       .First();
-            //TODO: Bug here....check for First/Null
-            return ll;
+            if(result.Descendants("code").Count() > 0) 
+            {
+                var ll = (from x in result.Descendants("code")
+                               select new LatLong
+                               {
+                                   Lat = (float)x.Element("lat"),
+                                   Long = (float)x.Element("lng")
+                           })
+                           .First();
+                return ll;
+            }
+            return null;
         }
 
         public static LocationInfo HostIpToPlaceName(string ip)
