@@ -128,6 +128,7 @@
     <Compile Include="Fakes\FakeDinnerRepository.cs" />
     <Compile Include="Fakes\FakeIdentity.cs" />
     <Compile Include="Helpers\FileNotFoundResultTests.cs" />
+    <Compile Include="Misc\otherTests.cs" />
     <Compile Include="Mocks\MockFormsAuthenticationService.cs" />
     <Compile Include="Mocks\MockIdentity.cs" />
     <Compile Include="Mocks\MockMembershipProvider.cs" />
