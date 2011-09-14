@@ -82,8 +82,7 @@ namespace NerdDinner.Controllers {
 
         //
         // POST: /Dinners/Edit/5
-
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateAntiForgeryToken]
         public ActionResult Edit(int id, FormCollection collection) {
 
             Dinner dinner = dinnerRepository.Find(id);
@@ -119,7 +118,7 @@ namespace NerdDinner.Controllers {
         //
         // POST: /Dinners/Create
 
-        [HttpPost, Authorize]
+        [HttpPost, Authorize, ValidateAntiForgeryToken]
         public ActionResult Create(Dinner dinner) {
 
             if (ModelState.IsValid) {
@@ -146,7 +145,7 @@ namespace NerdDinner.Controllers {
         //
         // HTTP GET: /Dinners/Delete/1
 
-        [Authorize]
+        [Authorize, ValidateAntiForgeryToken]
         public ActionResult Delete(int id) {
 
             Dinner dinner = dinnerRepository.Find(id);
