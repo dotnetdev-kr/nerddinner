@@ -14,17 +14,28 @@ namespace NerdDinner.Controllers {
 
         IDinnerRepository dinnerRepository;
 
+        NerdIdentity _nerdIdentity;
+
+
+
+        private NerdIdentity nerdIdentity {
+            get { return (_nerdIdentity ?? User.Identity as NerdIdentity);}
+        }
+
         private const int PageSize = 25;
 
         //
         // Dependency Injection enabled constructors
 
         public DinnersController()
-            : this(new DinnerRepository()) {
+            : this(new DinnerRepository(),null)
+        {
         }
 
-        public DinnersController(IDinnerRepository repository) {
+        public DinnersController(IDinnerRepository repository, NerdIdentity nerdIdentity) {
             dinnerRepository = repository;
+            _nerdIdentity = nerdIdentity;
+                
         }
 
         //
@@ -122,13 +133,12 @@ namespace NerdDinner.Controllers {
         public ActionResult Create(Dinner dinner) {
 
             if (ModelState.IsValid) {
-                NerdIdentity nerd = (NerdIdentity)User.Identity;
-                dinner.HostedById = nerd.Name;
-                dinner.HostedBy = nerd.FriendlyName;
+                dinner.HostedById = this.nerdIdentity.Name;
+                dinner.HostedBy = this.nerdIdentity.FriendlyName;
 
                 RSVP rsvp = new RSVP();
-                rsvp.AttendeeNameId = nerd.Name;
-                rsvp.AttendeeName = nerd.FriendlyName;
+                rsvp.AttendeeNameId = this.nerdIdentity.Name;
+                rsvp.AttendeeName = this.nerdIdentity.FriendlyName;
 
                 dinner.RSVPs = new List<RSVP>();
                 dinner.RSVPs.Add(rsvp);
@@ -198,14 +208,14 @@ namespace NerdDinner.Controllers {
         [Authorize]
         public ActionResult My()
         {
+            _nerdIdentity = this.nerdIdentity;
 
-            NerdIdentity nerd = (NerdIdentity)User.Identity;
             var userDinners = from dinner in dinnerRepository.All
                               where
                                 (
-                                String.Equals((dinner.HostedById ?? dinner.HostedBy), nerd.Name)
+                                String.Equals((dinner.HostedById ?? dinner.HostedBy), _nerdIdentity.Name)
                                     ||
-                                dinner.RSVPs.Any(r => r.AttendeeNameId == nerd.Name || (r.AttendeeNameId == null && r.AttendeeName == nerd.Name)) 
+                                dinner.RSVPs.Any(r => r.AttendeeNameId == _nerdIdentity.Name || (r.AttendeeNameId == null && r.AttendeeName == _nerdIdentity.Name)) 
                                 )
                               orderby dinner.EventDate
                               select dinner;
