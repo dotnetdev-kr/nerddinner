@@ -102,7 +102,6 @@ namespace NerdDinner.Controllers
 
             if (response.Status == AuthenticationStatus.Authenticated)
             {
-                var dinnerRepository = new DinnerRepository();
                 int id = int.Parse(response.GetUntrustedCallbackArgument("DinnerId"));
                 Dinner dinner = dinnerRepository.Find(id);
 
@@ -147,7 +146,6 @@ namespace NerdDinner.Controllers
             int userId;
             if (TwitterConsumer.TryFinishSignInWithTwitter(out screenName, out userId))
             {
-                var dinnerRepository = new DinnerRepository();
                 Dinner dinner = dinnerRepository.Find(id);
 
                 // NOTE: The alias we've generated for this user isn't guaranteed to be unique.
