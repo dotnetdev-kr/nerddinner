@@ -62,7 +62,7 @@ form fieldset label {display: block;}
 
 /* General Layout */
 
-html {background: #f7f4e6 url('img/bkg.jpg') repeat-x top left;}
+html {background: #f7f4e6 url('images/bkg.jpg') repeat-x top left;}
 body {}
 
 #theMap {
@@ -83,20 +83,20 @@ h4 {}
 
 .page {width: 863px; margin: 0px auto 0px auto;}
 
-header {position: relative; height: 140px; background: transparent url('Img/header-bkg.jpg') no-repeat bottom left; margin: 0px 0px 0px 0px;}
+header {position: relative; height: 140px; background: transparent url('images/header-bkg.jpg') no-repeat bottom left; margin: 0px 0px 0px 0px;}
 /* 
 #header #title h1 {display:none;}
-#header #title a {position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('Img/logo.png') no-repeat bottom left;}
+#header #title a {position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('images/logo.png') no-repeat bottom left;}
 */
-header #title h1 a {display:block; position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('Img/logo.png') no-repeat bottom left; text-indent: -5000;}
+header #title h1 a {display:block; position: absolute; width: 244px; height: 87px; top: 24px; left: 0px; background: transparent url('images/logo.png') no-repeat bottom left; text-indent: -5000;}
 
 nav {position: absolute; right:25px; bottom: 0px; }
-nav li {position:relative; left:0px; bottom:0px; float: left; margin:0px 0px 0px 4px; background: transparent url('img/menu-left.png') no-repeat bottom left;}
-nav li a {display:block; text-decoration: none; height:28px; padding:30px 20px 0px 20px; font-size: 108%; color:#FFFFFF; background: transparent url('img/menu-right.png') no-repeat bottom right;}
+nav li {position:relative; left:0px; bottom:0px; float: left; margin:0px 0px 0px 4px; background: transparent url('images/menu-left.png') no-repeat bottom left;}
+nav li a {display:block; text-decoration: none; height:28px; padding:30px 20px 0px 20px; font-size: 108%; color:#FFFFFF; background: transparent url('images/menu-right.png') no-repeat bottom right;}
 nav li a:hover {color:#003300;}
 
-nav li.selected {float: left; margin:0px 0px 0px 4px; background: transparent url('img/menu-left-selected.png') no-repeat bottom left;}
-nav li.selected a {display:block; height:33px; padding:25px 20px 0px 20px; font-size: 123.1%; color:#000000; background: transparent url('img/menu-right-selected.png') no-repeat bottom right;}
+nav li.selected {float: left; margin:0px 0px 0px 4px; background: transparent url('images/menu-left-selected.png') no-repeat bottom left;}
+nav li.selected a {display:block; height:33px; padding:25px 20px 0px 20px; font-size: 123.1%; color:#000000; background: transparent url('images/menu-right-selected.png') no-repeat bottom right;}
 nav li.selected a:hover {color:#003300;}
 
 nav li.selected {}
@@ -107,10 +107,10 @@ nav li.selected a:hover {}
 #menu li.last { margin-right: 10px; }
 a.feed { position: relative; top: 23px; text-decoration: none; }
 
-#main-top {width: 863px; height:10px; background: transparent url('img/content-top.png') no-repeat top left;}
-#main {width: 803px; background: #fff url('img/content-bottom.png') no-repeat bottom left; margin: 0px 0px 0px 0px; padding: 20px 30px 30px 30px;}
-#main .pagetitle {width: 763px; background: transparent url('img/content-top.png') no-repeat top left; padding: 30px 50px 15px 50px; font-size:182%}
-#main .errortitle {width: 763px; background: transparent url('img/content-top.png') no-repeat top left; padding: 30px 50px 15px 50px; font-size:182%}
+#main-top {width: 863px; height:10px; background: transparent url('images/content-top.png') no-repeat top left;}
+#main {width: 803px; background: #fff url('images/content-bottom.png') no-repeat bottom left; margin: 0px 0px 0px 0px; padding: 20px 30px 30px 30px;}
+#main .pagetitle {width: 763px; background: transparent url('images/content-top.png') no-repeat top left; padding: 30px 50px 15px 50px; font-size:182%}
+#main .errortitle {width: 763px; background: transparent url('images/content-top.png') no-repeat top left; padding: 30px 50px 15px 50px; font-size:182%}
 #main .pagecontent {width: 763px; padding: 0px 50px 30px 50px;}
 
 #mapDivLeft 
@@ -144,7 +144,7 @@ a.feed { position: relative; top: 23px; text-decoration: none; }
 .validation-summary-errors li 
 {
     display: block;
-    background: url('/content/img/exclamation.png') no-repeat 0px 50%;
+    background: url('/content/images/exclamation.png') no-repeat 0px 50%;
     padding: 5px 0px 5px 25px; 
 }
 
@@ -177,9 +177,9 @@ select.input-validation-error
 
 #main {}
 
-#hm-masthead {position:relative; height: 160px; width: 863px; background: transparent url('img/hm-masthead.png') no-repeat 0px 45px;}
+#hm-masthead {position:relative; height: 160px; width: 863px; background: transparent url('images/hm-masthead.png') no-repeat 0px 45px;}
 
-#searchBox {position:absolute; bottom:0px; left:490px; width: 373px; height: 109px; padding: 20px 0px 0px 25px; background: transparent url('img/search-bubble.png') no-repeat;}
+#searchBox {position:absolute; bottom:0px; left:490px; width: 373px; height: 109px; padding: 20px 0px 0px 25px; background: transparent url('images/search-bubble.png') no-repeat;}
 #searchBox img {margin: 0px 0px 8px 0px;}
 
 #searchBox input[type="text"] {float:left; width: 200px; margin-right: 12px; padding: 9px; color: #666666; font-size: 100%; margin-top: 10px;}

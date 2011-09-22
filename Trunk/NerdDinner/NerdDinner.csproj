@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -128,7 +129,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CalendarHelpers.cs" />
-    <Compile Include="Helpers\ControllerHelpers.cs" />
     <Compile Include="Helpers\CountryList.cs" />
     <Compile Include="Helpers\FileNotFoundResult.cs" />
     <Compile Include="Helpers\HandleErrorWithELMAHAttribute.cs" />
@@ -148,7 +148,6 @@
     <Compile Include="Models\NerdDinners.cs" />
     <Compile Include="Models\NerdIdentity.cs" />
     <Compile Include="Models\RSVP.cs" />
-    <Compile Include="Models\RuleViolation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmbeddedResourceUrlService.cs" />
     <Compile Include="Services\GeolocationService.cs" />
@@ -173,75 +172,9 @@
     <Content Include="Content\images\verisign.gif" />
     <Content Include="Content\images\yahoo.gif" />
     <Content Include="Content\images\yahoo_login.png" />
-    <Content Include="Content\Img\bkg.jpg" />
-    <Content Include="Content\Img\btn-go.png" />
-    <Content Include="Content\Img\btn-login.png" />
-    <Content Include="Content\Img\button-google.png" />
-    <Content Include="Content\Img\button-twitter.png" />
-    <Content Include="Content\Img\button-yahoo.png" />
-    <Content Include="Content\Img\content-bottom.png" />
-    <Content Include="Content\Img\content-top.png" />
-    <Content Include="Content\Img\exclamation.png" />
-    <Content Include="Content\Img\google.gif" />
-    <Content Include="Content\Img\header-bkg.jpg" />
-    <Content Include="Content\Img\hm-content-bkg.png" />
-    <Content Include="Content\Img\hm-content-bottom.png" />
-    <Content Include="Content\Img\hm-content-top.png" />
-    <Content Include="Content\Img\hm-masthead.png" />
-    <Content Include="Content\Img\icon-facebook.png" />
-    <Content Include="Content\Img\icon-feed-28x28.png" />
-    <Content Include="Content\Img\icon-google.png" />
-    <Content Include="Content\Img\icon-icalfeed-16x16.png" />
-    <Content Include="Content\Img\icon-icalfeed-28x28.png" />
-    <Content Include="Content\Img\icon-odatafeed-28x28.png" />
-    <Content Include="Content\Img\icon-twitter.png" />
-    <Content Include="Content\Img\icon-yahoo.png" />
-    <Content Include="Content\Img\logo.png" />
-    <Content Include="Content\Img\menu-left-selected.png" />
-    <Content Include="Content\Img\menu-left.png" />
-    <Content Include="Content\Img\menu-right-selected.png" />
-    <Content Include="Content\Img\menu-right.png" />
-    <Content Include="Content\Img\microformat_hcalendar.png" />
-    <Content Include="Content\Img\Mobile\btn-search.jpg" />
-    <Content Include="Content\Img\Mobile\logo.png" />
-    <Content Include="Content\Img\Mobile\logo_medium.jpg" />
-    <Content Include="Content\Img\Mobile\logo_medium.png" />
-    <Content Include="Content\Img\Mobile\logo_medium_trans.png" />
-    <Content Include="Content\Img\Mobile\logo_small.png" />
-    <Content Include="Content\Img\search-bubble.png" />
-    <Content Include="Content\Img\search-header.png" />
-    <Content Include="Content\Img\yahoo.gif" />
-    <Content Include="Content\iui\backButton.png" />
-    <Content Include="Content\iui\blueButton.png" />
-    <Content Include="Content\iui\cancel.png" />
-    <Content Include="Content\iui\custom.css" />
-    <Content Include="Content\iui\custom.js" />
-    <Content Include="Content\iui\grayButton.png" />
-    <Content Include="Content\iui\iPhoneLogo.png" />
-    <Content Include="Content\iui\iui.css" />
-    <Content Include="Content\iui\iui.js" />
-    <Content Include="Content\iui\iuix.css" />
-    <Content Include="Content\iui\iuix.js" />
-    <Content Include="Content\iui\LICENSE.txt" />
-    <Content Include="Content\iui\listArrow.png" />
-    <Content Include="Content\iui\listArrowSel.png" />
-    <Content Include="Content\iui\listGroup.png" />
-    <Content Include="Content\iui\loading.gif" />
-    <Content Include="Content\iui\NOTICE.txt" />
-    <Content Include="Content\iui\pinstripes.png" />
-    <Content Include="Content\iui\README.txt" />
-    <Content Include="Content\iui\releaseNotes.txt" />
-    <Content Include="Content\iui\selection.png" />
-    <Content Include="Content\iui\thumb.png" />
-    <Content Include="Content\iui\toggle.png" />
-    <Content Include="Content\iui\toggleOn.png" />
-    <Content Include="Content\iui\toolbar.png" />
-    <Content Include="Content\iui\toolButton.png" />
-    <Content Include="Content\iui\whiteButton.png" />
     <Content Include="Content\jquery.mobile-1.0b2.css" />
     <Content Include="Content\jquery.mobile-1.0b2.min.css" />
     <Content Include="Content\loginpopup.css" />
-    <Content Include="Content\Mobile\mobile-xhtml.css" />
     <Content Include="Content\nerd.jpg" />
     <Content Include="Content\Production.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -299,33 +232,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\theme\images\ui-bg_flat_55_999999_40x100.png" />
-    <Content Include="Content\theme\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <Content Include="Content\theme\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <Content Include="Content\theme\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <Content Include="Content\theme\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <Content Include="Content\theme\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <Content Include="Content\theme\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
-    <Content Include="Content\theme\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <Content Include="Content\theme\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Content\theme\images\ui-icons_0078ae_256x240.png" />
-    <Content Include="Content\theme\images\ui-icons_056b93_256x240.png" />
-    <Content Include="Content\theme\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="Content\theme\images\ui-icons_e0fdff_256x240.png" />
-    <Content Include="Content\theme\images\ui-icons_f5e175_256x240.png" />
-    <Content Include="Content\theme\images\ui-icons_f7a50d_256x240.png" />
-    <Content Include="Content\theme\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Content\theme\ui.accordion.css" />
-    <Content Include="Content\theme\ui.all.css" />
-    <Content Include="Content\theme\ui.base.css" />
-    <Content Include="Content\theme\ui.core.css" />
-    <Content Include="Content\theme\ui.datepicker.css" />
-    <Content Include="Content\theme\ui.dialog.css" />
-    <Content Include="Content\theme\ui.progressbar.css" />
-    <Content Include="Content\theme\ui.resizable.css" />
-    <Content Include="Content\theme\ui.slider.css" />
-    <Content Include="Content\theme\ui.tabs.css" />
-    <Content Include="Content\theme\ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -389,7 +295,6 @@
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConnectionStrings.config" />
     <Content Include="Services\OpenSearch.ashx" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
