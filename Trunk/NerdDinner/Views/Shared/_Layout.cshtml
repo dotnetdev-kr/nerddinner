@@ -66,11 +66,11 @@
                     <li class="last">@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
                 <a class="feed" href="@Url.Content("~/Services/OData.svc")">
-                    <img alt="OData Feed" title="OData Feed" src="@Url.Content("~/Content/images/icon-odatafeed-28x28.png")" /></a>
+                    <img alt="OData Feed" title="OData Feed" src="@Url.Content("~/Content/Img/icon-odatafeed-28x28.png")" /></a>
                 <a class="feed" href="@Url.Content("~/Services/RSS")">
-                    <img alt="RSS Feed" title="RSS Feed" src="@Url.Content("~/Content/images/icon-feed-28x28.png")" /></a>
+                    <img alt="RSS Feed" title="RSS Feed" src="@Url.Content("~/Content/Img/icon-feed-28x28.png")" /></a>
                 <a class="feed" href="@Url.Action("iCalFeed", "Services", null, "webcal") ">
-                    <img alt="iCal Calendar Feed for Nerd Dinners" title="iCal Calendar Feed for Nerd Dinners" src="@Url.Content("~/Content/images/icon-icalfeed-28x28.png")" /></a>
+                    <img alt="iCal Calendar Feed for Nerd Dinners" title="iCal Calendar Feed for Nerd Dinners" src="@Url.Content("~/Content/Img/icon-icalfeed-28x28.png")" /></a>
             </nav>
         </header>
         @RenderSection("Masthead", required: false)
@@ -85,7 +85,8 @@
                 Haack</a> and friends. Style by <a href="http://michaeldorian.com/">Michael Dorian Bach</a>.<br />
             Source Code at <a href="http://nerddinner.codeplex.com">http://nerddinner.codeplex.com</a>.
             Free Sample Book Chapter and code walkthrough at <a href="http://tinyurl.com/aspnetmvc">
-                http://tinyurl.com/aspnetmvc</a>.
+                http://tinyurl.com/aspnetmvc</a>. <br />
+                Version: @HttpContext.Current.Application["Version"]
         </footer>
         <script type="text/javascript">
             var pageTracker = _gat._getTracker("UA-6399325-1");
