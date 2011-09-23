@@ -14,28 +14,17 @@ namespace NerdDinner.Controllers {
 
         IDinnerRepository dinnerRepository;
 
-        NerdIdentity _nerdIdentity;
-
-
-
-        private NerdIdentity nerdIdentity {
-            get { return (_nerdIdentity ?? User.Identity as NerdIdentity);}
-        }
-
         private const int PageSize = 25;
 
         //
         // Dependency Injection enabled constructors
 
         public DinnersController()
-            : this(new DinnerRepository(),null)
-        {
+            : this(new DinnerRepository()) {
         }
 
-        public DinnersController(IDinnerRepository repository, NerdIdentity nerdIdentity) {
+        public DinnersController(IDinnerRepository repository) {
             dinnerRepository = repository;
-            _nerdIdentity = nerdIdentity;
-                
         }
 
         //
@@ -93,7 +82,8 @@ namespace NerdDinner.Controllers {
 
         //
         // POST: /Dinners/Edit/5
-        [HttpPost, Authorize, ValidateAntiForgeryToken]
+
+        [HttpPost, Authorize]
         public ActionResult Edit(int id, FormCollection collection) {
 
             Dinner dinner = dinnerRepository.Find(id);
@@ -129,16 +119,17 @@ namespace NerdDinner.Controllers {
         //
         // POST: /Dinners/Create
 
-        [HttpPost, Authorize, ValidateAntiForgeryToken]
+        [HttpPost, Authorize]
         public ActionResult Create(Dinner dinner) {
 
             if (ModelState.IsValid) {
-                dinner.HostedById = this.nerdIdentity.Name;
-                dinner.HostedBy = this.nerdIdentity.FriendlyName;
+                NerdIdentity nerd = (NerdIdentity)User.Identity;
+                dinner.HostedById = nerd.Name;
+                dinner.HostedBy = nerd.FriendlyName;
 
                 RSVP rsvp = new RSVP();
-                rsvp.AttendeeNameId = this.nerdIdentity.Name;
-                rsvp.AttendeeName = this.nerdIdentity.FriendlyName;
+                rsvp.AttendeeNameId = nerd.Name;
+                rsvp.AttendeeName = nerd.FriendlyName;
 
                 dinner.RSVPs = new List<RSVP>();
                 dinner.RSVPs.Add(rsvp);
@@ -155,7 +146,7 @@ namespace NerdDinner.Controllers {
         //
         // HTTP GET: /Dinners/Delete/1
 
-        [Authorize, ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Delete(int id) {
 
             Dinner dinner = dinnerRepository.Find(id);
@@ -208,14 +199,14 @@ namespace NerdDinner.Controllers {
         [Authorize]
         public ActionResult My()
         {
-            _nerdIdentity = this.nerdIdentity;
 
+            NerdIdentity nerd = (NerdIdentity)User.Identity;
             var userDinners = from dinner in dinnerRepository.All
                               where
                                 (
-                                String.Equals((dinner.HostedById ?? dinner.HostedBy), _nerdIdentity.Name)
+                                String.Equals((dinner.HostedById ?? dinner.HostedBy), nerd.Name)
                                     ||
-                                dinner.RSVPs.Any(r => r.AttendeeNameId == _nerdIdentity.Name || (r.AttendeeNameId == null && r.AttendeeName == _nerdIdentity.Name)) 
+                                dinner.RSVPs.Any(r => r.AttendeeNameId == nerd.Name || (r.AttendeeNameId == null && r.AttendeeName == nerd.Name)) 
                                 )
                               orderby dinner.EventDate
                               select dinner;

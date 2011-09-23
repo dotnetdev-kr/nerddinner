@@ -8,32 +8,22 @@ using NerdDinner.Models;
 using NerdDinner.Tests.Fakes;
 using PagedList;
 using NUnit.Framework;
-using NerdDinner.ViewClasses.Dinners;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Routing;
-using System.IO;
-using NerdDinner.Tests.Helpers;
 
-namespace NerdDinner.Tests.Controllers
-{
+namespace NerdDinner.Tests.Controllers {
+ 
     [TestFixture]
-    public class DinnersControllerTest
-    {
-        private const int NumberOfCountries = 256;
+    public class DinnersControllerTest {
+		private const int NumberOfCountries = 256;
 
-        DinnersController CreateDinnersController()
-        {
+        DinnersController CreateDinnersController() {
             var testData = FakeDinnerData.CreateTestDinners();
             var repository = new FakeDinnerRepository(testData);
 
-            var nerdIdentity = FakeIdentity.CreateIdentity("SomeUser");
-
-            return new DinnersController(repository, nerdIdentity);
+            return new DinnersController(repository);
         }
 
-        DinnersController CreateDinnersControllerAs(string userName)
-        {
+        DinnersController CreateDinnersControllerAs(string userName) {
+
             var mock = new Mock<ControllerContext>();
             mock.SetupGet(p => p.HttpContext.User.Identity.Name).Returns(userName);
             mock.SetupGet(p => p.HttpContext.Request.IsAuthenticated).Returns(true);
@@ -44,42 +34,10 @@ namespace NerdDinner.Tests.Controllers
             return controller;
         }
 
-        [Test]
-        public void VerifyRenderedListOfMyDinners()
-        {
-            var expectedHtml = "<ul class=\"upcomingdinners\"><li><a href=\"\">Sample Dinner</a>&nbsp;on&nbsp;<strong>2011-Jan-01&nbsp;00:00 AM</strong>&nbsp;at&nbsp;Some Address USA</li></ul>";
-
-            var dinners = new List<Dinner>()
-            { 
-                new Dinner()
-                {
-                    DinnerID = 1,
-                    Title = "Sample Dinner",
-                    HostedBy = "SomeUser",
-                    Address = "Some Address",
-                    Country = "USA",
-                    ContactPhone = "425-555-1212",
-                    Description = "Some description",
-                    EventDate = DateTime.Parse("01/01/2011"),
-                    Latitude = 99,
-                    Longitude = -99,
-                    RSVPs = new List<RSVP>()
-                }
-            
-            };
-
-            var htmlHelper = MockHelpers<IEnumerable<Dinner>>.CreateHtmlHelper();
-            
-            var myViewClass = new MyViewClass(htmlHelper);
-
-            var actualHtml = myViewClass.getMyDinners(dinners).ToString();
-
-            Assert.AreEqual(expectedHtml, actualHtml);        
-        }
 
         [Test]
-        public void DetailsAction_Should_Return_View_For_Dinner()
-        {
+        public void DetailsAction_Should_Return_View_For_Dinner() {
+
             // Arrange
             var controller = CreateDinnersController();
 
@@ -91,22 +49,22 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void DetailsAction_Should_Return_NotFoundView_For_BogusDinner()
-        {
+        public void DetailsAction_Should_Return_NotFoundView_For_BogusDinner() {
+
             // Arrange
             var controller = CreateDinnersController();
 
             // Act
-            var result = controller.Details(999) as ActionResult;
+			var result = controller.Details(999) as ActionResult;
 
             // Assert
-            Assert.IsInstanceOf<FileNotFoundResult>(result);
-            Assert.AreEqual("No Dinner found for that id", ((FileNotFoundResult)result).Message);
+			Assert.IsInstanceOf<FileNotFoundResult>(result);
+			Assert.AreEqual("No Dinner found for that id", ((FileNotFoundResult)result).Message);
         }
 
         [Test]
-        public void EditAction_Should_Return_View_For_ValidDinner()
-        {
+        public void EditAction_Should_Return_View_For_ValidDinner() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
 
@@ -118,8 +76,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Should_Return_View_For_InValidOwner()
-        {
+        public void EditAction_Should_Return_View_For_InValidOwner() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeOtherUser");
 
@@ -131,14 +89,13 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Should_Redirect_When_Update_Successful()
-        {
+        public void EditAction_Should_Redirect_When_Update_Successful() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
             int id = 1;
 
-            FormCollection formValues = new FormCollection()
-            {
+            FormCollection formValues = new FormCollection() {
                 { "Dinner.Title", "Another value" },
                 { "Dinner.Description", "Another description" }
             };
@@ -154,15 +111,14 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Should_Redisplay_With_Errors_When_Update_Fails()
-        {
+        public void EditAction_Should_Redisplay_With_Errors_When_Update_Fails() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
             int id = 1;
 
-            FormCollection formValues = new FormCollection()
-            {
-                { "EventDate", "Bogus date value!!!" }
+            FormCollection formValues = new FormCollection() {
+                { "EventDate", "Bogus date value!!!"}
             };
 
             controller.ValueProvider = formValues.ToValueProvider();
@@ -176,8 +132,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void IndexAction_Should_Return_View()
-        {
+        public void IndexAction_Should_Return_View() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -189,8 +145,7 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void IndexAction_Returns_TypedView_Of_List_Dinner()
-        {
+        public void IndexAction_Returns_TypedView_Of_List_Dinner() {
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -201,9 +156,10 @@ namespace NerdDinner.Tests.Controllers
             Assert.IsInstanceOf<PagedList<Dinner>>(result.ViewData.Model, "Index does not have an IList<Dinner> as a ViewModel");
         }
 
+
         [Test]
-        public void IndexAction_Should_Return_PagedList()
-        {
+        public void IndexAction_Should_Return_PagedList() {
+            
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -215,9 +171,10 @@ namespace NerdDinner.Tests.Controllers
             Assert.IsInstanceOf<PagedList<Dinner>>(result.ViewData.Model);
         }
 
+
         [Test]
-        public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_10_Pages()
-        {
+        public void IndexAction_Should_Return_PagedList_With_Total_of_101_And_Total_10_Pages() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -247,28 +204,27 @@ namespace NerdDinner.Tests.Controllers
             Assert.AreEqual(5, list.PageCount);
         }
 
-        [Test]
-        public void IndexAction_With_Dinner_Just_Started_Should_Show_Dinner()
-        {
-            // Arrange 
-            var testData = FakeDinnerData.CreateTestDinners();
-            var dinner = FakeDinnerData.CreateDinner();
-            dinner.EventDate = DateTime.Now.AddHours(1);
-            dinner.Title = "Dinner which just started";
-            testData.Add(dinner);
-            var repository = new FakeDinnerRepository(testData);
-            var nerdIdentity = FakeIdentity.CreateIdentity("SomeUser");
+		[Test]
+		public void IndexAction_With_Dinner_Just_Started_Should_Show_Dinner()
+		{
+			// Arrange 
+			var testData = FakeDinnerData.CreateTestDinners();
+			var dinner = FakeDinnerData.CreateDinner();
+			dinner.EventDate = DateTime.Now.AddHours(1);
+			dinner.Title = "Dinner which just started";
+			testData.Add(dinner);
+			var repository = new FakeDinnerRepository(testData);
 
-            var controller = new DinnersController(repository, nerdIdentity);
+			var controller = new DinnersController(repository);
 
-            // Act
-            // Get first page
-            ViewResult result = (ViewResult)controller.Index(null, null);
+			// Act
+			// Get first page
+			ViewResult result = (ViewResult)controller.Index(null, null);
             PagedList<Dinner> list = result.ViewData.Model as PagedList<Dinner>;
 
-            // Assert
-            Assert.AreEqual("Dinner which just started", list.First().Title);
-        }
+			// Assert
+			Assert.AreEqual("Dinner which just started", list.First().Title);
+		}
 
         [Test]
         public void IndexAction_With_Search_Term_Should_Filter()
@@ -281,9 +237,8 @@ namespace NerdDinner.Tests.Controllers
             dinner.Title = searchterm;
             testData.Add(dinner);
             var repository = new FakeDinnerRepository(testData);
-            var nerdIdentity = FakeIdentity.CreateIdentity("SomeUser");
 
-            var controller = new DinnersController(repository, nerdIdentity);
+            var controller = new DinnersController(repository);
 
             // Act
             // Get first page
@@ -294,9 +249,9 @@ namespace NerdDinner.Tests.Controllers
             Assert.AreEqual(searchterm, list.First().Title);
         }
 
-        [Test]
-        public void DetailsAction_Should_Return_ViewResult()
-        {
+		[Test]
+        public void DetailsAction_Should_Return_ViewResult() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
 
@@ -308,6 +263,7 @@ namespace NerdDinner.Tests.Controllers
             Assert.IsInstanceOf<ViewResult>(result);
         }
 
+        
         //[Test]
         //public void DownloadCalendarAction_Should_Return_ContentResult() {
             
@@ -329,8 +285,7 @@ namespace NerdDinner.Tests.Controllers
         //}
 
         [Test]
-        public void DetailsAction_Should_Return_FileNotFoundResult_For_NullDinnerId()
-        {
+        public void DetailsAction_Should_Return_FileNotFoundResult_For_NullDinnerId() {
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
 
@@ -342,8 +297,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void DetailsAction_Should_Return_FileNotFoundResult_For_Dinner_999()
-        {
+        public void DetailsAction_Should_Return_FileNotFoundResult_For_Dinner_999() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
 
@@ -354,9 +309,10 @@ namespace NerdDinner.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
+
         [Test]
-        public void DetailsAction_Should_Have_ViewModel_Is_Dinner()
-        {
+        public void DetailsAction_Should_Have_ViewModel_Is_Dinner() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
 
@@ -365,11 +321,12 @@ namespace NerdDinner.Tests.Controllers
 
             // Assert
             Assert.IsInstanceOf<Dinner>(result.ViewData.Model);
+
         }
 
         [Test]
-        public void DetailsAction_Should_Return_Dinner_HostedBy_SomeUser()
-        {
+        public void DetailsAction_Should_Return_Dinner_HostedBy_SomeUser() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
 
@@ -386,8 +343,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void CreateAction_Should_Return_ViewResult()
-        {
+        public void CreateAction_Should_Return_ViewResult() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
 
@@ -399,8 +356,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void CreateAction_Should_Return_Dinner()
-        {
+        public void CreateAction_Should_Return_Dinner() {
+            
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
             
@@ -412,8 +369,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void CreateAction_Should_Return_Dinner_With_New_Dinner_7_Days_In_Future()
-        {
+        public void CreateAction_Should_Return_Dinner_With_New_Dinner_7_Days_In_Future() {
+            
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
             
@@ -434,7 +391,7 @@ namespace NerdDinner.Tests.Controllers
             var nerdIdentity = FakeIdentity.CreateIdentity("SomeUser");
             var testData = FakeDinnerData.CreateTestDinners();
             var repository = new FakeDinnerRepository(testData);
-            var controller = new DinnersController(repository, nerdIdentity);
+            var controller = new DinnersController(repository);
             controller.ControllerContext = mock.Object;
             mock.SetupGet(p => p.HttpContext.User.Identity).Returns(nerdIdentity);
 
@@ -449,8 +406,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Should_Return_ViewResult()
-        {
+        public void EditAction_Should_Return_ViewResult() {
+            
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -462,8 +419,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Returns_InvalidOwner_View_When_Not_SomeUser()
-        {
+        public void EditAction_Returns_InvalidOwner_View_When_Not_SomeUser() {
+            
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -475,8 +432,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Uses_DinnerFormViewModel()
-        {
+        public void EditAction_Uses_DinnerFormViewModel() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
 
@@ -488,8 +445,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Retrieves_Dinner_1_From_Repo()
-        {
+        public void EditAction_Retrieves_Dinner_1_From_Repo() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
 
@@ -522,8 +479,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void EditAction_Fails_With_Wrong_Owner()
-        {
+        public void EditAction_Fails_With_Wrong_Owner() {
+            
             // Arrange
             var repo = new FakeDinnerRepository(FakeDinnerData.CreateTestDinners());
             var controller = CreateDinnersControllerAs("fred");
@@ -537,27 +494,28 @@ namespace NerdDinner.Tests.Controllers
             Assert.AreEqual("InvalidOwner", result.ViewName);
         }
 
-        //Unit test is invalid until phone number verification is turned back on
-        //[Test]
-        //public void DinnersController_Edit_Post_Should_Fail_Given_Bad_US_Phone_Number() {
+		//Unit test is invalid until phone number verification is turned back on
+		//[Test]
+		//public void DinnersController_Edit_Post_Should_Fail_Given_Bad_US_Phone_Number() {
             
-        //    // Arrange
-        //    var controller = CreateDinnersControllerAs("someuser");
-        //    var form = FakeDinnerData.CreateDinnerFormCollection();
-        //    form["ContactPhone"] = "foo"; //BAD
-        //    controller.ValueProvider = form.ToValueProvider();
+		//    // Arrange
+		//    var controller = CreateDinnersControllerAs("someuser");
+		//    var form = FakeDinnerData.CreateDinnerFormCollection();
+		//    form["ContactPhone"] = "foo"; //BAD
+		//    controller.ValueProvider = form.ToValueProvider();
 
-        //    // Act
-        //    var result = controller.Edit(1, form);
+		//    // Act
+		//    var result = controller.Edit(1, form);
 
-        //    // Assert
-        //    Assert.IsInstanceOf<>(result, typeof(ViewResult));
-        //    var viewResult = (ViewResult)result;
-        //    Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
-        //    Assert.AreEqual(1, viewResult.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
-        //    ModelState m = viewResult.ViewData.ModelState["ContactPhone"];
-        //    Assert.IsTrue(m.Errors.Count == 1);
-        //}
+		//    // Assert
+		//    Assert.IsInstanceOf<>(result, typeof(ViewResult));
+		//    var viewResult = (ViewResult)result;
+		//    Assert.IsFalse(viewResult.ViewData.ModelState.IsValid);
+		//    Assert.AreEqual(1, viewResult.ViewData.ModelState.Sum(p => p.Value.Errors.Count), "Expected Errors");
+		//    ModelState m = viewResult.ViewData.ModelState["ContactPhone"];
+		//    Assert.IsTrue(m.Errors.Count == 1);
+		//}
+
 
         [Test]
         public void DeleteAction_Should_Return_View()
@@ -575,6 +533,7 @@ namespace NerdDinner.Tests.Controllers
         [Test]
         public void DeleteAction_Should_Return_NotFound_For_999()
         {
+
             // Arrange
             var controller = CreateDinnersControllerAs("scottgu");
 
@@ -588,6 +547,7 @@ namespace NerdDinner.Tests.Controllers
         [Test]
         public void DeleteAction_Should_Return_InvalidOwner_For_Robcon()
         {
+
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -599,8 +559,8 @@ namespace NerdDinner.Tests.Controllers
         }
 
         [Test]
-        public void DeleteAction_Should_Delete_Dinner_1_And_Returns_Deleted_View()
-        {
+        public void DeleteAction_Should_Delete_Dinner_1_And_Returns_Deleted_View() {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
 
@@ -615,6 +575,7 @@ namespace NerdDinner.Tests.Controllers
         [Test]
         public void DeleteAction_With_Confirm_Should_Delete_Dinner_1_And_Returns_Deleted_View()
         {
+
             // Arrange
             var controller = CreateDinnersControllerAs("SomeUser");
 
@@ -626,9 +587,11 @@ namespace NerdDinner.Tests.Controllers
             Assert.AreNotEqual("InvalidOwner", result.ViewName);
         }
 
+        
         [Test]
         public void DeleteAction_Should_Fail_With_NotFound_Given_Invalid_Dinner()
         {
+
             // Arrange
             var controller = CreateDinnersControllerAs("robcon");
 
@@ -642,6 +605,7 @@ namespace NerdDinner.Tests.Controllers
         [Test]
         public void DeleteAction_Should_Fail_With_InvalidOwner_Given_Wrong_User()
         {
+
             // Arrange
             var controller = CreateDinnersControllerAs("scottha");
 

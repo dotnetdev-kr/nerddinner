@@ -54,9 +54,6 @@ NerdDinner.LoadPin = function (LL, name, description, draggable) {
         shape.SetDescription("<p class=\"pinDetails\">" + escape(description) + "</p>");
     }
 
-    //JVP: hydrated Id property with the dinner Id. 
-    shape.Id = parseInt($(name).attr("href"));
-
     NerdDinner._map.AddShape(shape);
     NerdDinner._points.push(LL);
     NerdDinner._shapes.push(shape);
@@ -147,7 +144,6 @@ NerdDinner._renderDinners = function (dinners) {
                         .append(" with " + _getRSVPMessage(dinner.RSVPCount)));
     });
 
-
     // Adjust zoom to display all the pins we just added.
     if (NerdDinner._points.length > 1) {
         NerdDinner._map.SetMapView(NerdDinner._points);
@@ -155,32 +151,11 @@ NerdDinner._renderDinners = function (dinners) {
 
     // Display the event's pin-bubble on hover.
     $(".dinnerItem").each(function (i, dinner) {
-
-        var dinnerId = parseInt($(dinner).find("a").attr("href"));
-        var dinnerPin = _getDinnerPin(dinnerId);
-
-        if (dinnerPin != null) {
-            $(dinner).hover(
-                function () { NerdDinner._map.ShowInfoBox(dinnerPin); },
-                function () { NerdDinner._map.HideInfoBox(dinnerPin); }
-            );
-        }
+        $(dinner).hover(
+            function () { NerdDinner._map.ShowInfoBox(NerdDinner._shapes[i]); },
+            function () { NerdDinner._map.HideInfoBox(NerdDinner._shapes[i]); }
+        );
     });
-
-
-    function _getDinnerPin(id) {
-
-        var retval = null;
-        $(NerdDinner._shapes).each(function (index, item) {
-
-            if (item.Id == id) {
-                retval = item;
-                return false;
-            }
-        });
-
-        return retval;
-    }
 
     function _getDinnerDate(dinner, formatStr) {
         return '<strong>' + _dateDeserialize(dinner.EventDate).format(formatStr) + '</strong>';

@@ -11,7 +11,7 @@ namespace NerdDinner.Tests.Misc
         public void IsCorrectVersion()
         {
 
-            var expected = "3.1";
+            var expected = "3.2";
             var assemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies().ToList();
             var nerdDinner = assemblies.Where(x => x.Name.ToLower() == "nerddinner").First();
 
