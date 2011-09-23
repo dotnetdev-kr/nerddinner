@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Reflection;
 
 namespace NerdDinner
 {
@@ -12,6 +13,7 @@ namespace NerdDinner
 
     public class MvcApplication : System.Web.HttpApplication
     {
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -55,6 +57,9 @@ namespace NerdDinner
 
         void Application_Start()
         {
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            Application["Version"] = string.Format("{0}.{1}",version.Major,version.Minor);
+            
             RegisterRoutes(RouteTable.Routes);
         }
 
