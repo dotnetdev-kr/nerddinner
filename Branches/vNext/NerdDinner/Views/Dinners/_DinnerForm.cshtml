@@ -5,6 +5,9 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
+
+   
     @Html.ValidationSummary(true, "Please correct the errors and try again.")
     <fieldset>
         <div id="dinnerDiv">
