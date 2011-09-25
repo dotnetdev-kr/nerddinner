@@ -16,10 +16,24 @@ namespace NerdDinner.Models
 
         public IQueryable<Dinner> FindByLocation(float latitude, float longitude)
         {
-            List<Dinner> resultList = new List<Dinner>();
+            var results = db.Database.SqlQuery<Dinner>("SELECT * FROM Dinners WHERE EventDate >= {0} AND dbo.DistanceBetween({1}, {2}, Latitude, Longitude) < 1000", DateTime.Now, latitude, longitude).ToList();
 
-            var results = db.Database.SqlQuery<Dinner>("SELECT * FROM Dinners WHERE EventDate >= {0} AND dbo.DistanceBetween({1}, {2}, Latitude, Longitude) < 1000", DateTime.Now, latitude, longitude);
+            foreach (Dinner dinner in results)
+            {
+
+                dinner.RSVPs = new List<RSVP>();
+
+                var rsvps = db.RSVPs.Where(x => x.DinnerID == dinner.DinnerID);
+
+                foreach (RSVP rsvp in rsvps)
+                {
+                    dinner.RSVPs.Add(rsvp);
+                }
+            }
+
             return results.AsQueryable<Dinner>();
+
+        
         }
 
         public IQueryable<Dinner> FindUpcomingDinners()
