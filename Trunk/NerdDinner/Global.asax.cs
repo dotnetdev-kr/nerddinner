@@ -8,6 +8,8 @@ using System.Reflection;
 
 namespace NerdDinner
 {
+    using StackExchange.Profiling;
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
@@ -50,8 +52,9 @@ namespace NerdDinner
 
         public override void Init()
         {
-            this.AuthenticateRequest += new EventHandler(MvcApplication_AuthenticateRequest);
             this.PostAuthenticateRequest += new EventHandler(MvcApplication_PostAuthenticateRequest);
+            this.BeginRequest += new EventHandler(MvcApplication_BeginRequest);
+            this.EndRequest += new EventHandler(MvcApplication_EndRequest);
             base.Init();
         }
 
@@ -79,8 +82,19 @@ namespace NerdDinner
             }
         }
 
-        void MvcApplication_AuthenticateRequest(object sender, EventArgs e)
+        void MvcApplication_BeginRequest(object sender, EventArgs e)
         {
+            if (Request.IsLocal)
+            {
+                MiniProfiler.Start();
+            }
         }
+
+
+        void MvcApplication_EndRequest(object sender, EventArgs e)
+        {
+            MiniProfiler.Stop();
+        }
+
     }
 }

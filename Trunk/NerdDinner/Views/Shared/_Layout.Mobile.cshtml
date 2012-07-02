@@ -3,16 +3,9 @@
 	<head> 
 	    <title>@ViewBag.Title</title> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
-	    <link rel="stylesheet" href="@Url.Content("~/Content/jquery.mobile-1.0b2.min.css")" />
-	    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.6.2.min.js")"></script>
-        <script type="text/javascript">
-            $(document).bind("mobileinit", function() {
-                // As of Beta 1, jQuery Mobile's Ajax navigation does not work in all cases (e.g., on WP7,
-                // or when navigating from a mobile to a non-mobile page), hence disabling it.
-                $.mobile.ajaxEnabled = false;
-            });
-        </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.mobile-1.0b2.min.js")"></script>
+	    <link rel="stylesheet" href="@Url.Content("~/Content/jquery.mobile-1.1.0.min.css")" />
+	    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.mobile-1.1.0.min.js")"></script>
         @RenderSection("HeadArea", required: false)
     </head> 
 <body> 
@@ -20,9 +13,12 @@
 	    <div data-role="header">
 		    <h1>@ViewBag.Title</h1>
 	    </div>
-	    <div data-role="content">	
-		    @RenderBody()		
-	    </div>
+        <div data-role="content">	
+            @RenderBody()		
+        </div>
+        <div data-role="footer">
+            @Html.Partial("ViewSwitcher")
+        </div>
     </div>
 </body>
 </html>

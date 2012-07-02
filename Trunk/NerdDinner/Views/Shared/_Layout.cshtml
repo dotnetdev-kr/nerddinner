@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using StackExchange.Profiling
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,27 +10,26 @@
     <meta name="description" content="Host and promote your own Nerd Dinner free!" />
     <link title="NerdDinner.com" rel="search" type="application/opensearchdescription+xml" href="@Url.Content("~/Services/OpenSearch.ashx")" />
     <link href="@Url.Content("~/Content/Production.css?v=2")" rel="stylesheet" type="text/css" media="screen" />
-   
-    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.11/themes/humanity/jquery-ui.css" rel="stylesheet" type="text/css" />
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.6.2.min.js" type="text/javascript"></script> 
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.15/jquery-ui.min.js" type="text/javascript"></script> 
-    <script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/4.0/1/MicrosoftAjax.js" type="text/javascript"></script> 
-    <script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/MicrosoftMvcAjax.js" type="text/javascript"></script> 
-
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.11/themes/humanity/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.6.2.min.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.15/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/jquery.unobtrusive-ajax.min.js"
+        type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/4.0/1/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/mvc/3.0/MicrosoftMvcAjax.js" type="text/javascript"></script>
     <script type="text/javascript">
-       if (typeof jQuery == 'undefined') {
-           document.write(unescape("%3Clink href='/Content/themes/base/jquery.ui.all.css' rel='stylesheet' type='text/css'%3E"));
-           document.write(unescape("%3Cscript src='/Scripts/jquery-1.6.2.min.js' type='text/javascript'%3E%3C/script%3E"));
-           document.write(unescape("%3Cscript src='/Scripts/jquery-ui-1.8.15.min.js' type='text/javascript'%3E%3C/script%3E"));
-           document.write(unescape("%3Cscript src='/Scripts/jquery.unobtrusive-ajax.min.js' type='text/javascript'%3E%3C/script%3E"));
-           document.write(unescape("%3Cscript src='/Scripts/MicrosoftAjax.js' type='text/javascript'%3E%3C/script%3E"));
-           document.write(unescape("%3Cscript src='/Scripts/MicrosoftMvcAjax.js' type='text/javascript'%3E%3C/script%3E"));
-       }
-   </script>
-
-    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/yepnope.1.0.1-min.js")" type="text/javascript"></script>    
+        if (typeof jQuery == 'undefined') {
+            document.write(unescape("%3Clink href='/Content/themes/base/jquery.ui.all.css' rel='stylesheet' type='text/css'%3E"));
+            document.write(unescape("%3Cscript src='/Scripts/jquery-1.6.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='/Scripts/jquery-ui-1.8.15.min.js' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='/Scripts/jquery.unobtrusive-ajax.min.js' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='/Scripts/MicrosoftAjax.js' type='text/javascript'%3E%3C/script%3E"));
+            document.write(unescape("%3Cscript src='/Scripts/MicrosoftMvcAjax.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script src="@Url.Content("~/Scripts/modernizr-2.5.3.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/yepnope.1.5.4-min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/date.format.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/NerdDinner.js?v=6")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/timepicker_plug/TimePickerAddOn.js")" type="text/javascript"></script>
@@ -40,9 +40,7 @@
     <link rel="odata.service" title="NerdDinner.com OData Service" href="@Url.Content("~/Services/OData.svc")" />
     <link rel="odata.feed" title="NerdDinner.com OData Service - Dinners" href="@Url.Content("~/Services/OData.svc/Dinners")" />
     @RenderSection("HeadArea", required: false)
-
-    @MvcMiniProfiler.MiniProfiler.RenderIncludes()
-
+    @MiniProfiler.RenderIncludes()
 </head>
 <body>
     <div class="page">
@@ -87,15 +85,13 @@
             Free Sample Book Chapter and code walkthrough at <a href="http://tinyurl.com/aspnetmvc">
                 http://tinyurl.com/aspnetmvc</a>. <br />
                 Version: @HttpContext.Current.Application["Version"]
+            @Html.Partial("ViewSwitcher")
         </footer>
         <script type="text/javascript">
             var pageTracker = _gat._getTracker("UA-6399325-1");
             pageTracker._initData();
             pageTracker._trackPageview();
         </script>
-
-
-
         <script type="text/javascript">
             UserVoice.Tab.show({
                 key: 'nerddinner',
@@ -108,6 +104,6 @@
                 lang: 'en' /* 'en', 'de', 'nl', 'es', 'fr' */
             });
         </script>
-
+    </div>
 </body>
 </html>

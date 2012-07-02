@@ -320,7 +320,7 @@ namespace NerdDinner.Controllers {
             var user = _provider.GetUser(userName, true);
             if (user != null)
             {
-               return user.UserName;
+                return _provider.GetUserNameByEmail(user.Email);
             }
 
             return null;

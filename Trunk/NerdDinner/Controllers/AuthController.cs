@@ -7,6 +7,8 @@
 namespace MvcRelyingParty.Controllers {
 	using System;
 	using System.Collections.Generic;
+	using System.Collections.Specialized;
+	using System.IO;
 	using System.Linq;
 	using System.Net;
 	using System.Web;
@@ -92,13 +94,13 @@ namespace MvcRelyingParty.Controllers {
 			IAuthenticationResponse response;
 			if (!string.IsNullOrEmpty(openid_openidAuthData)) {
 				var auth = new Uri(openid_openidAuthData);
-				var headers = new WebHeaderCollection();
+				var headers = new NameValueCollection();
 				foreach (string header in Request.Headers) {
 					headers[header] = Request.Headers[header];
 				}
 
 				// Always say it's a GET since the payload is all in the URL, even the large ones.
-				HttpRequestInfo clientResponseInfo = new HttpRequestInfo("GET", auth, auth.PathAndQuery, headers, null);
+                var clientResponseInfo = (HttpRequestInfo )HttpRequestInfo.Create("GET", auth, headers);
 				response = RelyingParty.GetResponse(clientResponseInfo);
 			} else {
 				response = RelyingParty.GetResponse();

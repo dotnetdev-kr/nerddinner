@@ -1,23 +1,13 @@
-using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
-using MvcMiniProfiler;
-using MvcMiniProfiler.MVCHelpers;
-using Microsoft.Web.Infrastructure;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-//using System.Data;
-//using System.Data.Entity;
-//using System.Data.Entity.Infrastructure;
-//using MvcMiniProfiler.Data.EntityFramework;
-//using MvcMiniProfiler.Data.Linq2Sql;
+using StackExchange.Profiling;
+using StackExchange.Profiling.MVCHelpers;
+using StackExchange.Profiling.SqlFormatters;
 
-[assembly: WebActivator.PreApplicationStartMethod(
-	typeof(NerdDinner.App_Start.MiniProfilerPackage), "PreStart")]
-
-[assembly: WebActivator.PostApplicationStartMethod(
-	typeof(NerdDinner.App_Start.MiniProfilerPackage), "PostStart")]
-
+// [assembly: WebActivator.PreApplicationStartMethod(typeof(NerdDinner.App_Start.MiniProfilerPackage), "PreStart")]
+// [assembly: WebActivator.PostApplicationStartMethod(typeof(NerdDinner.App_Start.MiniProfilerPackage), "PostStart")]
 
 namespace NerdDinner.App_Start 
 {
@@ -33,7 +23,7 @@ namespace NerdDinner.App_Start
             //      in your master layout
 
             //TODO: Non SQL Server based installs can use other formatters like: new MvcMiniProfiler.SqlFormatters.InlineFormatter()
-            MiniProfiler.Settings.SqlFormatter = new MvcMiniProfiler.SqlFormatters.SqlServerFormatter();
+            MiniProfiler.Settings.SqlFormatter = new SqlServerFormatter();
 
 			//TODO: To profile a standard DbConnection: 
 			// var profiled = new ProfiledDbConnection(cnn, MiniProfiler.Current);

@@ -60,9 +60,9 @@ namespace NerdDinner.Models
         public IQueryable<Dinner> AllIncluding(params Expression<Func<Dinner, object>>[] includeProperties)
         {
             IQueryable<Dinner> query = All;
-            foreach (var includeProperty in includeProperties)
+            foreach (Expression<Func<Dinner, object>> includeProperty in includeProperties)
             {
-                // query = query.Include(includeProperty);
+                query = query.Include(includeProperty);
             }
             return query;
         }
