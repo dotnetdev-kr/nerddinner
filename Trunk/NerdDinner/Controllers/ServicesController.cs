@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using NerdDinner.Models;
-using NerdDinner.Helpers;
-using DDay.iCal.Components;
 using NerdDinner.Services;
 using System.ComponentModel;
 

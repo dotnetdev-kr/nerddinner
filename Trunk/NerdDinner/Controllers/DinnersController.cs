@@ -16,8 +16,6 @@ namespace NerdDinner.Controllers {
 
         NerdIdentity _nerdIdentity;
 
-
-
         private NerdIdentity nerdIdentity {
             get { return (_nerdIdentity ?? User.Identity as NerdIdentity);}
         }
@@ -28,7 +26,7 @@ namespace NerdDinner.Controllers {
         // Dependency Injection enabled constructors
 
         public DinnersController()
-            : this(new DinnerRepository(),null)
+            : this(new DinnerRepository(), null)
         {
         }
 
@@ -104,7 +102,7 @@ namespace NerdDinner.Controllers {
             try {
                 UpdateModel(dinner);
 
-                dinnerRepository.Save();
+                dinnerRepository.SubmitChanges();
 
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
@@ -144,7 +142,7 @@ namespace NerdDinner.Controllers {
                 dinner.RSVPs.Add(rsvp);
 
                 dinnerRepository.InsertOrUpdate(dinner);
-                dinnerRepository.Save();
+                dinnerRepository.SubmitChanges();
 
                 return RedirectToAction("Details", new { id=dinner.DinnerID });
             }
@@ -184,7 +182,7 @@ namespace NerdDinner.Controllers {
                 return View("InvalidOwner");
 
             dinnerRepository.Delete(id);
-            dinnerRepository.Save();
+            dinnerRepository.SubmitChanges();
 
             return View("Deleted");
         }

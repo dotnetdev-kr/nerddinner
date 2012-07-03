@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using DotNetOpenAuth.OAuth.Messages;
 
@@ -15,7 +14,8 @@ namespace DotNetOpenAuth.ApplicationBlock
     /// where the user only signs in without providing any authorization to access
     /// Twitter APIs except to authenticate, since that access token is only useful once.
     /// </remarks>
-    public class InMemoryTokenManager : IConsumerTokenManager {
+    public class InMemoryTokenManager : IConsumerTokenManager
+    {
         private Dictionary<string, string> tokensAndSecrets = new Dictionary<string, string>();
 
         /// <summary>
@@ -23,8 +23,10 @@ namespace DotNetOpenAuth.ApplicationBlock
         /// </summary>
         /// <param name="consumerKey">The consumer key.</param>
         /// <param name="consumerSecret">The consumer secret.</param>
-        public InMemoryTokenManager(string consumerKey, string consumerSecret) {
-            if (String.IsNullOrEmpty(consumerKey)) {
+        public InMemoryTokenManager(string consumerKey, string consumerSecret)
+        {
+            if (String.IsNullOrEmpty(consumerKey))
+            {
                 throw new ArgumentNullException("consumerKey");
             }
 
@@ -54,7 +56,8 @@ namespace DotNetOpenAuth.ApplicationBlock
         /// The secret associated with the given token.
         /// </returns>
         /// <exception cref="ArgumentException">Thrown if the secret cannot be found for the given token.</exception>
-        public string GetTokenSecret(string token) {
+        public string GetTokenSecret(string token)
+        {
             return this.tokensAndSecrets[token];
         }
 
@@ -71,7 +74,8 @@ namespace DotNetOpenAuth.ApplicationBlock
         /// account with access tokens (not request tokens) in the <see cref="ExpireRequestTokenAndStoreNewAccessToken"/>
         /// method.
         /// </remarks>
-        public void StoreNewRequestToken(UnauthorizedTokenRequest request, ITokenSecretContainingMessage response) {
+        public void StoreNewRequestToken(UnauthorizedTokenRequest request, ITokenSecretContainingMessage response)
+        {
             this.tokensAndSecrets[response.Token] = response.TokenSecret;
         }
 
@@ -98,7 +102,8 @@ namespace DotNetOpenAuth.ApplicationBlock
         /// token to associate the access token with a user account at that point.
         /// </para>
         /// </remarks>
-        public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken, string accessTokenSecret) {
+        public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken, string accessTokenSecret)
+        {
             this.tokensAndSecrets.Remove(requestToken);
             this.tokensAndSecrets[accessToken] = accessTokenSecret;
         }
@@ -108,7 +113,8 @@ namespace DotNetOpenAuth.ApplicationBlock
         /// </summary>
         /// <param name="token">The token to classify.</param>
         /// <returns>Request or Access token, or invalid if the token is not recognized.</returns>
-        public TokenType GetTokenType(string token) {
+        public TokenType GetTokenType(string token)
+        {
             throw new NotImplementedException();
         }
 

@@ -23,14 +23,14 @@ namespace NerdDinner.Services
                     new CacheItemPolicy() { SlidingExpiration = TimeSpan.FromDays(1) });
             }
 
-            if(result.Descendants("code").Count() > 0) 
+            if (result.Descendants("code").Any())
             {
                 var ll = (from x in result.Descendants("code")
-                               select new LatLong
-                               {
-                                   Lat = (float)x.Element("lat"),
-                                   Long = (float)x.Element("lng")
-                           })
+                          select new LatLong
+                          {
+                              Lat = (float)x.Element("lat"),
+                              Long = (float)x.Element("lng")
+                          })
                            .First();
                 return ll;
             }

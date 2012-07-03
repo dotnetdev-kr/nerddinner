@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Linq.Expressions;
 
-
 namespace NerdDinner.Models
 {
-
     public class DinnerRepository : IDinnerRepository
     {
         NerdDinners db = new NerdDinners();
@@ -20,7 +17,6 @@ namespace NerdDinner.Models
 
             foreach (Dinner dinner in results)
             {
-
                 dinner.RSVPs = new List<RSVP>();
 
                 var rsvps = db.RSVPs.Where(x => x.DinnerID == dinner.DinnerID);
@@ -32,8 +28,6 @@ namespace NerdDinner.Models
             }
 
             return results.AsQueryable<Dinner>();
-
-        
         }
 
         public IQueryable<Dinner> FindUpcomingDinners()
@@ -107,7 +101,7 @@ namespace NerdDinner.Models
         //
         // Persistence 
 
-        public void Save()
+        public void SubmitChanges()
         {
             db.SaveChanges();
         }

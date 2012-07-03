@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace NerdDinner.Controllers {
-
+namespace NerdDinner.Controllers
+{
     [HandleErrorWithELMAH]
-    public class HomeController : Controller {
+    public class HomeController : Controller
+    {
         private const string XrdsType = "application/xrds+xml";
 
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             // Enables RP Discovery, which avoids warnings from OpenID providers like Yahoo during login.
             // Some Providers ask for a specific accept-type, which we can optimize for here.
-            if (Request != null && Request.AcceptTypes != null && Array.IndexOf(Request.AcceptTypes, XrdsType) >= 0) {
+            if (Request != null && Request.AcceptTypes != null && Array.IndexOf(Request.AcceptTypes, XrdsType) >= 0)
+            {
                 return View("Xrds");
             }
             // Other Providers don't say they're performing RP discovery, so always include an HTTP header to help them.
@@ -23,7 +23,8 @@ namespace NerdDinner.Controllers {
             return View();
         }
 
-        public ActionResult About() {
+        public ActionResult About()
+        {
             return View();
         }
 
@@ -35,7 +36,8 @@ namespace NerdDinner.Controllers {
         /// <summary>
         /// Provides an RP discovery document to OpenID 2.0 Providers that are performing a security check on this RP.
         /// </summary>
-        public ActionResult Xrds() {
+        public ActionResult Xrds()
+        {
             return View("Xrds");
         }
     }

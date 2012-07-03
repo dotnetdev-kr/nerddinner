@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using System.Xml;
@@ -18,7 +16,8 @@ namespace NerdDinner.Controllers
 
         public RssResult() : base("application/rss+xml") { }
 
-        public RssResult(List<Dinner> dinners, string title) :this()
+        public RssResult(List<Dinner> dinners, string title)
+            : this()
         {
             this.Dinners = dinners;
             this.Title = title;
@@ -29,6 +28,7 @@ namespace NerdDinner.Controllers
             currentUrl = context.RequestContext.HttpContext.Request.Url;
             base.ExecuteResult(context);
         }
+
         protected override void WriteFile(System.Web.HttpResponseBase response)
         {
             var items = new List<SyndicationItem>();
@@ -37,7 +37,7 @@ namespace NerdDinner.Controllers
             {
                 string contentString = String.Format("{0} with {1} on {2:MMM dd, yyyy} at {3}. Where: {4}, {5}",
                             d.Description, d.HostedBy, d.EventDate, d.EventDate.ToShortTimeString(), d.Address, d.Country);
-                
+
                 var item = new SyndicationItem(
                     title: d.Title,
                     content: contentString,
@@ -53,7 +53,7 @@ namespace NerdDinner.Controllers
             SyndicationFeed feed = new SyndicationFeed(
                 this.Title,
                 this.Title, /* Using Title also as Description */
-                currentUrl, 
+                currentUrl,
                 items);
 
             Rss20FeedFormatter formatter = new Rss20FeedFormatter(feed);
@@ -62,7 +62,6 @@ namespace NerdDinner.Controllers
             {
                 formatter.WriteTo(writer);
             }
-
         }
     }
 }

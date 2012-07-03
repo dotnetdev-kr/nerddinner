@@ -11,6 +11,6 @@ namespace NerdDinner.Models
         T Find(int id);
         void InsertOrUpdate(T dinner);
         void Delete(int id);
-        void Save();
+        void SubmitChanges();
     }
 }

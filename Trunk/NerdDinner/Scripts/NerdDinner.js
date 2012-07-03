@@ -12,9 +12,7 @@ NerdDinner.LoadMap = function (latitude, longitude, onMapLoaded) {
 
     var options = new VEMapOptions();
 
-    options.EnableBirdseye = false
-
-    // Makes the control bar less obtrusize.
+    options.EnableBirdseye = false; // Makes the control bar less obtrusize.
     this._map.SetDashboardSize(VEDashboardSize.Small);
 
     if (onMapLoaded != null)
@@ -25,16 +23,14 @@ NerdDinner.LoadMap = function (latitude, longitude, onMapLoaded) {
     }
 
     NerdDinner._map.LoadMap(center, null, null, null, null, null, null, options);
-}
-
+};
 NerdDinner.ClearMap = function () {
     if (NerdDinner._map != null) {
         NerdDinner._map.Clear();
     }
     NerdDinner._points = [];
     NerdDinner._shapes = [];
-}
-
+};
 NerdDinner.LoadPin = function (LL, name, description, draggable) {
     if (LL.Latitude == 0 || LL.Longitude == 0) {
         return;
@@ -60,8 +56,7 @@ NerdDinner.LoadPin = function (LL, name, description, draggable) {
     NerdDinner._map.AddShape(shape);
     NerdDinner._points.push(LL);
     NerdDinner._shapes.push(shape);
-}
-
+};
 NerdDinner.FindAddressOnMap = function (where) {
     var numberOfResults = 1;
     var setBestMapView = true;
@@ -71,8 +66,7 @@ NerdDinner.FindAddressOnMap = function (where) {
     NerdDinner._map.Find("", where, null, null, null,
                          numberOfResults, showResults, true, defaultDisambiguation,
                          setBestMapView, NerdDinner._callbackForLocation);
-}
-
+};
 NerdDinner._callbackForLocation = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
     NerdDinner.ClearMap();
 
@@ -104,18 +98,14 @@ NerdDinner._callbackForLocation = function (layer, resultsArray, places, hasMore
         $("#Latitude").val(NerdDinner._points[0].Latitude.toString());
         $("#Longitude").val(NerdDinner._points[0].Longitude.toString());
     }
-}
-
+};
 NerdDinner.FindDinnersGivenLocation = function (where) {
     NerdDinner._map.Find("", where, null, null, null, null, null, false,
                          null, null, NerdDinner._callbackUpdateMapDinners);
-}
-
-
+};
 NerdDinner.FindMostPopularDinners = function (limit) {
     $.post("/Search/GetMostPopularDinners", { "limit": limit }, NerdDinner._renderDinners, "json");
-}
-
+};
 NerdDinner._callbackUpdateMapDinners = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
     var center = NerdDinner._map.GetCenter();
 
@@ -123,9 +113,7 @@ NerdDinner._callbackUpdateMapDinners = function (layer, resultsArray, places, ha
            { latitude: center.Latitude, longitude: center.Longitude },
            NerdDinner._renderDinners,
            "json");
-}
-
-
+};
 NerdDinner._renderDinners = function (dinners) {
     $("#dinnerList").empty();
 
@@ -207,13 +195,11 @@ NerdDinner._renderDinners = function (dinners) {
 
         return rsvpMessage;
     }
-}
-
+};
 NerdDinner.onEndDrag = function (e) {
     $("#Latitude").val(e.LatLong.Latitude.toString());
     $("#Longitude").val(e.LatLong.Longitude.toString());
-}
-
+};
 NerdDinner.getLocationResults = function (locations) {
     if (locations) {
         var currentAddress = $("#Address");
@@ -224,8 +210,7 @@ NerdDinner.getLocationResults = function (locations) {
             }
         }
     }
-}
-
+};
 NerdDinner.getCurrentLocationByIpAddress = function () {
     var requestUrl = "http://api.ipinfodb.com/v3/ip-city/?format=json&callback=?&key=" + this.ipInfoDbKey;
 
@@ -235,14 +220,13 @@ NerdDinner.getCurrentLocationByIpAddress = function () {
                 $('#Location').val(data.regionName + ', ' + data.countryName);
             }
         });
-}
-
+};
 NerdDinner.getCurrentLocationByLatLong = function (latitude, longitude) {
     var requestUrl = 'http://dev.virtualearth.net/REST/v1/Locations/' + latitude + ',' + longitude + '?key=' + NerdDinner.BingMapsKey + '&jsonp=?';
     $.getJSON(requestUrl,
         function (result) {
             if (result.resourceSets[0].estimatedTotal > 0) {
-                $('#Location').val(result.resourceSets[0].resources[0].address.formattedAddress)
+                $('#Location').val(result.resourceSets[0].resources[0].address.formattedAddress);
             }
         });
-}
+};

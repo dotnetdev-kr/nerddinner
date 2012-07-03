@@ -74,7 +74,7 @@ namespace NerdDinner.Tests.Fakes
             context.Add(dinner);
         }
 
-        public void Save()
+        public void SubmitChanges()
         {
         }
     }

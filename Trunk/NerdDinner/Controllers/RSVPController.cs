@@ -11,9 +11,9 @@ using NerdDinner.Models;
 
 namespace NerdDinner.Controllers
 {
-		[HandleErrorWithELMAH]
-		public class RSVPController : Controller
-		{
+    [HandleErrorWithELMAH]
+    public class RSVPController : Controller
+    {
 
         IDinnerRepository dinnerRepository;
 
@@ -21,32 +21,32 @@ namespace NerdDinner.Controllers
 
         //
         // Dependency Injection enabled constructors
-
         public RSVPController()
-            : this(new DinnerRepository()) {
+            : this(new DinnerRepository())
+        {
         }
 
-        public RSVPController(IDinnerRepository repository) {
+        public RSVPController(IDinnerRepository repository)
+        {
             dinnerRepository = repository;
         }
 
         //
         // AJAX: /Dinners/Register/1
-
         [Authorize, HttpPost]
-        public ActionResult Register(int id) {
-
+        public ActionResult Register(int id)
+        {
             Dinner dinner = dinnerRepository.Find(id);
 
-            if (!dinner.IsUserRegistered(User.Identity.Name)) {
-
+            if (!dinner.IsUserRegistered(User.Identity.Name))
+            {
                 RSVP rsvp = new RSVP();
                 NerdIdentity nerd = (NerdIdentity)User.Identity;
                 rsvp.AttendeeNameId = nerd.Name;
                 rsvp.AttendeeName = nerd.FriendlyName;
 
                 dinner.RSVPs.Add(rsvp);
-                dinnerRepository.Save();
+                dinnerRepository.SubmitChanges();
             }
 
             return Content("Thanks - we'll see you there!");
@@ -58,18 +58,13 @@ namespace NerdDinner.Controllers
         [Authorize, HttpPost]
         public ActionResult Cancel(int id)
         {
-
             Dinner dinner = dinnerRepository.Find(id);
 
-            RSVP rsvp = dinner.RSVPs
-                .Where(r => User.Identity.Name == (r.AttendeeNameId ?? r.AttendeeName))
-                .SingleOrDefault();
-
+            RSVP rsvp = dinner.RSVPs.SingleOrDefault(r => this.User.Identity.Name == (r.AttendeeNameId ?? r.AttendeeName));
             if (rsvp != null)
             {
-
                 dinnerRepository.DeleteRsvp(rsvp);
-                dinnerRepository.Save();
+                dinnerRepository.SubmitChanges();
             }
 
             return Content("Sorry you can't make it!");
@@ -102,7 +97,6 @@ namespace NerdDinner.Controllers
 
             if (response.Status == AuthenticationStatus.Authenticated)
             {
-                var dinnerRepository = new DinnerRepository();
                 int id = int.Parse(response.GetUntrustedCallbackArgument("DinnerId"));
                 Dinner dinner = dinnerRepository.Find(id);
 
@@ -124,7 +118,7 @@ namespace NerdDinner.Controllers
                     rsvp.AttendeeNameId = response.ClaimedIdentifier;
 
                     dinner.RSVPs.Add(rsvp);
-                    dinnerRepository.Save();
+                    dinnerRepository.SubmitChanges();
                 }
             }
 
@@ -158,7 +152,7 @@ namespace NerdDinner.Controllers
                     rsvp.AttendeeName = alias;
 
                     dinner.RSVPs.Add(rsvp);
-                    dinnerRepository.Save();
+                    dinnerRepository.SubmitChanges();
                 }
             }
 

@@ -15,17 +15,20 @@ namespace NerdDinner.Controllers
     {
         public List<Dinner> Dinners { get; set; }
 
-        public iCalResult(string filename) : base("text/calendar")
+        public iCalResult(string filename)
+            : base("text/calendar")
         {
             this.FileDownloadName = filename;
         }
 
-        public iCalResult(List<Dinner> dinners, string filename) : this(filename)
+        public iCalResult(List<Dinner> dinners, string filename)
+            : this(filename)
         {
             this.Dinners = dinners;
         }
 
-        public iCalResult(Dinner dinner, string filename) : this(filename)
+        public iCalResult(Dinner dinner, string filename)
+            : this(filename)
         {
             this.Dinners = new List<Dinner>();
             this.Dinners.Add(dinner);
@@ -42,7 +45,7 @@ namespace NerdDinner.Controllers
                     iCal.Events.Add(e);
                 }
                 catch (ArgumentOutOfRangeException)
-                { 
+                {
                     //Swallow folks that have dinners in 9999. 
                 }
             }

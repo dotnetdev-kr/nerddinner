@@ -18,12 +18,14 @@ namespace NerdDinner.Helpers
     /// <summary>
     /// A consumer capable of communicating with Twitter.
     /// </summary>
-    public static class TwitterConsumer {
+    public static class TwitterConsumer
+    {
         /// <summary>
         /// The description of Twitter's OAuth protocol URIs for use with actually reading/writing
         /// a user's private Twitter data.
         /// </summary>
-        public static readonly ServiceProviderDescription ServiceDescription = new ServiceProviderDescription {
+        public static readonly ServiceProviderDescription ServiceDescription = new ServiceProviderDescription
+        {
             RequestTokenEndpoint = new MessageReceivingEndpoint("http://twitter.com/oauth/request_token", HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest),
             UserAuthorizationEndpoint = new MessageReceivingEndpoint("http://twitter.com/oauth/authorize", HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest),
             AccessTokenEndpoint = new MessageReceivingEndpoint("http://twitter.com/oauth/access_token", HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest),
@@ -33,7 +35,8 @@ namespace NerdDinner.Helpers
         /// <summary>
         /// The description of Twitter's OAuth protocol URIs for use with their "Sign in with Twitter" feature.
         /// </summary>
-        public static readonly ServiceProviderDescription SignInWithTwitterServiceDescription = new ServiceProviderDescription {
+        public static readonly ServiceProviderDescription SignInWithTwitterServiceDescription = new ServiceProviderDescription
+        {
             RequestTokenEndpoint = new MessageReceivingEndpoint("http://twitter.com/oauth/request_token", HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest),
             UserAuthorizationEndpoint = new MessageReceivingEndpoint("http://twitter.com/oauth/authenticate", HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest),
             AccessTokenEndpoint = new MessageReceivingEndpoint("http://twitter.com/oauth/access_token", HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest),
@@ -56,17 +59,23 @@ namespace NerdDinner.Helpers
 
         private static readonly MessageReceivingEndpoint VerifyCredentialsEndpoint = new MessageReceivingEndpoint("http://api.twitter.com/1/account/verify_credentials.xml", HttpDeliveryMethods.GetRequest | HttpDeliveryMethods.AuthorizationHeaderRequest);
 
-        private static InMemoryTokenManager ShortTermUserSessionTokenManager {
-            get {
+        private static InMemoryTokenManager ShortTermUserSessionTokenManager
+        {
+            get
+            {
                 var store = HttpContext.Current.Session;
                 var tokenManager = (InMemoryTokenManager)store["TwitterShortTermUserSessionTokenManager"];
-                if (tokenManager == null) {
+                if (tokenManager == null)
+                {
                     string consumerKey = ConfigurationManager.AppSettings["twitterConsumerKey"];
                     string consumerSecret = ConfigurationManager.AppSettings["twitterConsumerSecret"];
-                    if (IsTwitterConsumerConfigured) {
+                    if (IsTwitterConsumerConfigured)
+                    {
                         tokenManager = new InMemoryTokenManager(consumerKey, consumerSecret);
                         store["TwitterShortTermUserSessionTokenManager"] = tokenManager;
-                    } else {
+                    }
+                    else
+                    {
                         throw new InvalidOperationException("No Twitter OAuth consumer key and secret could be found in web.config AppSettings.");
                     }
                 }
@@ -79,11 +88,16 @@ namespace NerdDinner.Helpers
 
         private static object signInConsumerInitLock = new object();
 
-        private static WebConsumer TwitterSignIn {
-            get {
-                if (signInConsumer == null) {
-                    lock (signInConsumerInitLock) {
-                        if (signInConsumer == null) {
+        private static WebConsumer TwitterSignIn
+        {
+            get
+            {
+                if (signInConsumer == null)
+                {
+                    lock (signInConsumerInitLock)
+                    {
+                        if (signInConsumer == null)
+                        {
                             signInConsumer = new WebConsumer(SignInWithTwitterServiceDescription, ShortTermUserSessionTokenManager);
                         }
                     }
@@ -96,29 +110,35 @@ namespace NerdDinner.Helpers
         /// <summary>
         /// Initializes static members of the <see cref="TwitterConsumer"/> class.
         /// </summary>
-        static TwitterConsumer() {
+        static TwitterConsumer()
+        {
             // Twitter can't handle the Expect 100 Continue HTTP header. 
             ServicePointManager.FindServicePoint(GetFavoritesEndpoint.Location).Expect100Continue = false;
         }
 
-        public static bool IsTwitterConsumerConfigured {
-            get {
+        public static bool IsTwitterConsumerConfigured
+        {
+            get
+            {
                 return !string.IsNullOrEmpty(ConfigurationManager.AppSettings["twitterConsumerKey"]) &&
                     !string.IsNullOrEmpty(ConfigurationManager.AppSettings["twitterConsumerSecret"]);
             }
         }
 
-        public static XDocument GetUpdates(ConsumerBase twitter, string accessToken) {
+        public static XDocument GetUpdates(ConsumerBase twitter, string accessToken)
+        {
             IncomingWebResponse response = twitter.PrepareAuthorizedRequestAndSend(GetFriendTimelineStatusEndpoint, accessToken);
             return XDocument.Load(XmlReader.Create(response.GetResponseReader()));
         }
 
-        public static XDocument GetFavorites(ConsumerBase twitter, string accessToken) {
+        public static XDocument GetFavorites(ConsumerBase twitter, string accessToken)
+        {
             IncomingWebResponse response = twitter.PrepareAuthorizedRequestAndSend(GetFavoritesEndpoint, accessToken);
             return XDocument.Load(XmlReader.Create(response.GetResponseReader()));
         }
 
-        public static XDocument UpdateProfileBackgroundImage(ConsumerBase twitter, string accessToken, string image, bool tile) {
+        public static XDocument UpdateProfileBackgroundImage(ConsumerBase twitter, string accessToken, string image, bool tile)
+        {
             var parts = new[] {
                 MultipartPostPart.CreateFormFilePart("image", image, "image/" + Path.GetExtension(image).Substring(1).ToLowerInvariant()),
                 MultipartPostPart.CreateFormPart("tile", tile.ToString().ToLowerInvariant()),
@@ -130,12 +150,14 @@ namespace NerdDinner.Helpers
             return XDocument.Parse(responseString);
         }
 
-        public static XDocument UpdateProfileImage(ConsumerBase twitter, string accessToken, string pathToImage) {
+        public static XDocument UpdateProfileImage(ConsumerBase twitter, string accessToken, string pathToImage)
+        {
             string contentType = "image/" + Path.GetExtension(pathToImage).Substring(1).ToLowerInvariant();
             return UpdateProfileImage(twitter, accessToken, File.OpenRead(pathToImage), contentType);
         }
 
-        public static XDocument UpdateProfileImage(ConsumerBase twitter, string accessToken, Stream image, string contentType) {
+        public static XDocument UpdateProfileImage(ConsumerBase twitter, string accessToken, Stream image, string contentType)
+        {
             var parts = new[] {
                 MultipartPostPart.CreateFormFilePart("image", "twitterPhoto", contentType, image),
             };
@@ -145,12 +167,14 @@ namespace NerdDinner.Helpers
             return XDocument.Parse(responseString);
         }
 
-        public static XDocument VerifyCredentials(ConsumerBase twitter, string accessToken) {
+        public static XDocument VerifyCredentials(ConsumerBase twitter, string accessToken)
+        {
             IncomingWebResponse response = twitter.PrepareAuthorizedRequestAndSend(VerifyCredentialsEndpoint, accessToken);
             return XDocument.Load(XmlReader.Create(response.GetResponseReader()));
         }
 
-        public static string GetUsername(ConsumerBase twitter, string accessToken) {
+        public static string GetUsername(ConsumerBase twitter, string accessToken)
+        {
             XDocument xml = VerifyCredentials(twitter, accessToken);
             XPathNavigator nav = xml.CreateNavigator();
             return nav.SelectSingleNode("/user/screen_name").Value;
@@ -166,14 +190,16 @@ namespace NerdDinner.Helpers
         /// <c>return StartSignInWithTwitter().<see cref="MessagingUtilities.AsActionResult">AsActionResult()</see></c>
         /// to actually perform the redirect.
         /// </remarks>
-        public static OutgoingWebResponse StartSignInWithTwitter(bool forceNewLogin, Uri callback) {
+        public static OutgoingWebResponse StartSignInWithTwitter(bool forceNewLogin, Uri callback)
+        {
             Contract.Requires(callback != null);
 
             var redirectParameters = new Dictionary<string, string>();
-            if (forceNewLogin) {
+            if (forceNewLogin)
+            {
                 redirectParameters["force_login"] = "true";
             }
-            
+
             var request = TwitterSignIn.PrepareRequestUserAuthorization(callback, null, redirectParameters);
             return TwitterSignIn.Channel.PrepareResponse(request);
         }
@@ -188,11 +214,13 @@ namespace NerdDinner.Helpers
         /// A value indicating whether Twitter authentication was successful;
         /// otherwise <c>false</c> to indicate that no Twitter response was present.
         /// </returns>
-        public static bool TryFinishSignInWithTwitter(out string screenName, out int userId) {
+        public static bool TryFinishSignInWithTwitter(out string screenName, out int userId)
+        {
             screenName = null;
             userId = 0;
             var response = TwitterSignIn.ProcessUserAuthorization();
-            if (response == null) {
+            if (response == null)
+            {
                 return false;
             }
 

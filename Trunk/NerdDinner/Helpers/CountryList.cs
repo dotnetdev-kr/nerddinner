@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
-namespace NerdDinner.Helpers {
-
-    public class CountryList {
-
+namespace NerdDinner.Helpers
+{
+    public class CountryList
+    {
         static readonly IList<string> countries = new List<string> {
                              { "USA" },
 							 { "Afghanistan"},
@@ -264,10 +263,10 @@ namespace NerdDinner.Helpers {
 							 { "Zimbabwe"}
         };
 
-        
-
-        public static IEnumerable<string> Countries {
-            get {
+        public static IEnumerable<string> Countries
+        {
+            get
+            {
                 return countries;
             }
         }

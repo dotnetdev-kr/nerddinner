@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
-using System.Xml.Linq;
-using NerdDinner.Helpers;
 using NerdDinner.Models;
 using NerdDinner.Services;
 using PagedList;
@@ -30,7 +28,6 @@ namespace NerdDinner.Controllers
 
         //
         // Dependency Injection enabled constructors
-
         public SearchController()
             : this(new DinnerRepository())
         {
@@ -43,11 +40,9 @@ namespace NerdDinner.Controllers
 
         //
         // AJAX: /Search/FindByLocation?longitude=45&latitude=-90
-
         [HttpPost]
         public ActionResult SearchByLocation(float latitude, float longitude)
         {
- 
             var dinners = dinnerRepository.FindByLocation(latitude, longitude);
 
             var jsonDinners = from dinner in dinners.AsEnumerable()
@@ -72,11 +67,10 @@ namespace NerdDinner.Controllers
             return View("Results", null);
         }
 
-     
+
         //
         // AJAX: /Search/GetMostPopularDinners
         // AJAX: /Search/GetMostPopularDinners?limit=5
-
         [HttpPost]
         public ActionResult GetMostPopularDinners(int? limit)
         {

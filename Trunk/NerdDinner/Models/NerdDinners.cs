@@ -2,12 +2,11 @@
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SqlClient;
+using StackExchange.Profiling;
 using StackExchange.Profiling.Data;
 
 namespace NerdDinner.Models
 {
-    using StackExchange.Profiling;
-
     public class NerdDinners : DbContext
     {
         public NerdDinners() 

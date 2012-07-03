@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Data.Metadata.Edm;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Web;
-using System.Xml.Linq;
-using NerdDinner.Helpers;
 using NerdDinner.Models;
 using NerdDinner.Services;
 using DataServicesJSONP;
@@ -23,7 +20,8 @@ namespace NerdDinner
         // Dependency Injection enabled constructors
 
         public ODataServices()
-            : this(new DinnerRepository()) {
+            : this(new DinnerRepository())
+        {
         }
 
         public ODataServices(IDinnerRepository repository)
@@ -50,9 +48,9 @@ namespace NerdDinner
             config.SetServiceOperationAccessRule("DinnersNearMe", ServiceOperationRights.AllRead);
             config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V2;
-            #if DEBUG
+#if DEBUG
             config.UseVerboseErrors = true;
-            #endif
+#endif
         }
 
         protected override void OnStartProcessingRequest(ProcessRequestArgs args)
