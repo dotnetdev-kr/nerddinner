@@ -26,7 +26,7 @@ namespace NerdDinner.Controllers {
         // Dependency Injection enabled constructors
 
         public DinnersController()
-            : this(new DinnerRepository(), null)
+            : this(DependencyResolver.Current.GetService<IDinnerRepository>(), null)
         {
         }
 

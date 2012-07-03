@@ -1,13 +1,24 @@
 ﻿using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using StackExchange.Profiling;
 using StackExchange.Profiling.Data;
 
 namespace NerdDinner.Models
 {
-    public class NerdDinners : DbContext
+    public interface INerdDinners
+    {
+        Database Database { get; }
+        int SaveChanges();
+        DbEntityEntry Entry(object entity);
+
+        DbSet<Dinner> Dinners { get; set; }
+        DbSet<RSVP> RSVPs { get; set; }
+    }
+
+    public class NerdDinners : DbContext, INerdDinners
     {
         public NerdDinners() 
             // : base(GetProfiledConnection(), true)

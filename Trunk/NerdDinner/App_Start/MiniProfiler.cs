@@ -6,10 +6,10 @@ using StackExchange.Profiling;
 using StackExchange.Profiling.MVCHelpers;
 using StackExchange.Profiling.SqlFormatters;
 
-// [assembly: WebActivator.PreApplicationStartMethod(typeof(NerdDinner.App_Start.MiniProfilerPackage), "PreStart")]
-// [assembly: WebActivator.PostApplicationStartMethod(typeof(NerdDinner.App_Start.MiniProfilerPackage), "PostStart")]
+// [assembly: WebActivator.PreApplicationStartMethod(typeof(NerdDinner.MiniProfilerPackage), "PreStart")]
+// [assembly: WebActivator.PostApplicationStartMethod(typeof(NerdDinner.MiniProfilerPackage), "PostStart")]
 
-namespace NerdDinner.App_Start 
+namespace NerdDinner
 {
     public static class MiniProfilerPackage
     {

@@ -5,51 +5,13 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Reflection;
+using StackExchange.Profiling;
 
 namespace NerdDinner
 {
-    using StackExchange.Profiling;
 
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
-
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
-            filters.Add(new HandleErrorAttribute());
-        }
-
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                    "PrettyDetails",
-                    "{Id}",
-                        new { controller = "Dinners", action = "Details" },
-                        new { Id = @"\d+" }
-                    );
-
-            routes.MapRoute(
-                    "UpcomingDinners",
-                    "Dinners/Page/{page}",
-                    new { controller = "Dinners", action = "Index" }
-            );
-
-            routes.MapRoute(
-                    "Default",                                              // Route name
-                    "{controller}/{action}/{id}",                           // URL with parameters
-                    new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
-            );
-
-            routes.MapRoute(
-                "OpenIdDiscover",
-                "Auth/Discover");
-
-        }
-
         public override void Init()
         {
             this.PostAuthenticateRequest += new EventHandler(MvcApplication_PostAuthenticateRequest);
@@ -62,8 +24,11 @@ namespace NerdDinner
         {
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             Application["Version"] = string.Format("{0}.{1}",version.Major,version.Minor);
-            
-            RegisterRoutes(RouteTable.Routes);
+
+            DependencyConfig.RegisterDependencyInjection();
+            AreaRegistration.RegisterAllAreas();
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
 
         void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
@@ -95,6 +60,5 @@ namespace NerdDinner
         {
             MiniProfiler.Stop();
         }
-
     }
 }

@@ -4,12 +4,13 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace NerdDinner.Models
 {
     public class DinnerRepository : IDinnerRepository
     {
-        NerdDinners db = new NerdDinners();
+        private readonly INerdDinners db = DependencyResolver.Current.GetService<INerdDinners>();
 
         public IQueryable<Dinner> FindByLocation(float latitude, float longitude)
         {
