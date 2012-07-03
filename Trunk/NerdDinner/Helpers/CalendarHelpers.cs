@@ -1,8 +1,6 @@
 ﻿using System;
 using NerdDinner.Models;
 using DDay.iCal;
-using DDay.iCal.Components;
-using DDay.iCal.DataTypes;
 
 namespace NerdDinner.Helpers
 {
@@ -12,13 +10,13 @@ namespace NerdDinner.Helpers
         {
             string eventLink = "http://nrddnr.com/" + dinner.DinnerID;
             Event evt = iCal.Create<Event>();
-            evt.Start = dinner.EventDate;
+            evt.Start = new iCalDateTime(dinner.EventDate);
             evt.Duration = new TimeSpan(3, 0, 0);
             evt.Location = dinner.Address;
             evt.Summary = String.Format("{0} with {1}", dinner.Description, dinner.HostedBy);
-            evt.AddContact(dinner.ContactPhone);
-            evt.Geo = new Geo(dinner.Latitude, dinner.Longitude);
-            evt.Url = eventLink;
+            evt.Contacts.Add(dinner.ContactPhone);
+            evt.GeographicLocation = new GeographicLocation(dinner.Latitude, dinner.Longitude);
+            evt.Url = new Uri(eventLink);
             evt.Description = eventLink;
             return evt;
         }

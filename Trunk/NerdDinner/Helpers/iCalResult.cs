@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using DDay.iCal.Components;
-using NerdDinner.Helpers;
 using DDay.iCal;
-using DDay.iCal.Serialization;
+using DDay.iCal.Serialization.iCalendar;
+using NerdDinner.Helpers;
 using NerdDinner.Models;
 
 namespace NerdDinner.Controllers
