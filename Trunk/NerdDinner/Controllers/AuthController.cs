@@ -100,7 +100,7 @@ namespace MvcRelyingParty.Controllers {
 				}
 
 				// Always say it's a GET since the payload is all in the URL, even the large ones.
-                var clientResponseInfo = (HttpRequestInfo )HttpRequestInfo.Create("GET", auth, headers);
+                var clientResponseInfo = (HttpRequestInfo )HttpRequestInfo.Create("GET", auth, headers: headers);
 				response = RelyingParty.GetResponse(clientResponseInfo);
 			} else {
 				response = RelyingParty.GetResponse();
@@ -148,7 +148,7 @@ namespace MvcRelyingParty.Controllers {
 			// If we're to this point, login didn't complete successfully.
 			// Show the LogOn view again to show the user any errors and
 			// give another chance to complete login.
-			return View("LogOn");
+			return RedirectToAction("LogOn", "Account");
 		}
 	}
 }
