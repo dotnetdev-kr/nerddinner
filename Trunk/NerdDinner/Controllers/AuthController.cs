@@ -89,7 +89,7 @@ namespace MvcRelyingParty.Controllers {
 		/// because some OpenID positive assertions messages otherwise look like
 		/// hack attempts and result in errors when validation is turned on.
 		/// </remarks>
-		[HttpPost, ValidateInput(false)]
+		[HttpPost, ValidateInput(false)] // XSRF mitigated via rejectUnsolicitedAssertions="true" in web.config
 		public ActionResult LogOnPostAssertion(string openid_openidAuthData) {
 			IAuthenticationResponse response;
 			if (!string.IsNullOrEmpty(openid_openidAuthData)) {
