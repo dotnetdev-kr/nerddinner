@@ -115,38 +115,21 @@ NerdDinner._callbackUpdateMapDinners = function (layer, resultsArray, places, ha
            "json");
 };
 NerdDinner._renderDinners = function (dinners) {
-    $("#dinnerList").empty();
+    var viewModel = {
+        dinners: ko.observableArray(dinners)
+    };
+    ko.applyBindings(viewModel);
 
     NerdDinner.ClearMap();
 
     $.each(dinners, function (i, dinner) {
-
         var LL = new VELatLong(dinner.Latitude, dinner.Longitude, 0, null);
 
         // Add Pin to Map
         NerdDinner.LoadPin(LL, _getDinnerLinkHTML(dinner), _getDinnerDescriptionHTML(dinner), false);
 
-        //Add a dinner to the <ul> dinnerList on the right
-        $('#dinnerList').append($('<li/>')
-                        .attr("class", "dinnerItem")
-                        .append(_getDinnerLinkHTML(dinner))
-                        .append($('<br/>'))
-                        .append(_getDinnerDate(dinner, "mmm d"))
-                        .append(" with " + _getRSVPMessage(dinner.RSVPCount)));
-    });
-
-
-    // Adjust zoom to display all the pins we just added.
-    if (NerdDinner._points.length > 1) {
-        NerdDinner._map.SetMapView(NerdDinner._points);
-    }
-
-    // Display the event's pin-bubble on hover.
-    $(".dinnerItem").each(function (i, dinner) {
-
-        var dinnerId = parseInt($(dinner).find("a").attr("href"));
-        var dinnerPin = _getDinnerPin(dinnerId);
-
+        // Display the event's pin-bubble on hover.
+        var dinnerPin = _getDinnerPin(dinner.DinnerID);
         if (dinnerPin != null) {
             $(dinner).hover(
                 function () { NerdDinner._map.ShowInfoBox(dinnerPin); },
@@ -155,6 +138,10 @@ NerdDinner._renderDinners = function (dinners) {
         }
     });
 
+    // Adjust zoom to display all the pins we just added.
+    if (NerdDinner._points.length > 1) {
+        NerdDinner._map.SetMapView(NerdDinner._points);
+    }
 
     function _getDinnerPin(id) {
 
@@ -229,4 +216,24 @@ NerdDinner.getCurrentLocationByLatLong = function (latitude, longitude) {
                 $('#Location').val(result.resourceSets[0].resources[0].address.formattedAddress);
             }
         });
+};
+ko.bindingHandlers.dateString = {
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var value = valueAccessor();
+        var allBindings = allBindingsAccessor();
+        var valueUnwrapped = ko.utils.unwrapObservable(value);
+        var pattern = allBindings.datePattern || 'MM/dd/yyyy';
+        var v1 = eval('new' + valueUnwrapped.replace(/\//g, ' '));
+        var v2 = v1.format(pattern);
+        $(element).text(v2);
+    }
+};
+ko.bindingHandlers.rsvpMessage = {
+    update: function (element, valueAccessor) {
+        var value = valueAccessor();
+        var rsvpMessage = " with " + value + " RSVP";
+        if (value > 1)
+            rsvpMessage += "s";
+        $(element).text(rsvpMessage);
+    }
 };

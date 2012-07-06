@@ -1,26 +1,30 @@
 ﻿@{
-	ViewBag.Title = "Nerd Dinner";
+    ViewBag.Title = "Nerd Dinner";
 }
-
 @section Masthead {
-	@Html.Partial("_Masthead")
+    @Html.Partial("_Masthead")
 }
 <script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3" type="text/javascript"></script>
-
-<h2>Find a Dinner</h2>
-
+<h2>
+    Find a Dinner</h2>
 <div id="mapDivLeft">
-	<div id="theMap" style="width: 580px; height: 400px;"></div>
+    <div id="theMap" style="width: 580px; height: 400px;">
+    </div>
 </div>
-
 <div id="mapDivRight">
-	<div class='hslice' id='2'>
-		<h2 class='entry-title'>Popular Dinners</h2>
-		<div class="entry-content" id="dinnerList"></div>
-		<a rel='feedurl' href='/Dinners/WebSlicePopular' style='display:none;'></a>
-	</div>
+    <div class='hslice' id='2'>
+        <h2 class='entry-title'>
+            Popular Dinners</h2>
+        <ul class="entry-content" id="dinnerList" data-bind="foreach: dinners">
+            <li class="dinnerItem">
+                <a data-bind="attr: { href: Url }, text: Title"></a>
+                <br />
+                <strong data-bind="dateString: EventDate, datePattern: 'mmm d'"></strong><span data-bind="rsvpMessage: RSVPCount"></span>
+            </li>
+        </ul>
+        <a rel='feedurl' href='/Dinners/WebSlicePopular' style='display: none;'></a>
+    </div>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function () {
         // make sure that the mapcontrol has loaded, this has been an issue in FF4

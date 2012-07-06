@@ -313,8 +313,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\themes\base\jquery-ui.css" />
     <Content Include="Logs\readme.txt" />
-    <Content Include="Scripts\datajs-1.0.3.js" />
-    <Content Include="Scripts\datajs-1.0.3.min.js" />
     <Content Include="Scripts\date.format.js" />
     <Content Include="Scripts\geo-polyfill.js" />
     <Content Include="Scripts\geo.js" />
@@ -328,8 +326,6 @@
     <Content Include="Scripts\jquery.mobile-1.1.0.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
-    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
-    <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\MSAjaxHistoryBundle.js" />
     <Content Include="Scripts\NerdDinner.js" />
