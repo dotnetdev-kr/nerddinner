@@ -1,9 +1,0 @@
-﻿- Uri logonUri = new Uri(HttpContext.Current.Request.Url, HttpContext.Current.Response.ApplyAppPathModifier("~/Auth/LogOnPostAssertion"));
-- Uri popupUri = new Uri(HttpContext.Current.Request.Url, HttpContext.Current.Response.ApplyAppPathModifier("~/Auth/PopUpReturnTo"));
-
-%xrds:XRDS { xmlns:xrds="xri://$xrds" xmlns:openid="http://openid.net/xmlns/1.0" xmlns="xri://$xrd*($v*2.0)" }
-	%XRD
-		%Service { priority="1" }
-			%Type http://specs.openid.net/auth/2.0/return_to
-			%URI !=logonUri
-			%URI !=popupUri

@@ -1,0 +1,10 @@
+*.user
+bin
+obj
+packages
+*.suo
+Output/
+Working/
+App_Data/
+*.svclog
+_ReSharper*

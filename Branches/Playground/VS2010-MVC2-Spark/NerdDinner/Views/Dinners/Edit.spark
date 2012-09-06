@@ -1,9 +1,0 @@
-﻿<viewdata model="NerdDinner.Models.Dinner" />
-
-<content name="TitleContent">
-    Edit: ${ Model.Title }
-</content>
-
-<h2>Edit Dinner</h2>
-
-# Html.RenderPartial("DinnerForm");
