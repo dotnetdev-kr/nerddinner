@@ -1,0 +1,6 @@
+﻿@model System.Data.Spatial.DbGeography
+@if (Model != null) {
+  @Html.TextBox("", Model.Latitude + "," + Model.Longitude, new { @class = "display-for-dbgeography", disabled = true })
+} else {
+  @Html.TextBox("", "n/a", new { disabled = true })
+}

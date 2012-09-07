@@ -1,0 +1,91 @@
+﻿@model NerdDinner.Models.Dinner
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken() 
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Dinner</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EventDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EventDate)
+            @Html.ValidationMessageFor(model => model.EventDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HostedBy)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HostedBy)
+            @Html.ValidationMessageFor(model => model.HostedBy)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ContactPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ContactPhone)
+            @Html.ValidationMessageFor(model => model.ContactPhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Country)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Country)
+            @Html.ValidationMessageFor(model => model.Country)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Location)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/EFSpatialGoogleMaps.js"/></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
