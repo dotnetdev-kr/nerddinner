@@ -1,71 +1,72 @@
 ﻿@model NerdDinner.Models.Dinner
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = string.Format("{0} - Nerd Dinner", Model.Title);
 }
 
-<h2>Details</h2>
+<h2>@Model.Title</h2>
 
 <fieldset>
-    <legend>Dinner</legend>
+    <legend></legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Title)
+    <div id="dinnerDiv" style="float: right;">
+        <p>
+            <strong>When:</strong>
+            <abbr class="dtstart" title="@Model.EventDate.ToString("s")">
+                @Model.EventDate.ToString("MMM dd, yyyy")
+                <strong>@@</strong>
+                @Model.EventDate.ToShortTimeString()
+            </abbr>
+        </p>
+        <p>
+            <strong>Where:</strong> <span class="location adr"><span class="extended-address">@Model.Address</span>,
+			<span class="country-name">@Model.Country</span>
+                <abbr class="geo" title="@Model.Location.Latitude;@Model.Location.Longitude" style="display: none;">
+                    Geolocation for hCalendar</abbr>
+            </span>
+        </p>
+        <p>
+            <strong>Description:</strong> <span class="description">@Model.Description</span>
+            <span style="display: none;">
+                @Html.ActionLink("URL for hCalendar", "iCal", "Services", new { id = Model.DinnerID }, new { @class = "url" })
+            </span>
+        </p>
+        <p>
+            <strong>Organizer:</strong> <span class="organizer"><span class="vcard"><span class="fn nickname">@Model.HostedBy</span>
+                <span class="tel">@Model.ContactPhone</span> </span></span>
+        </p>
+        <p id="whoscoming">
+            <strong>Who's Coming:</strong>
+            @if (Model.RSVPs.Count == 0)
+            {
+                <text>No one has registered.</text>
+            }
+        </p>
+        @if (Model.RSVPs.Count > 0)
+        {
+            <div id="whoscomingDiv">
+                <ul class="attendees">
+                    @{  var RSVPs = Model.RSVPs.Reverse(); }
+                    @foreach (var RSVP in RSVPs)
+                    { 
+                        <li class="attendee"><span class="vcard"><span class="fn nickname">@(RSVP.AttendeeName.StartsWith("@") ? RSVP.AttendeeName : RSVP.AttendeeName.Replace("@", " at "))</span>
+                        </span></li>
+                    }
+                </ul>
+            </div>
+        }
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Title)
+    <div id="mapDiv" style="float: left;">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Location)
+        </div>
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Location)
+        </div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.EventDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.EventDate)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Description)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.HostedBy)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.HostedBy)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ContactPhone)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ContactPhone)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Address)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Address)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Country)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Country)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.HostedById)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.HostedById)
-    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.DinnerID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DinnerID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
