@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Spatial;
 using System.Linq;
 using System.Web;
@@ -57,5 +58,27 @@ namespace NerdDinner.Models
         {
             return RSVPs.Any(r => r.AttendeeName == userName);
         }
+
+        [UIHint("LocationDetail")]
+        [NotMapped]
+        public LocationDetail LocationDetail
+        {
+            get
+            {
+                return new LocationDetail() { Location = this.Location, Title = this.Title, Address = this.Address };
+            }
+            set
+            {
+                this.Location = value.Location;
+                this.Title = value.Title;
+                this.Address = value.Address;
+            }
+        }
+    }
+    public class LocationDetail
+    {
+        public DbGeography Location;
+        public string Title;
+        public string Address;
     }
 }

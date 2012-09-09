@@ -46,6 +46,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.5.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.15.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -266,6 +269,7 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\NerdDinner.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -302,6 +306,8 @@
     <Content Include="Views\Shared\EditorTemplates\DbGeography.cshtml" />
     <Content Include="Views\Dinners\InvalidOwner.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CountryDropDown.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\LocationDetail.cshtml" />
+    <Content Include="Views\Dinners\DinnerPagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NerdDinner.Models;
+using PagedList;
 
 namespace NerdDinner.Controllers
 {
@@ -15,10 +16,13 @@ namespace NerdDinner.Controllers
 
         //
         // GET: /Dinners/
-
-        public ActionResult Index()
+        private const int PageSize = 25;
+        public ActionResult Index(int? page)
         {
-            return View(db.Dinners.ToList());
+            int pageIndex = page ?? 1;
+
+            var dinners = db.Dinners.OrderBy(d => d.EventDate);
+            return View(dinners.ToPagedList(pageIndex, PageSize));
         }
 
         //

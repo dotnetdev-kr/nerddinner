@@ -57,12 +57,8 @@
         }
     </div>
     <div id="mapDiv" style="float: left;">
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Location)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.Location)
-        </div>
+        @Html.EditorFor(model => model.Location)
+        @Html.EditorFor(model => model.LocationDetail)
     </div>
 
 </fieldset>
