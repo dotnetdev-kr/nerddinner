@@ -16,6 +16,7 @@ namespace NerdDinner.Controllers
         [HttpGet]
         public IEnumerable<Dinner> SearchByLocation(float latitude, float longitude)
         {
+            // TODO
             return db.Dinners.AsEnumerable();
         }
 
@@ -24,6 +25,7 @@ namespace NerdDinner.Controllers
         [HttpGet]
         public IEnumerable<Dinner> SearchByPlaceNameOrZip(string Location)
         {
+            // TODO
             return db.Dinners.AsEnumerable();
         }
 
