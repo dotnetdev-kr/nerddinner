@@ -11,21 +11,31 @@ using System.Web.Http;
 
 namespace NerdDinner.Controllers
 {
+    public class JsonDinner
+    {
+        public int DinnerID { get; set; }
+        public DateTime EventDate { get; set; }
+        public string Title { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Description { get; set; }
+    }
+
     public class SearchController : ApiController
     {
         private NerdDinnerContext db = new NerdDinnerContext();
 
         // GET api/Search?latitude=1.0&longitude=1.0
         [HttpGet]
-        public IEnumerable<Dinner> SearchByLocation(float latitude, float longitude)
+        public IEnumerable<JsonDinner> SearchByLocation(double latitude, double longitude)
         {
             return FindByLocation(latitude, longitude);
         }
 
-        // GET api/Search?Location=30904
-        // GET api/Search?Location=Seattle
+        // GET api/Search?location=30901
+        // GET api/Search?location=Seattle
         [HttpGet]
-        public IEnumerable<Dinner> SearchByPlaceNameOrZip(string location)
+        public IEnumerable<JsonDinner> SearchByPlaceNameOrZip(string location)
         {
             if (String.IsNullOrEmpty(location)) return null;
             LatLong foundlocation = GeolocationService.PlaceOrZipToLatLong(location);
@@ -39,14 +49,14 @@ namespace NerdDinner.Controllers
 
         // POST api/Search?limit=10
         [HttpPost]
-        public IEnumerable<Dinner> GetMostPopularDinners(int limit)
+        public IEnumerable<JsonDinner> GetMostPopularDinners(int limit)
         {
             var mostPopularDinners = from dinner in db.Dinners
                                      where dinner.EventDate >= DateTime.Now
                                      orderby dinner.RSVPs.Count descending
                                      select dinner;
 
-            return mostPopularDinners.Take(limit).AsEnumerable();
+            return mostPopularDinners.Take(limit).AsEnumerable().Select(item => JsonDinnerFromDinner(item));
         }
 
         // Thanks Rick Strahl!
@@ -59,14 +69,14 @@ namespace NerdDinner.Controllers
             return DbGeography.PointFromText(text, 4326);
         }
 
-        protected IEnumerable<Dinner> FindByLocation(float latitude, float longitude)
+        protected IQueryable<JsonDinner> FindByLocation(double latitude, double longitude)
         {
-            var sourcePoint = CreatePoint(45.712113, -121.527200);
+            var sourcePoint = CreatePoint(latitude, longitude);
 
             var results =
                 db.Dinners
-                        .Where(loc => loc.Location.Distance(sourcePoint) < 1000)
-                        .OrderBy(loc => loc.Location.Distance(sourcePoint));
+                .Where(loc => loc.Location.Distance(sourcePoint) < 2000)
+                .OrderBy(loc => loc.Location.Distance(sourcePoint));
 
             //foreach (Dinner dinner in results)
             //{
@@ -80,7 +90,23 @@ namespace NerdDinner.Controllers
             //    }
             //}
 
-            return results.AsQueryable<Dinner>();
+            var jsonDinners = results.AsEnumerable()
+                    .Select(item => JsonDinnerFromDinner(item));
+
+            return jsonDinners.AsQueryable<JsonDinner>();
+        }
+
+        private JsonDinner JsonDinnerFromDinner(Dinner dinner)
+        {
+            return new JsonDinner
+            {
+                DinnerID = dinner.DinnerID,
+                EventDate = dinner.EventDate,
+                Latitude = dinner.Location.Latitude.Value,
+                Longitude = dinner.Location.Longitude.Value,
+                Title = dinner.Title,
+                Description = dinner.Description,
+            };
         }
 
         protected override void Dispose(bool disposing)

@@ -19,7 +19,7 @@ namespace NerdDinner
                 //4326 format puts LONGITUDE first then LATITUDE
                 DbGeography result = DbGeography.FromText(point, 4326);
                 return result;
-            } 
+            }
             return null;
         }
     }
