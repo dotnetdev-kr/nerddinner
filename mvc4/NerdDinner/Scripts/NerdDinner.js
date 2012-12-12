@@ -105,15 +105,13 @@ NerdDinner.FindDinnersGivenLocation = function (where) {
                          null, null, NerdDinner._callbackUpdateMapDinners);
 };
 NerdDinner.FindMostPopularDinners = function (limit) {
-    $.post("/Search/GetMostPopularDinners", { "limit": limit }, NerdDinner._renderDinners, "json");
+    $.post("/api/Search?limit=" + limit, { }, NerdDinner._renderDinners, "json");
 };
 NerdDinner._callbackUpdateMapDinners = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
     var center = NerdDinner._map.GetCenter();
 
-    $.post("/Search/SearchByLocation",
-           { latitude: center.Latitude, longitude: center.Longitude },
-           NerdDinner._renderDinners,
-           "json");
+    $.post("/api/Search?latitude=" + center.Latitude + "&longitude=" + center.Longitude,
+           { }, NerdDinner._renderDinners, "json");
 };
 NerdDinner._renderDinners = function (dinners) {
     var viewModel = {
@@ -174,7 +172,6 @@ NerdDinner._renderDinners = function (dinners) {
         return eval('new' + dateStr.replace(/\//g, ' '));
     }
 
-
     function _getRSVPMessage(RSVPCount) {
         var rsvpMessage = "" + RSVPCount + " RSVP";
 
@@ -227,9 +224,7 @@ ko.bindingHandlers.dateString = {
         var allBindings = allBindingsAccessor();
         var valueUnwrapped = ko.utils.unwrapObservable(value);
         var pattern = allBindings.datePattern || 'MM/dd/yyyy';
-        var v1 = eval('new' + valueUnwrapped.replace(/\//g, ' '));
-        var v2 = v1.format(pattern);
-        $(element).text(v2);
+        $(element).text(valueUnwrapped.toString(pattern));
     }
 };
 ko.bindingHandlers.rsvpMessage = {

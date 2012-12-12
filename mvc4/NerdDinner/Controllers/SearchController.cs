@@ -19,6 +19,8 @@ namespace NerdDinner.Controllers
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Description { get; set; }
+        public int RSVPCount { get; set; }
+        public string Url { get; set; }
     }
 
     public class SearchController : ApiController
@@ -59,19 +61,9 @@ namespace NerdDinner.Controllers
             return mostPopularDinners.Take(limit).AsEnumerable().Select(item => JsonDinnerFromDinner(item));
         }
 
-        // Thanks Rick Strahl!
-        // http://www.west-wind.com/weblog/posts/2012/Jun/21/Basic-Spatial-Data-with-SQL-Server-and-Entity-Framework-50
-        protected DbGeography CreatePoint(double latitude, double longitude)
-        {
-            var text = string.Format(CultureInfo.InvariantCulture.NumberFormat,
-                                     "POINT({0} {1})", longitude, latitude);
-            // 4326 is most common coordinate system used by GPS/Maps
-            return DbGeography.PointFromText(text, 4326);
-        }
-
         protected IQueryable<JsonDinner> FindByLocation(double latitude, double longitude)
         {
-            var sourcePoint = CreatePoint(latitude, longitude);
+            var sourcePoint = DbGeography.FromText(string.Format("POINT ({0} {1})", longitude, latitude));
 
             var results =
                 db.Dinners
@@ -106,6 +98,8 @@ namespace NerdDinner.Controllers
                 Longitude = dinner.Location.Longitude.Value,
                 Title = dinner.Title,
                 Description = dinner.Description,
+                RSVPCount = 0,
+                Url = dinner.DinnerID.ToString()
             };
         }
 
