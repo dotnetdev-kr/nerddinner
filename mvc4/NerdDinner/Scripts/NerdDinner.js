@@ -15,30 +15,31 @@ NerdDinner.LoadMap = function (latitude, longitude, onMapLoaded) {
     options.EnableBirdseye = false; // Makes the control bar less obtrusize.
     this._map.SetDashboardSize(VEDashboardSize.Small);
 
-    if (onMapLoaded != null)
+    if (onMapLoaded !== null)
         NerdDinner._map.onLoadMap = onMapLoaded;
 
-    if (latitude != null && longitude != null) {
-        var center = new VELatLong(latitude, longitude);
+    var center = null;
+    if (latitude !== null && longitude !== null) {
+        center = new VELatLong(latitude, longitude);
     }
 
     NerdDinner._map.LoadMap(center, null, null, null, null, null, null, options);
 };
 NerdDinner.ClearMap = function () {
-    if (NerdDinner._map != null) {
+    if (NerdDinner._map !== null) {
         NerdDinner._map.Clear();
     }
     NerdDinner._points = [];
     NerdDinner._shapes = [];
 };
 NerdDinner.LoadPin = function (LL, name, description, draggable) {
-    if (LL.Latitude == 0 || LL.Longitude == 0) {
+    if (LL.Latitude === 0 || LL.Longitude === 0) {
         return;
     }
 
     var shape = new VEShape(VEShapeType.Pushpin, LL);
 
-    if (draggable == true) {
+    if (draggable === true) {
         shape.Draggable = true;
         shape.onenddrag = NerdDinner.onEndDrag;
     }
@@ -51,7 +52,7 @@ NerdDinner.LoadPin = function (LL, name, description, draggable) {
     }
 
     //JVP: hydrated Id property with the dinner Id. 
-    shape.Id = parseInt($(name).attr("href"));
+    shape.Id = parseInt($(name).attr("href"), 10);
 
     NerdDinner._map.AddShape(shape);
     NerdDinner._points.push(LL);
@@ -70,7 +71,7 @@ NerdDinner.FindAddressOnMap = function (where) {
 NerdDinner._callbackForLocation = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
     NerdDinner.ClearMap();
 
-    if (places == null) {
+    if (places === null) {
         NerdDinner._map.ShowMessage(VEErrorMessage);
         return;
     }
@@ -129,7 +130,7 @@ NerdDinner._renderDinners = function (dinners) {
 
         // Display the event's pin-bubble on hover.
         var dinnerPin = _getDinnerPin(dinner.DinnerID);
-        if (dinnerPin != null) {
+        if (dinnerPin !== null) {
             $(dinner).hover(
                 function () { NerdDinner._map.ShowInfoBox(dinnerPin); },
                 function () { NerdDinner._map.HideInfoBox(dinnerPin); }
@@ -147,7 +148,7 @@ NerdDinner._renderDinners = function (dinners) {
         var retval = null;
         $(NerdDinner._shapes).each(function (index, item) {
 
-            if (item.Id == id) {
+            if (item.Id === id) {
                 retval = item;
                 return false;
             }
@@ -189,7 +190,7 @@ NerdDinner.onEndDrag = function (e) {
 NerdDinner.getLocationResults = function (locations) {
     if (locations) {
         var currentAddress = $("#Address");
-        if (locations[0].Name != currentAddress) {
+        if (locations[0].Name !== currentAddress) {
             var answer = confirm("Bing Maps returned the address '" + locations[0].Name + "' for the pin location. Click 'OK' to use this address for the event, or 'Cancel' to use the current address of '" + currentAddress.val() + "'");
             if (answer) {
                 currentAddress.val(locations[0].Name);
@@ -202,7 +203,7 @@ NerdDinner.getCurrentLocationByIpAddress = function () {
 
     $.getJSON(requestUrl,
         function (data) {
-            if (data.RegionName != '') {
+            if (data.RegionName !== '') {
                 // This is for the Search box
                 // $('#Location').val(data.regionName + ', ' + data.countryName);
             }
