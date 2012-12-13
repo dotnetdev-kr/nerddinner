@@ -17,14 +17,17 @@
 </article>
 
 <aside>
-    <h3>Popular Dinners</h3>
-    <ul class="entry-content" id="dinnerList" data-bind="foreach: dinners">
-        <li class="dinnerItem">
-            <a data-bind="attr: { href: Url }, text: Title"></a>
-            <br />
-            <strong data-bind="dateString: EventDate, datePattern: 'mmm d'"></strong><span data-bind="rsvpMessage: RSVPCount"></span>
-        </li>
-    </ul>
+    <div class='hslice' id='2'>
+        <h3>Popular Dinners</h3>
+        <ul class="entry-content" id="dinnerList" data-bind="foreach: dinners">
+            <li class="dinnerItem">
+                <a data-bind="attr: { href: Url }, text: Title"></a>
+                <br />
+                <strong data-bind="dateString: EventDate, datePattern: 'mmm d'"></strong><span data-bind="rsvpMessage: RSVPCount"></span>
+            </li>
+        </ul>
+        <a rel='feedurl' href='/Dinners/WebSlicePopular' style='display: none;'></a>
+    </div>
 </aside>
 
 <script type="text/javascript">
