@@ -313,6 +313,7 @@
     <Content Include="Views\Shared\EditorTemplates\LocationDetail.cshtml" />
     <Content Include="Views\Dinners\DinnerPagination.cshtml" />
     <Content Include="Views\Dinners\WebSlice.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\LocationDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,9 +2,6 @@
     ViewBag.Title = "Nerd Dinner";
 }
 
-<script src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.3" type="text/javascript"></script>
-<script src="~/Scripts/NerdDinner.js" type="text/javascript"></script>
-
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
     <h2>@ViewBag.Message</h2>
@@ -30,18 +27,11 @@
     </div>
 </aside>
 
-<script type="text/javascript">
-    $().ready(function () {
-        var interval = setInterval(function () {
-            if ((eval("typeof VEMap") != "undefined") && (document.getElementById("theMap").attachEvent != undefined)) {
-                clearInterval(interval);
-                onMapLoaded();
-            }
-        }, 10);
-    });
-
-    function onMapLoaded() {
-        NerdDinner.LoadMap();
-        NerdDinner.FindMostPopularDinners(8);
-    }
-</script>
+@section Scripts {
+    <script type="text/javascript">
+        $().ready(function () {
+            NerdDinner.LoadMap(null, null);
+            NerdDinner.FindMostPopularDinners(8);
+        });
+    </script>
+}

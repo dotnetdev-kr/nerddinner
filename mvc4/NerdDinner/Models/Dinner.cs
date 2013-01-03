@@ -65,11 +65,12 @@ namespace NerdDinner.Models
         {
             get
             {
-                return new LocationDetail() { Location = this.Location, Title = this.Title, Address = this.Address };
+                return new LocationDetail() { Location = this.Location, Id = this.DinnerID, Title = this.Title, Address = this.Address };
             }
             set
             {
                 this.Location = value.Location;
+                this.DinnerID = value.Id;
                 this.Title = value.Title;
                 this.Address = value.Address;
             }
@@ -78,6 +79,7 @@ namespace NerdDinner.Models
     public class LocationDetail
     {
         public DbGeography Location;
+        public int Id;
         public string Title;
         public string Address;
     }

@@ -10,7 +10,7 @@
 
         if ((latitude != 0) && (longitude != 0)){
             NerdDinner.LoadMap(latitude, longitude);
-            NerdDinner.LoadPin(new Microsoft.Maps.Location(latitude, longitude), "@Model.Id", "@Model.Title", "@Model.Address", true);
+            NerdDinner.LoadPin(new Microsoft.Maps.Location(latitude, longitude), "@Model.Id", "@Model.Title", "@Model.Address", false);
 
             NerdDinner._map.setView({zoom:14});
         }
@@ -19,4 +19,3 @@
         }
     });
 </script>
-(drag the pin in the map if it doesn't look right) *
