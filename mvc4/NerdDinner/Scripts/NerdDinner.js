@@ -73,47 +73,32 @@ NerdDinner._renderDinners = function (dinners) {
     }
 };
 NerdDinner.FindAddressOnMap = function (where) {
-    var numberOfResults = 1;
-    var setBestMapView = true;
-    var showResults = true;
-    var defaultDisambiguation = true;
-
-    NerdDinner._map.Find("", where, null, null, null,
-                         numberOfResults, showResults, true, defaultDisambiguation,
-                         setBestMapView, NerdDinner._callbackForLocation);
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(where) + "&output=json&jsonp=NerdDinner._callbackForLocation&key=" + NerdDinner.BingMapsKey);
+    document.body.appendChild(script);
 };
-NerdDinner._callbackForLocation = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
+NerdDinner._callbackForLocation = function (result) {
     NerdDinner.ClearMap();
 
-    if (places === null) {
-        NerdDinner._map.ShowMessage(VEErrorMessage);
-        return;
-    }
+    if (result &&
+           result.resourceSets &&
+           result.resourceSets.length > 0 &&
+           result.resourceSets[0].resources &&
+           result.resourceSets[0].resources.length > 0) {
+        // Set the map view using the returned bounding box
+        var bbox = result.resourceSets[0].resources[0].bbox;
+        var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
+        NerdDinner._map.setView({ bounds: viewBoundaries });
 
-    //Make a pushpin for each place we find
-    $.each(places, function (i, item) {
-        var description = "";
-        if (item.Description !== undefined) {
-            description = item.Description;
-        }
-        var LL = new VELatLong(item.LatLong.Latitude,
-                        item.LatLong.Longitude);
+        // Add a pushpin at the found location
+        var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
+        var pushpin = new Microsoft.Maps.Pushpin(location);
+        NerdDinner._map.entities.push(pushpin);
 
-        NerdDinner.LoadPin(LL, item.Name, description, true);
-    });
-
-    //Make sure all pushpins are visible
-    if (NerdDinner._points.length > 1) {
-        var viewRect = Microsoft.Maps.LocationRect.fromLocations(NerdDinner._points);
-        NerdDinner._map.setView({ bounds: viewRect });
-    }
-
-    //If we've found exactly one place, that's our address.
-    //lat/long precision was getting lost here with toLocaleString, changed to toString
-    if (NerdDinner._points.length === 1) {
-        //$("#Location").val(NerdDinner._points[0].Latitude.toString() + "," + NerdDinner._points[0].Longitude.toString());
-        // $("#Latitude").val(NerdDinner._points[0].Latitude.toString());
-        // $("#Longitude").val(NerdDinner._points[0].Longitude.toString());
+        $("#Location").val(location.latitude.toString() + "," + location.longitude.toString());
+        $("#Latitude").val(location.latitude.toString());
+        $("#Longitude").val(location.longitude.toString());
     }
 };
 NerdDinner.FindDinnersGivenLocation = function (where) {
