@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")    
+    @Scripts.Render("~/bundles/jquery")
 
     <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <script type="text/javascript" src="~/Scripts/knockout-2.1.0.debug.js"></script>
@@ -22,8 +22,10 @@
     <header>
         <div class="content-wrapper">
             <div class="float-left">
-                <p class="site-title"><a href="~/" title="Nerd Dinner">
-                    <img src="~/Images/Logo.png" style="border: none;" /></a></p>
+                <p class="site-title">
+                    <a href="~/" title="Nerd Dinner">
+                        <img src="~/Images/Logo.png" style="border: none;" /></a>
+                </p>
             </div>
             <div class="float-right">
                 <section id="login">
@@ -59,5 +61,20 @@
     </footer>
 
     @RenderSection("scripts", required: false)
+
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-D2F2"
+            height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-D2F2');</script>
+    <!-- End Google Tag Manager -->
 </body>
 </html>
