@@ -17,7 +17,7 @@ namespace NerdDinner.Controllers
         public ActionResult Register(int id)
         {
             RegisterForDinner(id);
-            return RedirectToAction("Details", "Dinner", new { id = id });
+            return RedirectToAction("Details", "Dinners", new { id = id });
         }
 
         //
@@ -36,9 +36,7 @@ namespace NerdDinner.Controllers
             if (!dinner.IsUserRegistered(User.Identity.Name))
             {
                 RSVP rsvp = new RSVP();
-                NerdIdentity nerd = (NerdIdentity)User.Identity;
-                rsvp.AttendeeNameId = nerd.Name;
-                rsvp.AttendeeName = nerd.FriendlyName;
+                rsvp.AttendeeName = User.Identity.Name;
 
                 dinner.RSVPs.Add(rsvp);
                 db.SaveChanges();
@@ -53,7 +51,7 @@ namespace NerdDinner.Controllers
         {
             Dinner dinner = db.Dinners.Find(id);
 
-            RSVP rsvp = dinner.RSVPs.SingleOrDefault(r => this.User.Identity.Name == (r.AttendeeNameId ?? r.AttendeeName));
+            RSVP rsvp = dinner.RSVPs.SingleOrDefault(r => this.User.Identity.Name ==  r.AttendeeName);
             if (rsvp != null)
             {
                 db.RSVPs.Remove(rsvp);

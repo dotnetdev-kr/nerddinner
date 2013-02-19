@@ -32,22 +32,5 @@ namespace NerdDinner
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             Application["Version"] = string.Format("{0}.{1}", version.Major, version.Minor);
         }
-
-        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
-        {
-            HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-            if (authCookie != null)
-            {
-                string encTicket = authCookie.Value;
-                if (!String.IsNullOrEmpty(encTicket))
-                {
-                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(encTicket);
-                    NerdIdentity id = new NerdIdentity(ticket);
-                    GenericPrincipal prin = new GenericPrincipal(id, null);
-                    HttpContext.Current.User = prin;
-                }
-            }
-        }
-
     }
 }
