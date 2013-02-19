@@ -13,39 +13,36 @@
 		{ 
 
 		<p>
-			You are the host for this event!</p>
+			You are the host for this event!
+		</p>
 
 		}
 		else if (Model.IsUserRegistered(Context.User.Identity.Name))
 		{
 	
 		<p>
-			You are registered for this event!</p>
+			You are registered for this event!
+		</p>
 	
 		@Ajax.ActionLink("Cancel your RSVP",
-							 "Cancel", "RSVP",
+							 "CancelAjax", "RSVP",
 							 new { id = Model.DinnerID },
 							 new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "rsvpmsg", OnSuccess = "AnimateRSVPMessage" })    
 	
 		}
 		else
 		{ 
-	
+
 		@Ajax.ActionLink("RSVP for this event",
-							 "Register", "RSVP",
+							 "RegisterAjax", "RSVP",
 							 new { id = Model.DinnerID },
 							 new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "rsvpmsg", OnSuccess = "AnimateRSVPMessage" })
 		}
 	}
 	else
 	{
-
-		<strong>RSVP for this event:</strong>
-		<a href="@Url.Action("RsvpTwitterBegin", "RSVP", new { id = Model.DinnerID }) ">
-			<img alt="Twitter" src="~/Images/icon-twitter.png" border="0" /></a>
-		<a href="@Url.Action("RsvpBegin", "RSVP", new { id = Model.DinnerID, identifier = "https://www.google.com/accounts/o8/id" })">
-			<img alt="Google" src="~/Images/icon-google.png" border="0" /></a>
-		<a href="@Url.Action("RsvpBegin", "RSVP", new { id = Model.DinnerID, identifier = "https://me.yahoo.com/" })">
-			<img alt="Yahoo!" src="~/Images/icon-yahoo.png" border="0" /></a>
+		@Html.ActionLink("RSVP for this event",
+							 "Register", "RSVP",
+							 new { id = Model.DinnerID }, null)
 	}
 </div>
