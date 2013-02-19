@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace NerdDinner.Models
 {
@@ -18,5 +19,6 @@ namespace NerdDinner.Models
         }
 
         public DbSet<Dinner> Dinners { get; set; }
+        public DbSet<RSVP> RSVPs { get; set; }
     }
 }

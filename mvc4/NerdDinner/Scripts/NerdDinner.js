@@ -69,7 +69,7 @@ NerdDinner._renderDinners = function (dinners) {
 
     // Adjust zoom to display all the pins we just added.
     if (NerdDinner._points.length > 1) {
-        NerdDinner._map.SetMapView(NerdDinner._points);
+        // NerdDinner._map.SetMapView(NerdDinner._points);
     }
 };
 NerdDinner.FindAddressOnMap = function (where) {

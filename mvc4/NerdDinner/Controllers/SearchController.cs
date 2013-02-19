@@ -70,17 +70,17 @@ namespace NerdDinner.Controllers
                 .Where(loc => loc.Location.Distance(sourcePoint) < 2000)
                 .OrderBy(loc => loc.Location.Distance(sourcePoint));
 
-            //foreach (Dinner dinner in results)
-            //{
-            //    dinner.RSVPs = new List<RSVP>();
+            foreach (Dinner dinner in results)
+            {
+                dinner.RSVPs = new List<RSVP>();
 
-            //    var rsvps = db.RSVPs.Where(x => x.DinnerID == dinner.DinnerID);
+                var rsvps = db.RSVPs.Where(x => x.DinnerID == dinner.DinnerID);
 
-            //    foreach (RSVP rsvp in rsvps)
-            //    {
-            //        dinner.RSVPs.Add(rsvp);
-            //    }
-            //}
+                foreach (RSVP rsvp in rsvps)
+                {
+                    dinner.RSVPs.Add(rsvp);
+                }
+            }
 
             var jsonDinners = results.AsEnumerable()
                     .Select(item => JsonDinnerFromDinner(item));
