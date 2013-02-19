@@ -1,8 +1,6 @@
 ﻿function NerdDinner() { }
 NerdDinner.MapDivId = 'theMap';
 NerdDinner._map = null;
-NerdDinner._points = [];
-NerdDinner._shapes = [];
 NerdDinner.ipInfoDbKey = '';
 NerdDinner.BingMapsKey = '';
 
@@ -24,14 +22,8 @@ NerdDinner.LoadMap = function (latitude, longitude) {
 };
 NerdDinner.ClearMap = function () {
     if (NerdDinner._map !== null) {
-        NerdDinner._map.entities.clear();
+        // NerdDinner._map.entities.clear();
     }
-    NerdDinner._points = [];
-    NerdDinner._shapes = [];
-};
-
-NerdDinner.LoadDinnerPin = function (location, dinner, _draggable) {
-    NerdDinner.LoadPin(location, dinner.DinnerID, _getDinnerLinkHTML(dinner), _getDinnerDescriptionHTML(dinner), _draggable);
 };
 NerdDinner.LoadPin = function (location, _id, _title, _description, _draggable) {
     var pinInfobox = new Microsoft.Maps.Infobox(location, { id: _id, title: _title, description: _description, visible: false });
@@ -46,13 +38,14 @@ NerdDinner.LoadPin = function (location, _id, _title, _description, _draggable) 
 
     NerdDinner._map.entities.push(pinInfobox);
     NerdDinner._map.entities.push(pin);
-    NerdDinner._points.push(location);
-    NerdDinner._shapes.push(pin);
 };
 NerdDinner.FindMostPopularDinners = function (limit) {
     $.post("/api/Search?limit=" + limit, {}, NerdDinner._renderDinners, "json");
 };
 NerdDinner._renderDinners = function (dinners) {
+    if (dinners == null) {
+        return;
+    }
     var viewModel = {
         dinners: ko.observableArray(dinners)
     };
@@ -64,13 +57,8 @@ NerdDinner._renderDinners = function (dinners) {
         var location = new Microsoft.Maps.Location(dinner.Latitude, dinner.Longitude);
 
         // Add Pin to Map
-        NerdDinner.LoadDinnerPin(location, dinner, false);
+        NerdDinner.LoadPin(location, dinner.DinnerID, _getDinnerLinkHTML(dinner), _getDinnerDescriptionHTML(dinner), false);
     });
-
-    // Adjust zoom to display all the pins we just added.
-    if (NerdDinner._points.length > 1) {
-        // NerdDinner._map.SetMapView(NerdDinner._points);
-    }
 };
 NerdDinner.FindAddressOnMap = function (where) {
     var script = document.createElement("script");
@@ -78,7 +66,7 @@ NerdDinner.FindAddressOnMap = function (where) {
     script.setAttribute("src", "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(where) + "&output=json&jsonp=NerdDinner._callbackForLocation&key=" + NerdDinner.BingMapsKey);
     document.body.appendChild(script);
 };
-NerdDinner._callbackForLocation = function (result) {
+NerdDinner._ZoomMap = function(result) {
     NerdDinner.ClearMap();
 
     if (result &&
@@ -90,7 +78,16 @@ NerdDinner._callbackForLocation = function (result) {
         var bbox = result.resourceSets[0].resources[0].bbox;
         var viewBoundaries = Microsoft.Maps.LocationRect.fromLocations(new Microsoft.Maps.Location(bbox[0], bbox[1]), new Microsoft.Maps.Location(bbox[2], bbox[3]));
         NerdDinner._map.setView({ bounds: viewBoundaries });
+    }
+}
+NerdDinner._callbackForLocation = function (result) {
+    _ZoomMap(result);
 
+    if (result &&
+           result.resourceSets &&
+           result.resourceSets.length > 0 &&
+           result.resourceSets[0].resources &&
+           result.resourceSets[0].resources.length > 0) {
         // Add a pushpin at the found location
         var location = new Microsoft.Maps.Location(result.resourceSets[0].resources[0].point.coordinates[0], result.resourceSets[0].resources[0].point.coordinates[1]);
         var pushpin = new Microsoft.Maps.Pushpin(location);
@@ -102,15 +99,14 @@ NerdDinner._callbackForLocation = function (result) {
     }
 };
 NerdDinner.FindDinnersGivenLocation = function (where) {
-    NerdDinner._map.Find("", where, null, null, null, null, null, false,
-                         null, null, NerdDinner._callbackUpdateMapDinners);
-};
-NerdDinner._callbackUpdateMapDinners = function (layer, resultsArray, places, hasMore, VEErrorMessage) {
-    var center = NerdDinner._map.GetCenter();
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", "http://dev.virtualearth.net/REST/v1/Locations?query=" + encodeURI(where) + "&output=json&jsonp=NerdDinner._ZoomMap&key=" + NerdDinner.BingMapsKey);
+    document.body.appendChild(script);
 
-    $.post("/api/Search?latitude=" + center.Latitude + "&longitude=" + center.Longitude,
-           {}, NerdDinner._renderDinners, "json");
+    $.get("/api/Search?location=" + where, {}, NerdDinner._renderDinners, "json");
 };
+
 NerdDinner.onEndDrag = function (e) {
     $("#Location").val(NerdDinner._points[0].Latitude.toString() + "," + NerdDinner._points[0].Longitude.toString());
     // $("#Latitude").val(e.LatLong.Latitude.toString());
