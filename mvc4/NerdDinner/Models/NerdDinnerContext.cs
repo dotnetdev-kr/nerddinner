@@ -18,5 +18,6 @@ namespace NerdDinner.Models
         }
 
         public DbSet<Dinner> Dinners { get; set; }
+        public DbSet<RSVP> RSVPs { get; set; }
     }
 }

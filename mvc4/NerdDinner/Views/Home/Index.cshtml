@@ -14,6 +14,14 @@
 </article>
 
 <aside>
+    <div>
+        <div id="searchBox">
+            <div class="search-text">
+                Enter your location or <strong>@Html.ActionLink("View All Upcoming Dinners", "Index", "Dinners")</strong>.</div>
+            @Html.TextBox("SearchLocation")
+            <input id="search" type="submit" value="Search" />
+        </div>        
+    </div>
     <div class='hslice' id='2'>
         <h3>Popular Dinners</h3>
         <ul class="entry-content" id="dinnerList" data-bind="foreach: dinners">
@@ -32,6 +40,23 @@
         $().ready(function () {
             NerdDinner.LoadMap(null, null);
             NerdDinner.FindMostPopularDinners(8);
+
+            $("#search").click(ValidateAndFindDinners);
+
+            $("#SearchLocation").keypress(function (evt) {
+                if (evt.which == 13) {
+                    ValidateAndFindDinners();
+                }
+            });
         });
+
+        function ValidateAndFindDinners() {
+            var where = $('#SearchLocation').val().trim();
+
+            if (where.length < 1)
+                return;
+
+            NerdDinner.FindDinnersGivenLocation(where);
+        }
     </script>
 }

@@ -53,7 +53,7 @@ namespace NerdDinner.Controllers
         [HttpPost]
         public IEnumerable<JsonDinner> GetMostPopularDinners(int limit)
         {
-            var mostPopularDinners = from dinner in db.Dinners
+            var mostPopularDinners = from dinner in db.Dinners.Include("RSVPs")
                                      where dinner.EventDate >= DateTime.Now
                                      orderby dinner.RSVPs.Count descending
                                      select dinner;
@@ -70,17 +70,17 @@ namespace NerdDinner.Controllers
                 .Where(loc => loc.Location.Distance(sourcePoint) < 2000)
                 .OrderBy(loc => loc.Location.Distance(sourcePoint));
 
-            //foreach (Dinner dinner in results)
-            //{
-            //    dinner.RSVPs = new List<RSVP>();
+            foreach (Dinner dinner in results)
+            {
+                dinner.RSVPs = new List<RSVP>();
 
-            //    var rsvps = db.RSVPs.Where(x => x.DinnerID == dinner.DinnerID);
+                var rsvps = db.RSVPs.Where(x => x.DinnerID == dinner.DinnerID);
 
-            //    foreach (RSVP rsvp in rsvps)
-            //    {
-            //        dinner.RSVPs.Add(rsvp);
-            //    }
-            //}
+                foreach (RSVP rsvp in rsvps)
+                {
+                    dinner.RSVPs.Add(rsvp);
+                }
+            }
 
             var jsonDinners = results.AsEnumerable()
                     .Select(item => JsonDinnerFromDinner(item));
@@ -98,7 +98,7 @@ namespace NerdDinner.Controllers
                 Longitude = dinner.Location.Longitude.Value,
                 Title = dinner.Title,
                 Description = dinner.Description,
-                RSVPCount = 0,
+                RSVPCount = dinner.RSVPs.Count(),
                 Url = dinner.DinnerID.ToString()
             };
         }

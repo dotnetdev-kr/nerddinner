@@ -21,7 +21,7 @@ namespace NerdDinner.Controllers
         {
             int pageIndex = page ?? 1;
 
-            var dinners = db.Dinners.OrderBy(d => d.EventDate);
+            var dinners = db.Dinners.Where(d => d.EventDate >= DateTime.Now).OrderBy(d => d.EventDate);
             return View(dinners.ToPagedList(pageIndex, PageSize));
         }
 
