@@ -19,8 +19,6 @@ namespace NerdDinner
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer(new System.Data.Entity.CreateDatabaseIfNotExists<NerdDinner.Models.NerdDinnerContext>());
-
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
