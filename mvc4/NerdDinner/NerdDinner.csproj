@@ -287,6 +287,8 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Scripts\EFSpatialGoogleMaps.js" />
+    <Content Include="Scripts\geo-polyfill.js" />
+    <Content Include="Scripts\geo.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
@@ -302,6 +304,8 @@
     <Content Include="Scripts\knockout-2.2.1.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\NerdDinner.js" />
+    <Content Include="Scripts\yepnope.1.5.4-min.js" />
+    <Content Include="Scripts\yepnope.1.5.4.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

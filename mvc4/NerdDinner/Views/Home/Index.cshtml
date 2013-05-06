@@ -38,8 +38,14 @@
 @section Scripts {
     <script type="text/javascript">
         $().ready(function () {
-            NerdDinner.LoadMap(null, null);
-            NerdDinner.FindMostPopularDinners(8);
+            yepnope({
+                test: Modernizr.geolocation,
+                yep: '@Url.Content("~/Scripts/geo.js")',
+                nope: '@Url.Content("~/Scripts/geo-polyfill.js")',
+                callback: function (url, result, key) {
+                    OnNavigation();
+                }
+            });
 
             $("#search").click(ValidateAndFindDinners);
 
@@ -49,6 +55,13 @@
                 }
             });
         });
+
+        function OnNavigation() {
+            NerdDinner.LoadMap(null, null);
+            NerdDinner.FindMostPopularDinners(8);
+
+            getCurrentLocation();
+        }
 
         function ValidateAndFindDinners() {
             var where = $('#SearchLocation').val().trim();

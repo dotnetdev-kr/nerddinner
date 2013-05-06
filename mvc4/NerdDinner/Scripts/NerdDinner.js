@@ -140,7 +140,7 @@ NerdDinner.getCurrentLocationByLatLong = function (latitude, longitude) {
         function (result) {
             if (result.resourceSets[0].estimatedTotal > 0) {
                 // This is for the Search box
-                // $('#Location').val(result.resourceSets[0].resources[0].address.formattedAddress);
+                $('#SearchLocation').val(result.resourceSets[0].resources[0].address.formattedAddress);
             }
         });
 };
