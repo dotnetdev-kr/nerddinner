@@ -18,6 +18,9 @@ namespace NerdDinner
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquerymobile").Include(
+                        "~/Scripts/jquery.mobile-{version}.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -27,7 +30,7 @@ namespace NerdDinner
                         "~/Scripts/knockout-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/yepnope").Include(
-                        "~/Scripts/yepnope*"));
+                        "~/Scripts/yepnope.{version}.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
@@ -44,6 +47,11 @@ namespace NerdDinner
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            bundles.Add(new StyleBundle("~/Content/jquerymobile").Include(
+                        "~/Content/jquery.mobile-{version}.css",
+                        "~/Content/jquery.mobile.structure-{version}.css",
+                        "~/Content/jquery.mobile.theme-{version}.css"));
         }
     }
 }
