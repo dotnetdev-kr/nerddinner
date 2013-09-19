@@ -36,6 +36,7 @@ namespace NerdDinner.Controllers
         }
 
         // GET: /Dinners/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -48,10 +49,12 @@ namespace NerdDinner.Controllers
 		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create(Dinner dinner)
         {
             if (ModelState.IsValid)
             {
+                dinner.HostedBy = User.Identity.Name;
                 db.Dinners.Add(dinner);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -61,6 +64,7 @@ namespace NerdDinner.Controllers
         }
 
         // GET: /Dinners/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -68,6 +72,10 @@ namespace NerdDinner.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Dinner dinner = db.Dinners.Find(id);
+            if (!UserIsAuthorizedForAction(dinner))
+            {
+                return View("InvalidOwner");
+            }
             if (dinner == null)
             {
                 return HttpNotFound();
@@ -82,8 +90,13 @@ namespace NerdDinner.Controllers
 		// Example: public ActionResult Update([Bind(Include="ExampleProperty1,ExampleProperty2")] Model model)
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(Dinner dinner)
         {
+            if (!UserIsAuthorizedForAction(dinner))
+            {
+                return View("InvalidOwner");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(dinner).State = EntityState.Modified;
@@ -94,6 +107,7 @@ namespace NerdDinner.Controllers
         }
 
         // GET: /Dinners/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,18 +119,36 @@ namespace NerdDinner.Controllers
             {
                 return HttpNotFound();
             }
+            if (!UserIsAuthorizedForAction(dinner))
+            {
+                return View("InvalidOwner");
+            }
             return View(dinner);
         }
 
         // POST: /Dinners/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Dinner dinner = db.Dinners.Find(id);
+            if(!UserIsAuthorizedForAction(dinner))
+            {
+                return View("InvalidOwner");
+            }
             db.Dinners.Remove(dinner);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private bool UserIsAuthorizedForAction(Dinner dinner)
+        {
+            if (!User.IsInRole("Admin"))
+            {
+                return dinner.IsHostedBy(User.Identity.Name);
+            }
+            return true;
         }
 
         protected override void Dispose(bool disposing)

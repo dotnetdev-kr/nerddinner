@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace NerdDinner
 {
@@ -16,6 +17,11 @@ namespace NerdDinner
         protected void Application_Start()
         {
             System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<NerdDinner.Models.NerdDinnerContext>());
+
+            if (!Roles.Provider.RoleExists("Admin"))
+            {
+                Roles.Provider.CreateRole("Admin");
+            }
 
             AreaRegistration.RegisterAllAreas();
 
