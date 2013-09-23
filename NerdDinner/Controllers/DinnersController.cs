@@ -12,12 +12,22 @@ namespace NerdDinner.Controllers
 {
     public class DinnersController : Controller
     {
-        private NerdDinnerContext db = new NerdDinnerContext();
+        private readonly IDinnerRepository repository;
+
+        public DinnersController() :
+            this(new DinnerRepository())
+        {
+        }
+
+        public  DinnersController(IDinnerRepository repo)
+        {
+            repository = repo;
+        }
 
         // GET: /Dinners/
         public ActionResult Index()
         {
-            return View(db.Dinners.ToList());
+            return View(repository.GetAll());
         }
 
         // GET: /Dinners/Details/5
@@ -27,7 +37,7 @@ namespace NerdDinner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dinner dinner = db.Dinners.Find(id);
+            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
             if (dinner == null)
             {
                 return HttpNotFound();
@@ -55,8 +65,8 @@ namespace NerdDinner.Controllers
             if (ModelState.IsValid)
             {
                 dinner.HostedBy = User.Identity.Name;
-                db.Dinners.Add(dinner);
-                db.SaveChanges();
+                repository.Add(dinner);
+                repository.Save(); ;
                 return RedirectToAction("Index");
             }
 
@@ -71,7 +81,7 @@ namespace NerdDinner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dinner dinner = db.Dinners.Find(id);
+            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
             if (!UserIsAuthorizedForAction(dinner))
             {
                 return View("InvalidOwner");
@@ -99,8 +109,8 @@ namespace NerdDinner.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Entry(dinner).State = EntityState.Modified;
-                db.SaveChanges();
+                repository.Edit(dinner);
+                repository.Save();
                 return RedirectToAction("Index");
             }
             return View(dinner);
@@ -114,7 +124,7 @@ namespace NerdDinner.Controllers
             {
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dinner dinner = db.Dinners.Find(id);
+            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
             if (dinner == null)
             {
                 return HttpNotFound();
@@ -132,13 +142,13 @@ namespace NerdDinner.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Dinner dinner = db.Dinners.Find(id);
+            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
             if(!UserIsAuthorizedForAction(dinner))
             {
                 return View("InvalidOwner");
             }
-            db.Dinners.Remove(dinner);
-            db.SaveChanges();
+            repository.Delete(dinner);
+            repository.Save();
             return RedirectToAction("Index");
         }
 
@@ -149,12 +159,6 @@ namespace NerdDinner.Controllers
                 return dinner.IsHostedBy(User.Identity.Name);
             }
             return true;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

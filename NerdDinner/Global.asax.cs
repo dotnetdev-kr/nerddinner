@@ -36,7 +36,7 @@ namespace NerdDinner
 
         async Task<bool> SetupApplicationRoles()
         {
-            AuthenticationIdentityManager IdentityManager = new AuthenticationIdentityManager(new IdentityStore(new ApplicationDbContext()));
+            AuthenticationIdentityManager IdentityManager = new AuthenticationIdentityManager(new IdentityStore());
 
             bool roleExists = await IdentityManager.Roles.RoleExistsAsync("Admin", CancellationToken.None);
             if (roleExists == false)
