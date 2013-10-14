@@ -37,7 +37,7 @@ namespace NerdDinner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
+            Dinner dinner = repository.FindBy(x => x.DinnerID == id).First();
             if (dinner == null)
             {
                 return HttpNotFound();
@@ -81,7 +81,7 @@ namespace NerdDinner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
+            Dinner dinner = repository.FindBy(x => x.DinnerID == id).First();
             if (!UserIsAuthorizedForAction(dinner))
             {
                 return View("InvalidOwner");
@@ -124,7 +124,7 @@ namespace NerdDinner.Controllers
             {
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
+            Dinner dinner = repository.FindBy(x => x.DinnerID == id).First();
             if (dinner == null)
             {
                 return HttpNotFound();
@@ -142,7 +142,7 @@ namespace NerdDinner.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Dinner dinner = repository.GetAll().SingleOrDefault(x => x.DinnerID == id);
+            Dinner dinner = repository.FindBy(x => x.DinnerID == id).First();
             if(!UserIsAuthorizedForAction(dinner))
             {
                 return View("InvalidOwner");
