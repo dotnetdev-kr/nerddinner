@@ -11,6 +11,11 @@ namespace NerdDinner.Models
 {
     public class Dinner
     {
+        public Dinner()
+        {
+            RSVPs = new List<RSVP>();
+        }
+
         [HiddenInput(DisplayValue = false)]
         public int DinnerID { get; set; }
 
