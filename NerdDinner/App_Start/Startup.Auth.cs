@@ -1,4 +1,7 @@
-﻿using Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Owin;
 using System.Web.Configuration;
 
 namespace NerdDinner
@@ -9,8 +12,13 @@ namespace NerdDinner
         public void ConfigureAuth(IAppBuilder app)
         {
             // Enable the application to use a cookie to store information for the signed in user
-            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseSignInCookies();
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login")
+            });
+            // Use a cookie to temporarily store information about a user logging in with a third party login provider
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             var auth_microsoft_clientId = WebConfigurationManager.AppSettings["auth:microsoft:clientId"];
             var auth_microsoft_clientSecret = WebConfigurationManager.AppSettings["auth:microsoft:clientSecret"];

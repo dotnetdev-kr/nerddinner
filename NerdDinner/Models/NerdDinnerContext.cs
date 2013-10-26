@@ -24,32 +24,27 @@ namespace NerdDinner.Models
         public System.Data.Entity.DbSet<NerdDinner.Models.Dinner> Dinners { get; set; }
         public System.Data.Entity.DbSet<NerdDinner.Models.RSVP> RSVPs { get; set; }
 
-        public class DropCreateIfChangeInitializer : DropCreateDatabaseIfModelChanges<NerdDinnerContext>
+        public void SeedData()
         {
-            protected override void Seed(NerdDinnerContext context)
+            var testDinner1 = new Dinner()
             {
-                var testDinner1 = new Dinner()
-                {
-                    DinnerID = 1,
-                    Title = "Dinner at the White House",
-                    EventDate = DateTime.Now.AddDays(5),
-                    Description = "Dinner at the White House",
-                    HostedBy = "The President",
-                    ContactPhone = "(202) 456-1111",
-                    Address = "1600 Pennsylvania Ave Nw Washington, DC 20500",
-                    Country = "USA",
-                    Location = DbGeography.PointFromText(string.Format("POINT({0} {1})", -77.036545, 38.897096), DbGeography.DefaultCoordinateSystemId),
-                    RSVPs = new List<RSVP>()
-                };
-                testDinner1.RSVPs.Add(new RSVP() { RsvpID = 1, DinnerID = 1, AttendeeName = "@shanselman" });
-                testDinner1.RSVPs.Add(new RSVP() { RsvpID = 2, DinnerID = 1, AttendeeName = "@pmourfield" });
+                DinnerID = 1,
+                Title = "Dinner at the White House",
+                EventDate = DateTime.Now.AddDays(5),
+                Description = "Dinner at the White House",
+                HostedBy = "The President",
+                ContactPhone = "(202) 456-1111",
+                Address = "1600 Pennsylvania Ave Nw Washington, DC 20500",
+                Country = "USA",
+                Location = DbGeography.PointFromText(string.Format("POINT({0} {1})", -77.036545, 38.897096), DbGeography.DefaultCoordinateSystemId),
+                RSVPs = new List<RSVP>()
+            };
+            testDinner1.RSVPs.Add(new RSVP() { RsvpID = 1, DinnerID = 1, AttendeeName = "@shanselman" });
+            testDinner1.RSVPs.Add(new RSVP() { RsvpID = 2, DinnerID = 1, AttendeeName = "@pmourfield" });
 
-                context.Dinners.Add(testDinner1);
+            Dinners.Add(testDinner1);
 
-                context.SaveChanges();
-
-                base.Seed(context);
-            }
+            SaveChanges();
         }
     }
 }
