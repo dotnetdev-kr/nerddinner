@@ -95,19 +95,4 @@ namespace NerdDinner.Migrations
             );
         }
     }
-
-    internal sealed class DefaultConfiguration : DbMigrationsConfiguration<NerdDinner.Models.ApplicationDbContext>
-    {
-        public DefaultConfiguration()
-        {
-            AutomaticMigrationsEnabled = false;
-        }
-
-        protected override void Seed(NerdDinner.Models.ApplicationDbContext context)
-        {
-            context.Roles.AddOrUpdate(
-                new IdentityRole("Admin")
-                );
-        }
-    }
 }
