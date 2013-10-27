@@ -19,7 +19,7 @@ namespace NerdDinner
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<ApplicationDbContext>(new MigrateDatabaseToLatestVersion<ApplicationDbContext, DefaultConfiguration>());
+            Database.SetInitializer<ApplicationDbContext>(new CreateApplicationDbContextIfNotExists());
             Database.SetInitializer<NerdDinnerContext>(new MigrateDatabaseToLatestVersion<NerdDinnerContext, NerdDinnerContextConfiguration>());
 
             AreaRegistration.RegisterAllAreas();

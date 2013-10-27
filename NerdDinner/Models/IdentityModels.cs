@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace NerdDinner.Models
 {
@@ -12,6 +13,19 @@ namespace NerdDinner.Models
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
+        }
+    }
+
+    public class CreateApplicationDbContextIfNotExists : CreateDatabaseIfNotExists<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            context.Roles.Add(
+                new IdentityRole("Admin")
+                );
+            context.SaveChanges();
+
+            base.Seed(context);
         }
     }
 }
