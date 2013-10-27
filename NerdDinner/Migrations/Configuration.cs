@@ -13,7 +13,7 @@ namespace NerdDinner.Migrations
     {
         public NerdDinnerContextConfiguration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(NerdDinner.Models.NerdDinnerContext context)
@@ -100,7 +100,7 @@ namespace NerdDinner.Migrations
     {
         public DefaultConfiguration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(NerdDinner.Models.ApplicationDbContext context)
