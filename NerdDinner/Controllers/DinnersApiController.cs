@@ -26,7 +26,8 @@ namespace NerdDinner.Controllers
             repository = repo;
         }
 
-        // GET api/Default1
+        // GET api/Dinners
+        [Route("api/dinners")]
         public IQueryable<Dinner> GetDinners()
         {
             return repository.GetAll().Include(r => r.RSVPs);
@@ -34,6 +35,7 @@ namespace NerdDinner.Controllers
 
         // GET api/Default1/5
         [ResponseType(typeof(Dinner))]
+        [Route("api/dinners/{id}")]
         public IHttpActionResult GetDinner(int id)
         {
             Dinner dinner = repository.FindBy(x => x.DinnerID == id).Include(r => r.RSVPs).First();
