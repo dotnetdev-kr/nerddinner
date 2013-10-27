@@ -13,7 +13,7 @@ namespace NerdDinner.Migrations
     {
         public NerdDinnerContextConfiguration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(NerdDinner.Models.NerdDinnerContext context)
