@@ -4,15 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NerdDinner.Core.Common;
+using NerdDinner.Core.ModelRepository;
 using Newtonsoft.Json.Linq;
 
 namespace NerdDinner.Learning
 {
-    class Win8TestImplementation : CoreGenericRepository<JArray,NerdDinner.Core.Model.Dinner>
+    class Win8TestImplementation : DinnerRepository<JArray>
     {
         public Win8TestImplementation() 
         {
+            //May not use this
             PlatformInstance = this;
+        }
+
+        public override void Add(Core.Model.Dinner entity)
+        {
+            //base.Add(entity);
         }
 
         public override IQueryable<Core.Model.Dinner> GetAll()

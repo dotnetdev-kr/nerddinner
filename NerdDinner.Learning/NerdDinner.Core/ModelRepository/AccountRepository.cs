@@ -5,6 +5,7 @@ using System.Text;
 using NerdDinner.Core.Common;
 using NerdDinner.Core.Model;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace NerdDinner.Core.ModelRepository
 {
@@ -21,8 +22,9 @@ namespace NerdDinner.Core.ModelRepository
         public abstract Task<T> Login(UserAccount model, string returnUrl);
         public abstract T Register();
         public abstract Task<T> Register(UserAccount model);
-        public abstract T ChangePassword(UserAccount model);
+        public abstract T ChangePassword(UserAccount model, string newPassword);
         public abstract Task<T> ExternalLogin();
 
     }
+
 }

@@ -4,27 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace NerdDinner.Learning.Web.Controllers
+namespace NerdDinner.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Playing with Nerd Dinner tutorial project and PCL";
-
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "This is my Nerd Dinner PCL testing project.  Hoping this works";
+            ViewBag.Message = "What is NerdDinner.com?";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Right now it's just little old me - Tara";
+            ViewBag.Message = "Your contact page.";
 
             return View();
         }

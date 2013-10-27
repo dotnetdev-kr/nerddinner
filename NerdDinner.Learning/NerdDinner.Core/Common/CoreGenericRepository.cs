@@ -23,7 +23,9 @@ namespace NerdDinner.Core.Common
         where T : class
         where C : class, new()
     {
-
+        //Deciding whether to use this Platform Abstraction Pattern in 
+        //the CoreGenericRepository since I am now building separate Repository objects 
+        //for each Objects in the Model that will inheirit from CoreGenericRepository
         public static CoreGenericRepository<C, T> PlatformInstance{get; set;}
  
         private C _entities = new C();

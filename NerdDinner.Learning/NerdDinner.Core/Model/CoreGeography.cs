@@ -12,6 +12,11 @@ namespace NerdDinner.Core.Model
         public Object Provider { get; set; }
         public Nullable<double> LatitudePoint{ get; set; }
         public Nullable<double> LongitudePoint{ get; set; }
+        public Nullable<double> Distance(CoreGeography other) 
+        {
+            return null;
+        }
+
         
     }
 }

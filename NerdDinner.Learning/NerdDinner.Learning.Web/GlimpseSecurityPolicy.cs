@@ -4,7 +4,7 @@
 using Glimpse.AspNet.Extensions;
 using Glimpse.Core.Extensibility;
 
-namespace NerdDinner.Learning.Web
+namespace NerdDinner
 {
     public class GlimpseSecurityPolicy:IRuntimePolicy
     {
