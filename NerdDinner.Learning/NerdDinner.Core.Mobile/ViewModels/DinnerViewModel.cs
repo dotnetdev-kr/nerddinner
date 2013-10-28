@@ -11,7 +11,6 @@ using Cirrious.MvvmCross.ViewModels;
 namespace NerdDinner.Core.Mobile.ViewModel
 {
     class DinnerViewModel : MvxViewModel
-
     {
 
     }
