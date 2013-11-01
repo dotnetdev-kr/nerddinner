@@ -35,11 +35,15 @@ namespace NerdDinner.Controllers
             repository = repo;
         }
 
-        // GET api/Search?latitude=1.0&longitude=1.0
+        // GET api/Search?latitude=1.0&longitude=1.0&distance=2000
         [HttpGet]
-        public IEnumerable<JsonDinner> SearchByLocation(double latitude, double longitude)
+        public IEnumerable<JsonDinner> SearchByLocation(double latitude, double longitude, double? distance)
         {
-            return FindByLocation(latitude, longitude);
+            if (!distance.HasValue)
+            {
+                distance = 2000;
+            }
+            return FindByLocation(latitude, longitude, distance.Value);
         }
 
         // GET api/Search?location=30901
@@ -69,13 +73,13 @@ namespace NerdDinner.Controllers
             return mostPopularDinners.Take(limit).AsEnumerable().Select(item => JsonDinnerFromDinner(item));
         }
 
-        protected IQueryable<JsonDinner> FindByLocation(double latitude, double longitude)
+        protected IQueryable<JsonDinner> FindByLocation(double latitude, double longitude, double distance)
         {
             var sourcePoint = DbGeography.FromText(string.Format("POINT ({0} {1})", longitude, latitude));
 
             var results =
                 repository.GetAll()
-                .Where(loc => loc.Location.Distance(sourcePoint) < 2000)
+                .Where(loc => loc.Location.Distance(sourcePoint) < distance)
                 .OrderBy(loc => loc.Location.Distance(sourcePoint));
 
             var jsonDinners = results.AsEnumerable()
