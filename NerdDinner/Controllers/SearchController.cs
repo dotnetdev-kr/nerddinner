@@ -37,13 +37,9 @@ namespace NerdDinner.Controllers
 
         // GET api/Search?latitude=1.0&longitude=1.0&distance=2000
         [HttpGet]
-        public IEnumerable<JsonDinner> SearchByLocation(double latitude, double longitude, double? distance)
+        public IEnumerable<JsonDinner> SearchByLocation(double latitude, double longitude, double distance)
         {
-            if (!distance.HasValue)
-            {
-                distance = 2000;
-            }
-            return FindByLocation(latitude, longitude, distance.Value);
+            return FindByLocation(latitude, longitude, distance);
         }
 
         // GET api/Search?location=30901
