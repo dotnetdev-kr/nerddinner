@@ -123,7 +123,7 @@ namespace NerdDinner.Controllers
                 Title = dinner.Title,
                 Description = dinner.Description,
                 RSVPCount = dinner.RSVPs.Count(),
-                Url = "/Dinners/" + dinner.DinnerID.ToString()
+                Url = dinner.DinnerID.ToString()
             };
         }
     }
