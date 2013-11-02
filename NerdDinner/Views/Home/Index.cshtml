@@ -10,22 +10,68 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <h2>Popular Dinners</h2>
+        <ul class="entry-content" id="popularDinnerList" data-bind="foreach: popularDinners">
+            <li class="dinnerItem">
+                <a data-bind="attr: { href: Url }, text: Title"></a>
+                <br />
+                <strong data-bind="dateString: EventDate, datePattern: 'mmm d'"></strong><span data-bind="rsvpMessage: RSVPCount"></span>
+            </li>
+        </ul>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Upcoming Dinners</h2>
+        <ul class="entry-content" id="upcomingDinnerList" data-bind="foreach: upcomingDinners">
+            <li class="dinnerItem">
+                <a data-bind="attr: { href: Url }, text: Title"></a>
+                <br />
+                <strong data-bind="dateString: EventDate, datePattern: 'mmm d'"></strong><span data-bind="rsvpMessage: RSVPCount"></span>
+            </li>
+        </ul>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Closest Dinners</h2>
+        <ul class="entry-content" id="closeDinnerList" data-bind="foreach: closeDinners">
+            <li class="dinnerItem">
+                <a data-bind="attr: { href: Url }, text: Title"></a>
+                <br />
+                <strong data-bind="dateString: EventDate, datePattern: 'mmm d'"></strong><span data-bind="rsvpMessage: RSVPCount"></span>
+            </li>
+        </ul>
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/knockout-3.0.0.js"></script>
+    <script type="text/javascript">
+        $.getJSON("/api/Search/PopularDinners?limit=5", function (dinners) {
+            var viewModel = {
+                popularDinners: ko.observableArray(dinners)
+            };
+            ko.applyBindings(viewModel, document.getElementById("popularDinnerList"));
+        })
+        $.getJSON("/api/Search/UpcomingDinners?limit=5", function (dinners) {
+            var viewModel = {
+                upcomingDinners: ko.observableArray(dinners)
+            };
+            ko.applyBindings(viewModel, document.getElementById("upcomingDinnerList"));
+        })
+
+        function showCurrentLocation(position) {
+            $.getJSON("/api/Search/ClosestDinners?latitude=" + position.coords.latitude + "&longitude=" + position.coords.longitude + "&limit=5", function (dinners) {
+                var viewModel = {
+                    closeDinners: ko.observableArray(dinners)
+                };
+                ko.applyBindings(viewModel, document.getElementById("closeDinnerList"));
+            })
+        }
+        
+        $().ready(function () {
+            try {
+                navigator.geolocation.getCurrentPosition(showCurrentLocation)
+            }
+            catch (e) {
+            }
+        });
+    </script>
+}

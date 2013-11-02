@@ -57,9 +57,10 @@ namespace NerdDinner.Controllers
             return null;
         }
 
-        // POST api/Search?limit=10
-        [HttpPost]
-        public IEnumerable<JsonDinner> GetMostPopularDinners(int limit)
+        // GET api/Search/PopularDinners?limit=10
+        [HttpGet]
+        [Route("api/search/PopularDinners")]
+        public IEnumerable<JsonDinner> PopularDinners(int limit)
         {
             var mostPopularDinners = from dinner in repository.GetAll()
                                      where dinner.EventDate >= DateTime.Now
@@ -67,6 +68,33 @@ namespace NerdDinner.Controllers
                                      select dinner;
 
             return mostPopularDinners.Take(limit).AsEnumerable().Select(item => JsonDinnerFromDinner(item));
+        }
+
+        // GET api/Search/UpcomingDinners?limit=10
+        [HttpGet]
+        [Route("api/search/UpcomingDinners")]
+        public IEnumerable<JsonDinner> UpcomingDinners(int limit)
+        {
+            var upcomingDinners = from dinner in repository.GetAll()
+                                     where dinner.EventDate >= DateTime.Now
+                                     orderby dinner.EventDate descending
+                                     select dinner;
+
+            return upcomingDinners.Take(limit).AsEnumerable().Select(item => JsonDinnerFromDinner(item));
+        }
+
+        // GET api/Search/ClosestDinners?latitude=1.0&longitude=1.0&limit=10
+        [HttpGet]
+        [Route("api/search/ClosestDinners")]
+        public IEnumerable<JsonDinner> ClosestDinners(double latitude, double longitude, int limit)
+        {
+            var sourcePoint = DbGeography.FromText(string.Format("POINT ({0} {1})", longitude, latitude));
+
+            var closeDinners =
+                repository.GetAll()
+                .OrderBy(loc => loc.Location.Distance(sourcePoint));
+
+            return closeDinners.Take(limit).AsEnumerable().Select(item => JsonDinnerFromDinner(item));
         }
 
         protected IQueryable<JsonDinner> FindByLocation(double latitude, double longitude, double distance)
@@ -95,7 +123,7 @@ namespace NerdDinner.Controllers
                 Title = dinner.Title,
                 Description = dinner.Description,
                 RSVPCount = dinner.RSVPs.Count(),
-                Url = dinner.DinnerID.ToString()
+                Url = "/Dinners/" + dinner.DinnerID.ToString()
             };
         }
     }
